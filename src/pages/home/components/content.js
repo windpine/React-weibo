@@ -1,10 +1,14 @@
 import React,{Component} from 'react';
-import {Layout,Breadcrumb} from 'antd';
+import {Layout,Breadcrumb,Menu,Icon} from 'antd';
 import 'antd/dist/antd.css'
+import MySiderUI from "./leftSiderUI";
+import MyRightContentUI from "./rightContentUI"
+
 
 const {Content} = Layout;
 
-class MyContent extends Component{
+
+class MyContentUI extends Component{
     render(){
         return (
             <Content style={{ padding: '0 50px' }}>
@@ -13,9 +17,12 @@ class MyContent extends Component{
                     <Breadcrumb.Item>List</Breadcrumb.Item>
                     <Breadcrumb.Item>App</Breadcrumb.Item>
                 </Breadcrumb>
-                <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>Content</div>
+                <Layout style={{ padding: '24px 0', background: '#fff' }}>
+                    <MySiderUI/>
+                    <MyRightContentUI/>
+                </Layout>
             </Content>
         )
     }
 }
-export default MyContent;
+export default MyContentUI;

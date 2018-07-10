@@ -1,0 +1,14 @@
+import React,{Component} from 'react';
+import {Layout} from 'antd';
+import 'antd/dist/antd.css'
+
+const {Content: RightContentUI}=Layout;
+
+class MyRightContentUI extends Component{
+    render(){
+        return(
+            <RightContentUI style={{ padding: '0 24px', minHeight: 280 }}>content</RightContentUI>
+        )
+    }
+}
+export default MyRightContentUI;
