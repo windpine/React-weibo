@@ -3,7 +3,7 @@ import WelcomeUI from "./WelcomeUI";
 
 import store from '../../store';
 import {connect} from 'react-redux';
-import {getInputValueAction} from "../../store/actionCreators";
+import {actionCreators} from "./store/";
 
 class Welcome extends Component{
 
@@ -22,14 +22,13 @@ class Welcome extends Component{
 
 const mapStatesToProps = (state)=>{
     return {
-        inputValue:state.welcome.inputValue
+        inputValue:state.welcome.get('inputValue')
     }
 }
 const mapDispatchToProps = (dispatch)=>{
     return {
         handleInputChange(e){
-            const action=getInputValueAction(e.target.value);
-            dispatch(action);
+            dispatch(actionCreators.getInputValueAction(e.target.value));
         },
         handleStoreChange(){
             this.setState(store.getState());
