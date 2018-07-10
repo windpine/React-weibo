@@ -6,8 +6,9 @@ import {BrowserRouter,Route} from 'react-router-dom';
 import './index.css';
 import { Layout} from 'antd';
 import 'antd/dist/antd.css'
-import WelcomeUI from './pages/welcome'
-import HomeUI from './pages/home'
+import Welcome from './pages/welcome/Welcome'
+import HomeUI from './pages/home/HomeUI'
+import MyFooter from "./common/footer";
 
 const App = (
     <Provider store={store}>
@@ -15,12 +16,12 @@ const App = (
             <Layout className="layout">
                 <BrowserRouter>
                     <div>
-                        <Route path='/welcome' exact component={WelcomeUI}/>
+                        <Route path='/welcome' exact component={Welcome}/>
                         <Route path='/home' exact component={HomeUI}/>
                         <Route path='/' exact render={()=><div>无指定路由</div>}/>
                     </div>
                 </BrowserRouter>
-
+                <MyFooter/>
             </Layout>
         </div>
     </Provider>

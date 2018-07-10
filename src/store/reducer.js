@@ -1,8 +1,8 @@
-const defaultState={
-    inputValue:'',
-    list:[]
-}
-export default (state=defaultState,action)=>{
+import {reducer as welcomeReducer} from '../pages/welcome/store/';
+import {combineReducers} from 'redux';
 
-    return state;
-}
+const reducer=combineReducers({
+    welcome:welcomeReducer
+})
+
+export default reducer;

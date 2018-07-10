@@ -2,13 +2,13 @@ import React,{Component} from 'react';
 import {Layout,Menu,Icon} from 'antd';
 import 'antd/dist/antd.css'
 
-const {Sider: LeftSiderUI}=Layout;
+const {Sider}=Layout;
 const {SubMenu}=Menu;
 
-class MySiderUI extends Component{
+class LeftSiderUI extends Component{
     render(){
         return(
-            <LeftSiderUI width={200} style={{ background: '#fff' }}>
+            <Sider width={200} style={{ background: '#fff' }}>
                 <Menu
                     mode="inline"
                     defaultSelectedKeys={['1']}
@@ -34,8 +34,8 @@ class MySiderUI extends Component{
                         <Menu.Item key="12">option12</Menu.Item>
                     </SubMenu>
                 </Menu>
-            </LeftSiderUI>
+            </Sider>
         )
     }
 }
-export default MySiderUI;
+export default LeftSiderUI;

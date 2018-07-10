@@ -1,11 +1,11 @@
-import React,{Component} from 'react';
+import React from 'react';
 import {Layout,Menu} from 'antd';
 import 'antd/dist/antd.css'
 
 const {Header}=Layout;
 
-class MyHeader extends Component{
-    render(){
+const MyHeader =()=>{
+
         return(
             <Header>
                 <div className="logo" />
@@ -21,6 +21,6 @@ class MyHeader extends Component{
                 </Menu>
             </Header>
         )
-    }
+
 }
 export default MyHeader;

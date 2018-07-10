@@ -1,8 +1,9 @@
 import React,{Component} from 'react';
-import {Layout,Breadcrumb} from 'antd';
+import {Layout,Breadcrumb,Input} from 'antd';
 import 'antd/dist/antd.css'
 import MyHeader from "../../common/header";
-import MyFooter from "../../common/footer";
+import LoginForm from "./components/LoginForm";
+
 
 
 const {Content} = Layout;
@@ -19,9 +20,14 @@ class WelcomeUI extends Component{
                         <Breadcrumb.Item>List</Breadcrumb.Item>
                         <Breadcrumb.Item>App</Breadcrumb.Item>
                     </Breadcrumb>
-                    <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>Content</div>
+                    <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
+                        Content
+                        <LoginForm
+                        />
+                    </div>
+                    <Input onChange={this.props.handleInputChange}/>
+                    <label>{this.props.inputValue}</label>
                 </Content>
-                <MyFooter/>
             </div>
         )
     }
