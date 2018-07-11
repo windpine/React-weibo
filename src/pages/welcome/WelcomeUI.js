@@ -9,8 +9,7 @@ import LoginForm from "./components/LoginForm";
 const {Content} = Layout;
 
 
-class WelcomeUI extends Component{
-    render(){
+const WelcomeUI=(props)=>{
         return (
             <div>
                 <MyHeader/>
@@ -25,11 +24,10 @@ class WelcomeUI extends Component{
                         <LoginForm
                         />
                     </div>
-                    <Input onChange={this.props.handleInputChange}/>
-                    <label>{this.props.inputValue}</label>
+                    <Input onChange={props.handleInputChange}/>
+                    <label>{props.inputValue}</label>
                 </Content>
             </div>
         )
-    }
 }
 export default WelcomeUI;
