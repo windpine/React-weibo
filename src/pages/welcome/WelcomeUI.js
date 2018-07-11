@@ -25,8 +25,6 @@ const WelcomeUI =(props)=>{
                         <LoginForm
                         />
                     </div>
-                    <Input onChange={props.handleInputChange}/>
-                    <label>{props.inputValue}</label>
                 </Content>
             </div>
         )
