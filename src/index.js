@@ -10,7 +10,7 @@ import Welcome from './pages/welcome/Welcome'
 import HomeUI from './pages/home/HomeUI'
 import MyFooter from "./common/footer";
 
-const App = (
+const Index = (
     <Provider store={store}>
         <div>
             <Layout className="layout">
@@ -27,5 +27,5 @@ const App = (
     </Provider>
 )
 
-ReactDOM.render(App, document.getElementById('root'));
+ReactDOM.render(Index, document.getElementById('root'));
 

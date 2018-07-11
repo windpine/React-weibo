@@ -5,7 +5,7 @@ import {combineReducers} from 'redux-immutable';
 
 const reducer=combineReducers({
     welcome:welcomeReducer,
-    home:homeReducer
+    home:homeReducer,
 })
 
 export default reducer;
