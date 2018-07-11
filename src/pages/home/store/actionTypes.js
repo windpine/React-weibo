@@ -1,0 +1,1 @@
+export const GET_TWEET_LIST = 'get_tweet_list';
