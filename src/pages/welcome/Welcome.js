@@ -22,7 +22,7 @@ class Welcome extends Component{
 
 const mapStatesToProps = (state)=>{
     return {
-        inputValue:state.welcome.get('inputValue')
+        inputValue:state.getIn(['welcome','inputValue'])
     }
 }
 const mapDispatchToProps = (dispatch)=>{
