@@ -32,5 +32,4 @@ const mapDispatchToProps = (dispatch)=>{
     }
 }
 
-
 export default connect(mapStatesToProps,mapDispatchToProps)(withRouter(Welcome));

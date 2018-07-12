@@ -33,11 +33,11 @@ export const RegisterFormUI =(props)=>{
         <Form onSubmit={props.handleSubmit} style={{marginTop:"20px"}}>
             <FormItem
                 {...formItemLayout}
-                label="Username"
+                label="用户名"
             >
                 {getFieldDecorator('username', {
                     rules: [{
-                        required: true, message: 'Please input your Username!',
+                        required: true, message: '请输入用户名!',
                     }],
                 })(
                     <RegisterInput />
@@ -45,11 +45,11 @@ export const RegisterFormUI =(props)=>{
             </FormItem>
             <FormItem
                 {...formItemLayout}
-                label="Password"
+                label="密码"
             >
                 {getFieldDecorator('password', {
                     rules: [{
-                        required: true, message: 'Please input your password!',
+                        required: true, message: '请输入密码!',
                     }, {
                         validator: props.validateToNextPassword,
                     }],
@@ -59,11 +59,11 @@ export const RegisterFormUI =(props)=>{
             </FormItem>
             <FormItem
                 {...formItemLayout}
-                label="Confirm Password"
+                label="再次输入密码"
             >
                 {getFieldDecorator('confirm', {
                     rules: [{
-                        required: true, message: 'Please confirm your password!',
+                        required: true, message: '请再次确认你的密码!',
                     }, {
                         validator: props.compareToFirstPassword,
                     }],
@@ -73,13 +73,13 @@ export const RegisterFormUI =(props)=>{
             </FormItem>
             <FormItem
                 {...formItemLayout}
-                label="E-mail"
+                label="邮箱"
             >
                 {getFieldDecorator('email', {
                     rules: [{
-                        type: 'email', message: 'The input is not valid E-mail!',
+                        type: 'email', message: '这不是合法的邮箱地址!',
                     }, {
-                        required: true, message: 'Please input your E-mail!',
+                        required: true, message: '请输入你的邮箱!',
                     }],
                 })(
                     <RegisterInput />
@@ -89,30 +89,30 @@ export const RegisterFormUI =(props)=>{
                 {...formItemLayout}
                 label={(
                     <span>
-              Nickname&nbsp;
-                        <Tooltip title="What do you want others to call you?">
+              昵称&nbsp;
+                        <Tooltip title="别人对你的称呼?">
                 <Icon type="question-circle-o" />
               </Tooltip>
             </span>
                 )}
             >
                 {getFieldDecorator('nickname', {
-                    rules: [{ required: true, message: 'Please input your nickname!', whitespace: true }],
+                    rules: [{ required: true, message: '请输入你的昵称!', whitespace: true }],
                 })(
                     <RegisterInput />
                 )}
             </FormItem>
             <FormItem
                 {...formItemLayout}
-                label="Captcha"
-                extra="We must make sure that your are a human."
+                label="验证码"
+                extra="你不是一个机器人."
             >
                 {getFieldDecorator('captcha', {
-                    rules: [{ required: true, message: 'Please input the captcha you got!' }],
+                    rules: [{ required: true, message: '请输入你获得的验证码!' }],
                 })(
                     <RegisterInput />
                 )}
-                <Button style={{marginLeft:"10px"}}>Get captcha</Button>
+                <Button style={{marginLeft:"10px"}}>获取验证码</Button>
             </FormItem>
             <FormItem {...tailFormItemLayout}>
                 <Button type="primary" htmlType="submit">Register</Button>
