@@ -6,11 +6,11 @@ import {BrowserRouter,Route} from 'react-router-dom';
 import './index.css';
 import { Layout} from 'antd';
 import 'antd/dist/antd.css'
-import Welcome from './pages/welcome/Welcome'
+import Welcome from './pages/welcome/loadable'
 import HomeUI from './pages/home/HomeUI'
 import MyFooter from "./common/footer";
 
-const App = (
+const Index = (
     <Provider store={store}>
         <div>
             <Layout className="layout">
@@ -27,5 +27,5 @@ const App = (
     </Provider>
 )
 
-ReactDOM.render(App, document.getElementById('root'));
+ReactDOM.render(Index, document.getElementById('root'));
 

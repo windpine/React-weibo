@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import WelcomeUI from "./WelcomeUI";
-
+import {withRouter} from 'react-router-dom';
 import store from '../../store';
 import {connect} from 'react-redux';
 import {actionCreators} from "./store/";
@@ -37,4 +37,4 @@ const mapDispatchToProps = (dispatch)=>{
 }
 
 
-export default connect(mapStatesToProps,mapDispatchToProps)(Welcome);
+export default connect(mapStatesToProps,mapDispatchToProps)(withRouter(Welcome));
