@@ -14,21 +14,33 @@ const defaultState=fromJS(
             email:'',//邮箱
         },
         password:'',//密码
+        isModalVisible:'true',//设置密码弹出输入框是否可见
+
 
     }
 );
 
 export default (state=defaultState,action)=>{
     switch(action.type) {
-        case actionTypes.CHANGE_INPUT_VALUE:
-            //immutable对象的set方法内部会处理赋值逻辑
-            return state.set('nickname', action.value);
         case actionTypes.SAVE_FORM_DATA:
-            return state.set('data', action.value);
+            return state.setIn('data', action.value)
+                .setIn('password',action.password);
         case actionTypes.CHANGE_PASSWORD:
-            return state.set('password',action.value);
+            return state.set('password',action.password);
+        case actionTypes.CHANGE_INPUT_NICKNAME:
+            return state.setIn(['data','nickname'],action.nickname);
+        case actionTypes.CHANGE_INPUT_USERNAME:
+            return state.setIn(['data','username'],action.username);
+        case actionTypes.CHANGE_INPUT_SEX:
+            return state.setIn(['data','sex'],action.sex);
+        case actionTypes.CHANGE_INPUT_EMAIL:
+            return state.setIn(['data','email'],action.email);
+        case actionTypes.CHANGE_MODALVISIBLE:
+            return state.setIn('isModalVisible',action.value);
         default:
             return state;
+
+
     }
 
 }

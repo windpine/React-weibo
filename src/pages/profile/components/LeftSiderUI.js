@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React from 'react';
 import {Layout,Menu,Icon} from 'antd';
 import 'antd/dist/antd.css'
 
@@ -20,7 +20,7 @@ const LeftSiderUI=()=>{
                         <Menu.Item key="3">微博</Menu.Item>
                     </SubMenu>
                     <Menu.Item>
-                        <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">编辑个人资料</a>
+                        <a target="_blank" rel="noopener noreferrer" href="">编辑个人资料</a>
                     </Menu.Item>
                 </Menu>
             </Sider>

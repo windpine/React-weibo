@@ -1,10 +1,10 @@
 import React,{Component} from 'react';
-import * as profile from './actionTypes';
 
 import store from '../../store';
 import {connect} from 'react-redux';
-import {actionCreators} from "./store/";
 import ProfileUI from "./ProfileUI";
+import {withRouter} from 'react-router-dom';
+import ProfileForm from "./components/ProfileForm";
 
 class Profile extends Component{
 
@@ -14,28 +14,27 @@ class Profile extends Component{
     }
     render(){
         return (
-            <ProfileUI
-                inputValue={this.props.inputValue}
-                handleInputChange={this.props.handleInputChange}/>
+            <ProfileForm
+                />
         )
     }
 }
 
 const mapStatesToProps = (state)=>{
     return {
-        inputValue:state.getIn(['welcome','inputValue'])
+
     }
 }
 const mapDispatchToProps = (dispatch)=>{
-    return {
-        handleInputChange(e){
-            dispatch(actionCreators.getInputValueAction(e.target.value));
-        },
+    return{
         handleStoreChange(){
             this.setState(store.getState());
-        }
+        },
     }
+
+
 }
 
 
-export default connect(mapStatesToProps,mapDispatchToProps)(Welcome);
+
+export default connect(mapStatesToProps,mapDispatchToProps)(withRouter(Profile));

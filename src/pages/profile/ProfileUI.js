@@ -8,7 +8,7 @@ import ProfileContentUI from "./components/ProfileContentUI";
 
 
 
-const ProfileContentUI =(props)=>{
+const ProfileUI =()=>{
 
     return (
         <div>
@@ -19,4 +19,4 @@ const ProfileContentUI =(props)=>{
     )
 
 }
-export default ProfileContentUI;
+export default ProfileUI;
