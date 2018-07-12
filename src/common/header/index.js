@@ -1,7 +1,8 @@
 import React from 'react';
-import {Layout,Menu,Button,Divider} from 'antd';
+import {Layout,Menu,Divider} from 'antd';
 import 'antd/dist/antd.css'
-import {LoginButton,RegisterButton} from './style';
+import {Link} from 'react-router-dom'
+import {LoginButton,RegisterButton} from './styled';
 
 const {Header}=Layout;
 
@@ -20,8 +21,12 @@ const MyHeader =()=>{
                     <Menu.Item key="2">nav 2</Menu.Item>
                     <Menu.Item key="3">nav 3</Menu.Item>
                     <div>
+                        <Link to='/welcome'>
                         <LoginButton>登陆</LoginButton>
-                        <RegisterButton>注册</RegisterButton>
+                    </Link>
+                        <Link to='/register'>
+                            <RegisterButton>注册</RegisterButton>
+                        </Link>
                     </div>
                 </Menu>
 

@@ -8,6 +8,7 @@ import store from '../../../store';
 import {fromJS} from 'immutable';
 
 
+
 class NormalRegisterForm extends Component{
 
     constructor(props){

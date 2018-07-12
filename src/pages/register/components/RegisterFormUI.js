@@ -1,6 +1,7 @@
 import React from 'react';
-import { Form, Input, Tooltip, Icon,Row, Col, Button} from 'antd';
+import { Form, Tooltip, Icon,Row, Col, Button} from 'antd';
 import 'antd/dist/antd.css';
+import {RegisterInput} from "./styled";
 
 const FormItem = Form.Item;
 
@@ -29,7 +30,7 @@ export const RegisterFormUI =(props)=>{
         },
     };
     return (
-        <Form onSubmit={props.handleSubmit}>
+        <Form onSubmit={props.handleSubmit} style={{marginTop:"20px"}}>
             <FormItem
                 {...formItemLayout}
                 label="Username"
@@ -39,7 +40,7 @@ export const RegisterFormUI =(props)=>{
                         required: true, message: 'Please input your Username!',
                     }],
                 })(
-                    <Input />
+                    <RegisterInput />
                 )}
             </FormItem>
             <FormItem
@@ -53,7 +54,7 @@ export const RegisterFormUI =(props)=>{
                         validator: props.validateToNextPassword,
                     }],
                 })(
-                    <Input type="password" />
+                    <RegisterInput type="password" />
                 )}
             </FormItem>
             <FormItem
@@ -67,7 +68,7 @@ export const RegisterFormUI =(props)=>{
                         validator: props.compareToFirstPassword,
                     }],
                 })(
-                    <Input type="password" onBlur={props.handleConfirmBlur} />
+                    <RegisterInput type="password" onBlur={props.handleConfirmBlur} />
                 )}
             </FormItem>
             <FormItem
@@ -81,7 +82,7 @@ export const RegisterFormUI =(props)=>{
                         required: true, message: 'Please input your E-mail!',
                     }],
                 })(
-                    <Input />
+                    <RegisterInput />
                 )}
             </FormItem>
             <FormItem
@@ -98,7 +99,7 @@ export const RegisterFormUI =(props)=>{
                 {getFieldDecorator('nickname', {
                     rules: [{ required: true, message: 'Please input your nickname!', whitespace: true }],
                 })(
-                    <Input />
+                    <RegisterInput />
                 )}
             </FormItem>
             <FormItem
@@ -106,18 +107,12 @@ export const RegisterFormUI =(props)=>{
                 label="Captcha"
                 extra="We must make sure that your are a human."
             >
-                <Row gutter={8}>
-                    <Col span={12}>
-                        {getFieldDecorator('captcha', {
-                            rules: [{ required: true, message: 'Please input the captcha you got!' }],
-                        })(
-                            <Input />
-                        )}
-                    </Col>
-                    <Col span={12}>
-                        <Button>Get captcha</Button>
-                    </Col>
-                </Row>
+                {getFieldDecorator('captcha', {
+                    rules: [{ required: true, message: 'Please input the captcha you got!' }],
+                })(
+                    <RegisterInput />
+                )}
+                <Button style={{marginLeft:"10px"}}>Get captcha</Button>
             </FormItem>
             <FormItem {...tailFormItemLayout}>
                 <Button type="primary" htmlType="submit">Register</Button>
