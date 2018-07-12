@@ -10,7 +10,6 @@ const {Content} = Layout;
 
 
 const WelcomeUI =(props)=>{
-
         return (
             <div>
                 <MyHeader/>

@@ -9,6 +9,7 @@ import MyContentUI from "../../common/contents/myContentUI";
 class HomeUI extends Component{
     render(){
         return (
+
             <div>
                 <MyHeader/>
                 <MyContentUI/>
