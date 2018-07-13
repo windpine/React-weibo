@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
-import{Button,Spin} from 'antd';
+import{Button,Spin,Menu} from 'antd';
 
 import store from '../../store';
 import MessageUI from './MessageUI';
@@ -18,7 +18,7 @@ class Message extends Component{
         console.log(obj.props);
         obj.props.handleLoadingMoreMessage();
         axios.get('../../../api/message.json').then((res) => {
-            if(obj.props.messageList[0].messageID !=res.data.data.messageList[0].messageID){
+            if(obj.props.messageList[0].messageID !== res.data.data.messageList[0].messageID){
                 let messageList=obj.props.messageList.concat(res.data.data.messageList);
                 obj.props.handleLoadMoreMessage(messageList);
             }else{
@@ -29,6 +29,7 @@ class Message extends Component{
             console.log(res);
         })
     }
+
     render(){
         const loadMore = this.props.showLoadingMore ? (
             <div style={{ textAlign: 'center', marginTop: 12, height: 32, lineHeight: '32px' }}>
@@ -36,9 +37,17 @@ class Message extends Component{
                 {!this.props.loadingMore && <Button onClick={()=>{this.getData(this)}}>{words.MESSAGE_LOAD_MORE_BUTTON}</Button>}
             </div>
         ) : null;
+        const menu = (
+            <Menu style={{}}>
+                <Menu.Item>
+                    <a target="_blank" rel="noopener noreferrer" >{words.MESSAGE_RIGHT_MENU[0]}</a>
+                </Menu.Item>
+            </Menu>
+        );
         return(
             <MessageUI
                 title={words.MESSAGE_TITLE}
+                menu = {menu}
                 isList={true}
                 loadMore={loadMore}
                 loading={this.props.loading}

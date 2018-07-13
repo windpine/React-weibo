@@ -4,6 +4,7 @@ import {Layout,Breadcrumb,Menu,Icon} from 'antd';
 import MyHeader from '../../common/header/index'
 import MessageList from "./component/MessageList";
 import InputMessageDialog from './component/InputMessageDialog';
+import LeftMenu from './component/leftMenu';
 
 const{Content,Sider} = Layout;
 const {SubMenu}=Menu;
@@ -17,34 +18,30 @@ function MessageUI(props){
                     loadMore={props.loadMore}
                     loading={props.loading}
                     messageList={props.messageList}
+                    menu ={props.menu}
                 />;
         else
             content = <InputMessageDialog />;
         return(
             <div>
                 <MyHeader/>
-                <Breadcrumb style={{ margin: '16px 0' }}>
-                    <Breadcrumb.Item>Home</Breadcrumb.Item>
-                    <Breadcrumb.Item>List</Breadcrumb.Item>
-                    <Breadcrumb.Item>App</Breadcrumb.Item>
-                </Breadcrumb>
-                <Layout style={{ padding: '24px 0', background: '#fff' }}>
-                    <Sider width={200} style={{ background: '#fff' }}>
-                        <Menu
-                            mode="inline"
-                            defaultSelectedKeys={['1']}
-                            defaultOpenKeys={['sub1']}
-                            style={{ height: '100%' }}
-                        >
-                            <SubMenu key="sub1" title={<span><Icon type="user" />{props.siderMenuTitle}</span>}>
-                                <Menu.Item key="1">{props.siderMenuSubmenu}</Menu.Item>
-                            </SubMenu>
-                        </Menu>
-                    </Sider>
-                    <Content>
-                        {content}
-                    </Content>
-                </Layout>
+                <Content style={{ padding: '0 50px' }}>
+                    <Breadcrumb style={{ margin: '16px 0' }}>
+                        <Breadcrumb.Item>{props.siderMenuTitle}</Breadcrumb.Item>
+                        <Breadcrumb.Item>{props.siderMenuSubmenu[0]}</Breadcrumb.Item>
+                    </Breadcrumb>
+                    <Layout style={{ padding: '24px 0', background: '#fff' }}>
+                        <Sider width={200} style={{ background: '#fff' }}>
+                            <LeftMenu
+                                siderMenuTitle={props.siderMenuTitle}
+                                siderMenuSubmenu={props.siderMenuSubmenu}
+                            />
+                        </Sider>
+                        <Content>
+                            {content}
+                        </Content>
+                    </Layout>
+                </Content>
             </div>
         )
 
