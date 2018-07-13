@@ -8,9 +8,7 @@ export const saveProfileDataAction=(nickname,username,sex,email,password)=>({
         username,
         sex,
         email,
-
     },
-    password
 })
 
 export const savePasswordAction=(password)=>({

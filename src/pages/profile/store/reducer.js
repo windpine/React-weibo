@@ -5,16 +5,25 @@ const defaultState=fromJS(
     {
 
         tweets:[],//发表的微博列表
-        follows:[],//关注的用户列表
+        follows:[{//关注的用户列表
+            nickname: 'Edward King 0',
+            sex:'女',
+            email: 'nicoleynh960111@163.com',
+        }, {
+            nickname: 'Edward King 0',
+            sex:'女',
+            email: 'nicoleynh960111@163.com',
+        }],
+
         followers:[],//粉丝列表
         data:{
-            nickname:'',//昵称
-            username:'',//
-            sex:'',//性别
-            email:'',//邮箱
+            nickname:'nicole',//昵称
+            username:'杨霓虹',//
+            sex:'女',//性别
+            email:'nicoleynh@163.com',//邮箱
         },
-        password:'',//密码
-        isModalVisible:'true',//设置密码弹出输入框是否可见
+        password:'123',//密码
+        linkKey:'',
 
 
     }
@@ -23,8 +32,10 @@ const defaultState=fromJS(
 export default (state=defaultState,action)=>{
     switch(action.type) {
         case actionTypes.SAVE_FORM_DATA:
-            return state.setIn('data', action.value)
-                .setIn('password',action.password);
+            return state.setIn(['data','nickname'], action.value['nickname'])
+                .setIn(['data','username'], action.value['username'])
+                .setIn(['data','sex'], action.value['sex'])
+                .setIn(['data','email'], action.value['email'])
         case actionTypes.CHANGE_PASSWORD:
             return state.set('password',action.password);
         case actionTypes.CHANGE_INPUT_NICKNAME:
