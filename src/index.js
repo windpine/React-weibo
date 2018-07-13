@@ -14,6 +14,7 @@ import ProfileForm from "./pages/profile/components/ProfileForm";
 import Profile from "./pages/profile/Profile";
 import ProfileUI from "./pages/profile/ProfileUI";
 
+import Register from "./pages/register/loadable";
 
 const Index = (
     <Provider store={store}>
@@ -24,6 +25,7 @@ const Index = (
                         <Route path='/welcome' exact component={Welcome}/>
                         <Route path='/home' exact component={HomeUI}/>
                         <Route path='/profile' exact component={ProfileUI}/>
+                        <Route path='/register' exact component={Register}/>
                         <Route path='/' exact render={()=><div>无指定路由</div>}/>
                     </div>
                 </BrowserRouter>

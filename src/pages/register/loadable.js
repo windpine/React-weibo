@@ -3,16 +3,14 @@ import {Spin} from 'antd'
 import Loadable from 'react-loadable';
 
 const LoadableComponent = Loadable({
-    loader:()=>import('./Welcome.js'),
+    loader:()=>import('./Register.js'),
     loading(){
         return (
             <div>
-                <Spin />
+                <Spin/>
             </div>
         )
     }
 })
-
-
 
 export default ()=><LoadableComponent/>
