@@ -1,0 +1,17 @@
+{
+  "success":true,
+  "data":{
+    "messageList":[{
+      "messageID":1,
+      "type":"warning",
+      "content":"web will close",
+      "UserName":"测试"
+    },{
+      "messageID":2,
+      "type":"warning",
+      "content":"web will close",
+      "UserName":"测试"
+    }]
+  }
+
+}
