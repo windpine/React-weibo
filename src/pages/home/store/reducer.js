@@ -42,20 +42,33 @@ export default (state=defaultState,action)=>{
             return state.set('commentInput',action.input).set('commentButton',true)
         }
     }
+    /*
+    获取mention的值
+     */
     if(action.type===actionTypes.SET_MENTION_LIST){
-        console.log('reducer-mentionList:'+action.list);
+        //console.log('reducer-mentionList:'+action.list);
         return state.set('mention',action.list);
     }
+    /*
+    发送微博，转发和评论
+     */
     if(action.type===actionTypes.SEND_TWEET){
         console.log('reducer-sendtweet:  '+state.get('tweetInput'));
         return state.set('tweetInput',"").set('tweetButton',true)
     }
-    //微博列表
+    if(action.type===actionTypes.SEND_REPOST){
+        console.log('reducer-sendrepost:  '+state.get('tweetInput'));
+        return state.set('repostInput',"")
+    }
+    if(action.type===actionTypes.SEND_COMMENT){
+        console.log('reducer-sendcomment:  '+state.get('tweetInput'));
+        return state.set('commentInput',"").set('commentButton',true)
+    }
+    //修改微博、转发和评论列表
     if(action.type===actionTypes.CHANGE_TWEET_LIST){
         console.log('reducer-changetweet:');
         return state.set('tweetList',action.tweetList)
     }
-    //修改微博
     if(action.type===actionTypes.CHANGE_REPOST_LIST){
         console.log('reducer-changetweet:');
         return state.set('repostList',action.repostList)

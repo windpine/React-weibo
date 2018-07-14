@@ -6,6 +6,10 @@ import axios from 'axios'
 import {actionCreators} from "./store";
 import store from "./store";
 
+var config = {
+    baseURL: 'http://localhost:8080'
+};
+
 class Home extends Component{
     constructor(props){
         super(props);
@@ -18,18 +22,19 @@ class Home extends Component{
         )
     }
     componentDidMount(){
-        axios.get("api/Tweets.json").then((res)=>{
-            const result=res.data.data;
-            this.props.handleGetAllTweet(result)
-        })
+        this.props.handleGetAllTweet()
     }
 }
 
 const mapDispatchToProps=(dispatch)=>{
     return{
-        handleGetAllTweet(result){
-            const action=actionCreators.changeTweetList(result);
-            dispatch(action)
+        handleGetAllTweet(){
+            axios.get('/tweets',config).then((res)=>{
+                const result=res.data.data;
+                console.log(result);
+                const action=actionCreators.changeTweetList(result);
+                dispatch(action)
+            })
         }
     }
 }

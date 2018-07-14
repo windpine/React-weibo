@@ -1,7 +1,11 @@
 import * as actionTypes from './actionTypes';
-import axios from "axios/index";
 import {fromJS} from 'immutable';
+import axios from 'axios';
+import {actionCreators} from "./index";
 
+var config = {
+    baseURL: 'http://localhost:8080'
+};
 export const getInputChangeAction=(input,inputType)=>{
     if(inputType==="tweet"){
         return {
@@ -45,22 +49,51 @@ export const getMentionTopics=()=>{
         });
     }
 }
-//创建发送微博的action
-export  const getSendTweetAction=()=>({
+//创建发送微博、转发评论的action
+export  const sendTweetAction=(value)=>{
+    return (dispatch)=>{
+        const data={
+            "uid":sessionStorage.getItem('uid'),
+            "content":value
+        }
+        axios.post('/tweets',data,config).then((res)=>{
+            const action1=getInputChangeAction("","tweet")
+            const action2=getTweetList()
+            dispatch(action1)
+            dispatch(action2)
+        })
+    }
+    type:actionTypes.SEND_TWEET
+}
+export  const sendRepostAction=()=>({
+    type:actionTypes.SEND_TWEET
+})
+export  const sendCommentAction=()=>({
     type:actionTypes.SEND_TWEET
 })
 
-//获取全部微博
+export const getTweetList=()=>{
+    return (dispatch)=>{
+        axios.get("/tweets").then((res)=> {
+        const result = res.data.data;
+        console.log(result);
+        const action = changeTweetList(result);
+        dispatch(action)
+        })
+    }
+}
+
+/*
+将获取的全部微博、转发、评论放到列表
+ */
 export const changeTweetList=(list)=>({
     type:actionTypes.CHANGE_TWEET_LIST,
     tweetList:fromJS(list)
 })
-//获取转发的记录
 export const changeRepostList=(list)=>({
     type:actionTypes.CHANGE_REPOST_LIST,
     repostList:fromJS(list)
 })
-//获取评论的记录
 export const changeCommentList=(list)=>({
     type:actionTypes.CHANGE_COMMENT_LIST,
     commentList:fromJS(list)

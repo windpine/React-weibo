@@ -17,6 +17,7 @@ export default (state=defaultState,action)=>{
     if(action.type===actionTypes.SAVE_SUCCESS_INFO){
         const uid= fromJS(action.value);
         sessionStorage.setItem('uid',uid.get('uid'));
+        console.log(typeof sessionStorage.getItem('uid'))
         sessionStorage.setItem('username',state.getIn(['login','username']));
         return state.set('uid',uid.get('uid')).set('loginState',true);
     }

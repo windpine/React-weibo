@@ -12,7 +12,7 @@ class TweetBox extends Component{
         store.subscribe(this.props.handleStoreChange.bind(this))
     }
     onClick=()=>{
-        this.props.handleSendTweet()
+        this.props.handleSendTweet(this.props.value)
         this.child.clearTweetInput()
     }
     onRef = (ref) => {
@@ -34,9 +34,9 @@ const mapStateToProps=(state)=>{
 }
 const mapDispatchToProps=(dispatch)=>{
     return{
-        handleSendTweet(){
+        handleSendTweet(value){
             console.log("handleSendTweet");
-            dispatch(actionCreators.getSendTweetAction())
+            dispatch(actionCreators.sendTweetAction(value))
         },
         handleStoreChange(){
             this.setState(store.getState());

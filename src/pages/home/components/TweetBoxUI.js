@@ -10,10 +10,6 @@ class TweetBoxUI extends Component{
         super(props);
     }
 
-    componentDidMount(){
-        this.props.onRef(this)
-    }
-
     clearTweetInput=()=>{
         console.log('clearTweetInput')
         this.child.clearInput();
@@ -22,15 +18,18 @@ class TweetBoxUI extends Component{
     onRef = (ref) => {
         this.child = ref
     }
+    componentDidMount(){
+        this.props.onRef(this)
+    }
 
     render() {
         return(
             <div>
-                <Card title="发送你的第一条微博" hoverable>
+                <Card title="发送你的第一条微博" hoverable style={{marginLeft:20,marginRight:20}}>
                     <Row>
                         <InputBox inputType="tweet" onRef={this.onRef}  value={this.props.value} style={{ width: '100%',height:100 } }/>
                     </Row>
-                    <Row type='flex' justify="end">
+                    <Row type='flex' justify="end" style={{marginTop:10}}>
                         <Button type='primary' onClick={this.props.onClick} disabled={this.props.buttonDisabled}>
                             发送
                         </Button>
