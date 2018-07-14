@@ -5,16 +5,18 @@ const LeftMenu = function(props){
     return(
         <Menu
             mode="inline"
-            defaultSelectedKeys={['1']}
+            defaultSelectedKeys={['0']}
             defaultOpenKeys={['sub1']}
             style={{ height: '100%' }}
         >
             <Menu.SubMenu key="sub1" title={<span><Icon type="user"/>{props.siderMenuTitle}</span>}>
-                <Menu.Item key="1" >
-                    <NavLink to='/message'>
-                        {props.siderMenuSubmenu}
-                    </NavLink>
-                </Menu.Item>
+                {props.siderMenuSubmenu.map((siderMenuSubmenu,index)=>
+                    <Menu.Item key={index} >
+                        <NavLink to='/message'>
+                            {siderMenuSubmenu}
+                        </NavLink>
+                    </Menu.Item>
+                )}
             </Menu.SubMenu>
         </Menu>
     )

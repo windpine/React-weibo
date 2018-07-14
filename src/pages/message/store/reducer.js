@@ -5,7 +5,8 @@ const defaultState=fromJS({
     loading: true,
     loadingMore: false,
     showLoadingMore: true,
-    messageList:[]
+    messageList:[],
+    messageType:0
 });
 export default (state=defaultState,action)=>{
     switch(action.type){
