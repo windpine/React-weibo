@@ -34,6 +34,7 @@ const mapDispatchToProps = (dispatch)=>{
                 if (!err) {
                     console.log('Received values of form: ', values);
                     dispatch(actionCreators.saveLoginInfo(fromJS(values)));
+                    dispatch(actionCreators.loginRequest(values));
                 }
             });
         }

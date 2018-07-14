@@ -102,20 +102,21 @@ export const RegisterFormUI =(props)=>{
                     <RegisterInput />
                 )}
             </FormItem>
-            <FormItem
-                {...formItemLayout}
-                label="验证码"
-                extra="你不是一个机器人."
-            >
-                {getFieldDecorator('captcha', {
-                    rules: [{ required: true, message: '请输入你获得的验证码!' }],
-                })(
-                    <RegisterInput />
-                )}
-                <Button style={{marginLeft:"10px"}}>获取验证码</Button>
-            </FormItem>
+            {/*<FormItem*/}
+                {/*{...formItemLayout}*/}
+                {/*label="验证码"*/}
+                {/*extra="你不是一个机器人."*/}
+                {/*style={{visibility:'hidden'}}*/}
+            {/*>*/}
+                {/*{getFieldDecorator('captcha', {*/}
+                    {/*rules: [{ required: false, message: '请输入你获得的验证码!' }],*/}
+                {/*})(*/}
+                    {/*<RegisterInput />*/}
+                {/*)}*/}
+                {/*<Button style={{marginLeft:"10px"}}>获取验证码</Button>*/}
+            {/*</FormItem>*/}
             <FormItem {...tailFormItemLayout}>
-                <Button type="primary" htmlType="submit">Register</Button>
+                <Button type="primary" htmlType="submit">立刻注册</Button>
             </FormItem>
         </Form>
     )

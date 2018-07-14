@@ -9,15 +9,16 @@ class Welcome extends Component{
 
     constructor(props){
         super(props);
-        store.subscribe(this.props.handleStoreChange.bind(this))
     }
     render(){
         const {loginState} =this.props;
         return (
-            loginState?<Redirect to="/home"/>:<WelcomeUI/>
+            sessionStorage.getItem('uid')?<Redirect to="/home"/>:<WelcomeUI/>
         )
     }
+
 }
+
 
 const mapStatesToProps = (state)=>{
     return {
@@ -26,9 +27,7 @@ const mapStatesToProps = (state)=>{
 }
 const mapDispatchToProps = (dispatch)=>{
     return {
-        handleStoreChange(){
-            this.setState(store.getState());
-        }
+
     }
 }
 
