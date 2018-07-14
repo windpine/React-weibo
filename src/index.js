@@ -21,6 +21,7 @@ const Index = (
                         <Route path='/home' exact component={HomeUI}/>
                         <Route path='/register' exact component={Register}/>
                         <Route path='/' exact render={()=><Redirect to='/welcome'/>}/>
+
                     </div>
                 </BrowserRouter>
                 <MyFooter/>
