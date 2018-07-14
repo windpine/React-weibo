@@ -7,17 +7,15 @@ const defaultState=fromJS({
         password:'',
         confirm:'',
         email:'',
-        nickname:'',
-        captcha:''
+        nickname:''
+        //captcha:''
     },
-    loginState:false,
     confirmDirty:false,
     autoCompleteResult: [],
 });
 export default (state=defaultState,action)=>{
     if(action.type===actionTypes.SAVE_REGISTER_INFO){
-        return state.set('register',state.get('register').merge(action.values))
-            .set('loginState',true);
+        return state.set('register',state.get('register').merge(action.values));
     }
     if(action.type===actionTypes.CONFIRM_BLUR){
         return state.set('confirmDirty',

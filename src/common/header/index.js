@@ -5,6 +5,8 @@ import {NavLink,withRouter,Link} from 'react-router-dom'
 import {LoginButton,RegisterButton,Greeting} from './styled';
 import store from '../../store';
 import {connect} from 'react-redux';
+import {logoutRequest} from "../../pages/welcome/store/actionCreators";
+
 const {Header}=Layout;
 
 const MyHeader =(props)=>{
@@ -40,7 +42,8 @@ const MyHeader =(props)=>{
                     </Link>
                 </div>
                 <Greeting style={props.loginState?{visibility:'visible'}:{visibility:'hidden'}}>
-                    欢迎回来,{props.username}
+                    <LoginButton onClick={props.handleLogoutBtn}>注销</LoginButton>
+                    欢迎回来,{sessionStorage.getItem('username')}
                     </Greeting>
             </Header>
         )
@@ -50,13 +53,16 @@ const MyHeader =(props)=>{
 const mapStatesToProps = (state)=>{
     return {
         loginState:state.getIn(['welcome','loginState']),
-        username:state.getIn(['welcome','login','username'])
     }
 }
 const mapDispatchToProps = (dispatch)=>{
     return {
+
         handleStoreChange(){
             this.setState(store.getState());
+        },
+        handleLogoutBtn(){
+            dispatch(logoutRequest());
         }
     }
 }

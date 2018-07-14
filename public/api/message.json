@@ -1,16 +1,18 @@
 {
   "success":true,
   "data":{
+    "errorCode":null,
+    "status":"success",
     "messageList":[{
       "messageID":1,
-      "type":"warning",
+      "type":1,
       "content":"web will close",
-      "UserName":"测试"
+      "srcName":"测试"
     },{
       "messageID":2,
-      "type":"warning",
+      "type":2,
       "content":"web will close",
-      "UserName":"测试"
+      "srcName":"测试"
     }]
   }
 
