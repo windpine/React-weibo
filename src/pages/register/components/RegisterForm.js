@@ -41,7 +41,8 @@ const mapDispatchToProps = (dispatch)=>{
             this.props.form.validateFieldsAndScroll((err, values) => {
                 if (!err) {
                     console.log('Received values of form: ', values);
-                    dispatch(actionCreators.saveRegisterInfo(fromJS(values)));
+                    dispatch(actionCreators.registerRequest(values))
+                    this.props.history.push('/welcome');
                 }
             });;
         },
@@ -62,8 +63,6 @@ const mapDispatchToProps = (dispatch)=>{
                 form.validateFields(['confirm'], { force: true });
             }
             callback();
-        },
-        handleRegClick(){
         }
     }
 }
