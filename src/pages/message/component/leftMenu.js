@@ -11,10 +11,8 @@ const LeftMenu = function(props){
         >
             <Menu.SubMenu key="sub1" title={<span><Icon type="user"/>{props.siderMenuTitle}</span>}>
                 {props.siderMenuSubmenu.map((siderMenuSubmenu,index)=>
-                    <Menu.Item key={index} >
-                        <NavLink to='/message'>
+                    <Menu.Item key={index} onClick={()=>{props.click(index)}}>
                             {siderMenuSubmenu}
-                        </NavLink>
                     </Menu.Item>
                 )}
             </Menu.SubMenu>

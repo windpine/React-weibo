@@ -20,6 +20,7 @@ export default (state=defaultState,action)=>{
             //请求获取更多message
             return state.merge({
                 loadingMore:true,
+                messageType:action.messageType
             })
         case actionTypes.LOAD_MORE_MESSAGE_LIST:
             //请求成功

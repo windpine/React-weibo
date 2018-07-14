@@ -21,9 +21,10 @@ export const getSendMessage =(message)=>(
         message
     }
 )
-export const getLoadMoreMessageAction = ()=>(
+export const getLoadMoreMessageAction = (messageType)=>(
     {
         type:actionTypes.LOAD_MORE_MESSAGE,
+        messageType
     }
 )
 export const getNoMoreMessageListAction = () =>(

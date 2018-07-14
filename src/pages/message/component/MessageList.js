@@ -26,29 +26,102 @@ const MessageList = (props)=>{
             loadMore={props.loadMore}
             dataSource={props.messageList.toJSON()}
             itemLayout="vertical"
-            renderItem={item => (
-                <MyMessageList.Item
-                    key={item.messageID}
-                    extra={
-                        <Dropdown overlay={props.menu}>
-                            <RightButton size="small">
-                                <Icon type="down" />
-                            </RightButton>
-                        </Dropdown>
-                    }
-                >
-                    <MyMessageList.Item.Meta
-                        title={
-                            <MySpan fontSize="15px" marginLeft="50px" fontWeight="bold" marginTop="10px">
-                                <ChoiceIcon type={item.type} />
-                                <a>{item.srcName}</a>
-                            </MySpan>
-                         }
-                        description={<MySpan fontSize="10px" marginLeft="60px" fontWeight="normal">{item.content}</MySpan>}
-                    />
+            renderItem={item => {
+                switch (props.messageType){
+                    case 0:
+                        return(
+                            <MyMessageList.Item
+                            key={item.messageID}
+                            extra={
+                                <Dropdown overlay={props.menu}>
+                                    <RightButton size="small">
+                                        <Icon type="down"/>
+                                    </RightButton>
+                                </Dropdown>
+                            }
+                            >
+                            <MyMessageList.Item.Meta
+                            title={
+                                <MySpan fontSize="15px" marginLeft="50px" fontWeight="bold" marginTop="10px">
+                                    <a>{item.nickName}</a>
+                                </MySpan>
+                            }
+                            description={<MySpan fontSize="10px" marginLeft="60px" fontWeight="normal">{item.content}</MySpan>}
+                            />
 
-                </MyMessageList.Item>
-            )
+                            </MyMessageList.Item>
+                        )
+                    case 1:
+                        return(
+                            <MyMessageList.Item
+                                key={item.messageID}
+                                extra={
+                                    <Dropdown overlay={props.menu}>
+                                        <RightButton size="small">
+                                            <Icon type="down"/>
+                                        </RightButton>
+                                    </Dropdown>
+                                }
+                            >
+                                <MyMessageList.Item.Meta
+                                    title={
+                                        <MySpan fontSize="15px" marginLeft="50px" fontWeight="bold" marginTop="10px">
+                                            <a>{item.nickName}</a>
+                                        </MySpan>
+                                    }
+                                    description={<MySpan fontSize="10px" marginLeft="60px" fontWeight="normal">{item.content}</MySpan>}
+                                />
+
+                            </MyMessageList.Item>
+                        )
+                    case 2:
+                        return(
+                            <MyMessageList.Item
+                                key={item.messageID}
+                                extra={
+                                    <Dropdown overlay={props.menu}>
+                                        <RightButton size="small">
+                                            <Icon type="down"/>
+                                        </RightButton>
+                                    </Dropdown>
+                                }
+                            >
+                                <MyMessageList.Item.Meta
+                                    title={
+                                        <MySpan fontSize="15px" marginLeft="50px" fontWeight="bold" marginTop="10px">
+                                            <a>{item.srcName}</a>
+                                        </MySpan>
+                                    }
+                                    description={<MySpan fontSize="10px" marginLeft="60px" fontWeight="normal">{item.content}</MySpan>}
+                                />
+
+                            </MyMessageList.Item>
+                        )
+                    default:
+                        return(
+                            <MyMessageList.Item
+                                key={item.messageID}
+                                extra={
+                                    <Dropdown overlay={props.menu}>
+                                        <RightButton size="small">
+                                            <Icon type="down"/>
+                                        </RightButton>
+                                    </Dropdown>
+                                }
+                            >
+                                <MyMessageList.Item.Meta
+                                    title={
+                                        <MySpan fontSize="15px" marginLeft="50px" fontWeight="bold" marginTop="10px">
+                                            <a>{item.srcName}</a>
+                                        </MySpan>
+                                    }
+                                    description={<MySpan fontSize="10px" marginLeft="60px" fontWeight="normal">{item.content}</MySpan>}
+                                />
+
+                            </MyMessageList.Item>
+                        );
+                }
+            }
             }
         />
     );

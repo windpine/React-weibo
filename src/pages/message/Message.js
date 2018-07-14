@@ -7,34 +7,104 @@ import store from '../../store';
 import MessageUI from './MessageUI';
 import {actionCreators} from "./store";
 import * as words from './wordInternationalization'
+const MENTION = 0;
+const COMMENT = 1;
+const LIKES = 2;
+var config = {
+    baseURL:'http://localhost:8080/message/',
+    params:{
+        UID :'d0cd8feaa8f84fada679abd5a5fca198'
+    }
+}
 class Message extends Component{
 
     constructor(props){
         super(props);
         store.subscribe(this.props.handleStoreChange.bind(this));
     }
+    getDataButton(obj){
+        switch(obj.props.messageType){
+            case MENTION:
+                obj.props.handleLoadingMoreMessage();
+                axios.get('/mention',config).then((res) => {
+                    let messageList = obj.props.messageList.concat(res.data.data.messageList);
+                    obj.props.handleLoadMoreMessage(messageList);
+                }).catch((res)=>{
+                    obj.props.handleNoMoreMessage();
+                });
+            case COMMENT:
+                obj.props.handleLoadingMoreMessage();
+                axios.get('/comment',config).then((res) => {
+                    let messageList = obj.props.messageList.concat(res.data.data.messageList);
+                    obj.props.handleLoadMoreMessage(messageList);
+                }).catch((res)=>{
+                    obj.props.handleNoMoreMessage();
+                });
+            case LIKES:
+                obj.props.handleLoadingMoreMessage();
+                axios.get('/likes',config).then((res) => {
+                    let messageList = obj.props.messageList.concat(res.data.data.messageList);
+                    obj.props.handleLoadMoreMessage(messageList);
+                }).catch((res)=>{
+                    obj.props.handleNoMoreMessage();
+                });
+            default:
+                obj.props.handleLoadingMoreMessage();
+                axios.get('/mention',config).then((res) => {
+                    let messageList = obj.props.messageList.concat(res.data.data.messageList);
+                    obj.props.handleLoadMoreMessage(messageList);
+                }).catch((res)=>{
+                    obj.props.handleNoMoreMessage();
+                });
+        }
+    }
     //向服务器获取更多信息
-    getData(obj){
-        console.log(obj.props);
-        obj.props.handleLoadingMoreMessage();
-        axios.get('../../../api/message.json').then((res) => {
-            if(obj.props.messageList[0].messageID !== res.data.data.messageList[0].messageID){
-                let messageList=obj.props.messageList.concat(res.data.data.messageList);
-                obj.props.handleLoadMoreMessage(messageList);
-            }else{
-                obj.props.handleNoMoreMessage();
-            }
-        }).catch((res)=>{
-            obj.props.handleNoMoreMessage();
-            console.log(res);
-        })
+    getData(obj,index){
+        switch(index){
+            case MENTION:
+                    obj.props.handleLoadingMoreMessage(index);
+                    axios.get('/mention',config).then((res) => {
+                        let messageList = res.data.data.messageList;
+                        obj.props.handleLoadMoreMessage(messageList);
+                    }).catch((res)=>{
+                        obj.props.handleNoMoreMessage();
+
+                    });
+            case COMMENT:
+                obj.props.handleLoadingMoreMessage(index);
+                axios.get('/comment',config).then((res) => {
+                    let messageList = res.data.data.messageList;
+                    obj.props.handleLoadMoreMessage(messageList);
+                }).catch((res)=>{
+                    obj.props.handleNoMoreMessage();
+
+                });
+            case LIKES:
+                obj.props.handleLoadingMoreMessage(index);
+                axios.get('/likes',config).then((res) => {
+                    let messageList = res.data.data.messageList;
+                    obj.props.handleLoadMoreMessage(messageList);
+                }).catch((res)=>{
+                    obj.props.handleNoMoreMessage();
+
+                });
+            default:
+                obj.props.handleLoadingMoreMessage(index);
+                axios.get('/mention',config).then((res) => {
+                    let messageList = res.data.data.messageList;
+                    obj.props.handleLoadMoreMessage(messageList);
+                }).catch((res)=>{
+                    obj.props.handleNoMoreMessage();
+
+                });
+        }
     }
 
     render(){
         const loadMore = this.props.showLoadingMore ? (
             <div style={{ textAlign: 'center', marginTop: 12, height: 32, lineHeight: '32px' }}>
                 {this.props.loadingMore && <Spin />}
-                {!this.props.loadingMore && <Button onClick={()=>{this.getData(this)}}>{words.MESSAGE_LOAD_MORE_BUTTON}</Button>}
+                {!this.props.loadingMore && <Button onClick={()=>{this.getDataButton(this)}}>{words.MESSAGE_LOAD_MORE_BUTTON}</Button>}
             </div>
         ) : null;
         const menu = (
@@ -54,11 +124,13 @@ class Message extends Component{
                 messageList={this.props.messageList}
                 siderMenuTitle={words.MESSAGE_SIDER_MENU_TITLE}
                 siderMenuSubmenu={words.MESSAGE_SIDER_MENU_SUBMENU}
+                messageType={this.props.messageType}
+                click={(index)=>this.getData(this,index)}
             />
         )
     }
     componentDidMount(){
-        axios.get('../../../api/message.json').then((res) => {
+        axios.get('/mention',config).then((res) => {
             let messageList=res.data.data.messageList;
             this.props.handleGetMessageList(messageList);
         }).catch((res)=>{
@@ -72,7 +144,8 @@ const mapStatesToProps = (state)=>{
         loading:state.getIn(["message",'loading']),
         loadingMore:state.getIn(['message','loadingMore']),
         showLoadingMore:state.getIn(['message','showLoadingMore']),
-        messageList:state.getIn(['message',"messageList"])
+        messageList:state.getIn(['message',"messageList"]),
+        messageType:state.getIn(["message","messageType"])
     }
 }
 
@@ -90,8 +163,8 @@ const mapDispatchToProps = (dispatch)=>{
             });
 
         },
-        handleLoadingMoreMessage(){
-            dispatch(actionCreators.getLoadMoreMessageAction());
+        handleLoadingMoreMessage(type){
+            dispatch(actionCreators.getLoadMoreMessageAction(type));
         },
         handleLoadMoreMessage(list){
             dispatch(actionCreators.getLoadMoreMessageListAction(list));
