@@ -7,7 +7,7 @@ import './index.css';
 import { Layout} from 'antd';
 import 'antd/dist/antd.css'
 import Welcome from './pages/welcome/loadable'
-import HomeUI from './pages/home/HomeUI'
+import Home from './pages/home/Home'
 import MyFooter from "./common/footer";
 import Register from "./pages/register/loadable";
 
@@ -18,7 +18,7 @@ const Index = (
                 <BrowserRouter>
                     <div>
                         <Route path='/welcome' exact component={Welcome}/>
-                        <Route path='/home' exact component={HomeUI}/>
+                        <Route path='/home' exact component={Home}/>
                         <Route path='/register' exact component={Register}/>
                         <Route path='/' exact render={()=><div>无指定路由</div>}/>
                     </div>

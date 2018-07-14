@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {Mention} from 'antd';
+import {Mention,Icon} from 'antd';
 import 'antd/dist/antd.css'
 
 
@@ -13,7 +13,10 @@ const InputBoxUI=(props) =>{
                 style={props.style}
                 placeholder={props.placeholder}
                 prefix={props.prefix}
+                value={props.value}
+
             />
+
         );
 }
 

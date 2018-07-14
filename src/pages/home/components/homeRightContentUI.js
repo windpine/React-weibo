@@ -1,13 +1,15 @@
 import React,{Component} from 'react';
 import 'antd/dist/antd.css';
 import TweetBox from  "./TweetBox"
+import TweetCardList from "./TweetCardList";
 
 class HomeRightContentUI extends Component{
-
     render(){
         return(
-
-            <TweetBox></TweetBox>
+            <div>
+            <TweetBox/>
+            <TweetCardList/>
+            </div>
         )
     }
 
