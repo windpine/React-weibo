@@ -59,7 +59,7 @@ class Message extends Component{
     }
     componentDidMount(){
         axios.get('../../../api/message.json').then((res) => {
-            let messageList=res.data.data.messageList
+            let messageList=res.data.data.messageList;
             this.props.handleGetMessageList(messageList);
         }).catch((res)=>{
             console.log(res);
