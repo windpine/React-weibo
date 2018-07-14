@@ -5,25 +5,16 @@ const defaultState=fromJS(
     {
 
         tweets:[],//发表的微博列表
-        follows:[{//关注的用户列表
-            nickname: 'Edward King 0',
-            sex:'女',
-            email: 'nicoleynh960111@163.com',
-        }, {
-            nickname: 'Edward King 0',
-            sex:'女',
-            email: 'nicoleynh960111@163.com',
-        }],
+        follows:[],
 
         followers:[],//粉丝列表
         data:{
-            nickname:'nicole',//昵称
-            username:'杨霓虹',//
-            sex:'女',//性别
-            email:'nicoleynh@163.com',//邮箱
+            nickname:'',//昵称
+            username:'',//
+            sex:'',//性别
+            email:'',//邮箱
         },
-        password:'123',//密码
-        linkKey:'',
+        password:'',//密码
 
 
     }
@@ -46,8 +37,17 @@ export default (state=defaultState,action)=>{
             return state.setIn(['data','sex'],action.sex);
         case actionTypes.CHANGE_INPUT_EMAIL:
             return state.setIn(['data','email'],action.email);
-        case actionTypes.CHANGE_MODALVISIBLE:
-            return state.setIn('isModalVisible',action.value);
+        case actionTypes.CHANGE_FOLLOWLIST:
+            return state.set('follows',action.follows);
+        case actionTypes.CHANGE_FOLLOWERLIST:
+            return state.set('followers',action.followers);
+        case actionTypes.CHANGE_USERINFO:
+            return state.setIn(['data','nickname'], action.userInfo['nickname'])
+                .setIn(['data','username'], action.userInfo['username'])
+                .setIn(['data','sex'], action.userInfo['sex'])
+                .setIn(['data','email'], action.userInfo['email'])
+                .set('password',action.password)
+
         default:
             return state;
 
