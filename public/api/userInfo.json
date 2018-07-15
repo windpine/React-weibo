@@ -1,0 +1,10 @@
+{
+  "success":true,
+  "data":{
+    "nickname":"nicole",
+    "username":"杨霓虹",
+    "sex":"女",
+    "email":"nicoleynh@163.com"
+  },
+  "password":"123"
+}
