@@ -4,11 +4,12 @@ import {Provider} from 'react-redux';
 import store from './store';
 import {BrowserRouter,Route,Redirect} from 'react-router-dom';
 import './index.css';
-import { Layout} from 'antd';
+import {Layout} from 'antd';
 import 'antd/dist/antd.css'
 import Welcome from './pages/welcome/loadable'
 import Home from './pages/home/Home'
 import MyFooter from "./common/footer";
+import Message from './pages/message/Message';
 import ProfileForm from "./pages/profile/components/ProfileForm";
 import Profile from "./pages/profile/Profile";
 import ProfileUI from "./pages/profile/ProfileUI";
@@ -26,6 +27,7 @@ const Index = (
                         <Route path='/profile' exact component={ProfileUI}/>
                         <Route path='/register' exact component={Register}/>
                         <Route path='/' exact render={()=><Redirect to='/welcome'/>}/>
+                        <Route path='/message' exact component = {Message}/>
                     </div>
                 </BrowserRouter>
                 <MyFooter/>

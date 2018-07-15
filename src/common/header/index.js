@@ -25,7 +25,11 @@ const MyHeader =(props)=>{
                             首页
                         </NavLink>
                     </Menu.Item>
-                    <Menu.Item key="2">消息</Menu.Item>
+                    <Menu.Item key="2">
+                        <NavLink to='/message'>
+                            消息
+                        </NavLink>
+                    </Menu.Item>
                     <Menu.Item key="3">
                         <NavLink to='/profile'>
                             我
