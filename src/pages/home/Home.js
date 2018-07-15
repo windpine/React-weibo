@@ -30,7 +30,7 @@ const mapDispatchToProps=(dispatch)=>{
     return{
         handleGetAllTweet(){
             axios.get('/tweets',config).then((res)=>{
-                const result=res.data.data;
+                const result=res.data.data.tweetList;
                 console.log(result);
                 const action=actionCreators.changeTweetList(result);
                 dispatch(action)
