@@ -49,13 +49,14 @@ export const getMentionTopics=()=>{
         });
     }
 }
-//创建发送微博、转发评论的action
+//创建发送微博、转发、评论的action
 export  const sendTweetAction=(value)=>{
     return (dispatch)=>{
         const data={
             "uid":sessionStorage.getItem('uid'),
             "content":value
         }
+        console.log(data)
         axios.post('/tweets',data,config).then((res)=>{
             const action1=getInputChangeAction("","tweet")
             const action2=getTweetList()
@@ -63,22 +64,45 @@ export  const sendTweetAction=(value)=>{
             dispatch(action2)
         })
     }
-    type:actionTypes.SEND_TWEET
 }
 export  const sendRepostAction=()=>({
     type:actionTypes.SEND_TWEET
 })
-export  const sendCommentAction=()=>({
-    type:actionTypes.SEND_TWEET
-})
+export  const sendCommentAction=(tid,content)=>{
+    return (dispatch)=>{
+    const data={
+        "uid":sessionStorage.getItem('uid'),
+        "tid":tid,
+        "srcId":-1,
+        "content":content
+    }
+    console.log(data)
+    axios.post('/comments',data,config).then((res)=>{
+        const action1=getInputChangeAction("","comment")
+        const action2=getCommentList(tid)
+        dispatch(action1)
+        dispatch(action2)
+    })
+}
+}
 
 export const getTweetList=()=>{
     return (dispatch)=>{
-        axios.get("/tweets").then((res)=> {
-        const result = res.data.data;
+        axios.get("/tweets",config).then((res)=> {
+        const result = res.data.data.tweetList;
         console.log(result);
         const action = changeTweetList(result);
         dispatch(action)
+        })
+    }
+}
+export const getCommentList=(tid)=>{
+    return (dispatch)=>{
+        axios.get("/comments"+"/"+tid,config).then((res)=> {
+            const result = res.data.data.commentList;
+            console.log(result);
+            const action = changeTweetList(result);
+            dispatch(action)
         })
     }
 }
