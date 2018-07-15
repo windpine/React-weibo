@@ -30,7 +30,11 @@ const MyHeader =(props)=>{
                             消息
                         </NavLink>
                     </Menu.Item>
-                    <Menu.Item key="3">我</Menu.Item>
+                    <Menu.Item key="3">
+                        <NavLink to='/profile'>
+                            我
+                        </NavLink>
+                    </Menu.Item>
                 </Menu>
 
                 <div style={props.loginState?{visibility:'hidden'}:{visibility:'visible'}}>
