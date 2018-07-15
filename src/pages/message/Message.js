@@ -7,13 +7,15 @@ import store from '../../store';
 import MessageUI from './MessageUI';
 import {actionCreators} from "./store";
 import * as words from './wordInternationalization'
+import {Redirect} from 'react-router-dom'
+
 const MENTION = 0;
 const COMMENT = 1;
 const LIKES = 2;
 var config = {
     baseURL:'http://localhost:8080/message/',
     params:{
-        UID :'d0cd8feaa8f84fada679abd5a5fca198'
+        UID :sessionStorage.getItem('uid')
     }
 }
 class Message extends Component{
@@ -114,20 +116,23 @@ class Message extends Component{
                 </Menu.Item>
             </Menu>
         );
-        return(
-            <MessageUI
-                title={words.MESSAGE_TITLE}
-                menu = {menu}
-                isList={true}
-                loadMore={loadMore}
-                loading={this.props.loading}
-                messageList={this.props.messageList}
-                siderMenuTitle={words.MESSAGE_SIDER_MENU_TITLE}
-                siderMenuSubmenu={words.MESSAGE_SIDER_MENU_SUBMENU}
-                messageType={this.props.messageType}
-                click={(index)=>this.getData(this,index)}
-            />
-        )
+        if(sessionStorage.getItem('uid') !== null)
+            return(
+                <MessageUI
+                    title={words.MESSAGE_TITLE}
+                    menu = {menu}
+                    isList={true}
+                    loadMore={loadMore}
+                    loading={this.props.loading}
+                    messageList={this.props.messageList}
+                    siderMenuTitle={words.MESSAGE_SIDER_MENU_TITLE}
+                    siderMenuSubmenu={words.MESSAGE_SIDER_MENU_SUBMENU}
+                    messageType={this.props.messageType}
+                    click={(index)=>this.getData(this,index)}
+                />
+            )
+        else
+            return <Redirect to='/welcome'/>;
     }
     componentDidMount(){
         axios.get('/mention',config).then((res) => {
