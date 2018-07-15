@@ -101,7 +101,7 @@ export const getCommentList=(tid)=>{
         axios.get("/comments"+"/"+tid,config).then((res)=> {
             const result = res.data.data.commentList;
             console.log(result);
-            const action = changeTweetList(result);
+            const action = changeCommentList(result);
             dispatch(action)
         })
     }

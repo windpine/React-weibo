@@ -2,15 +2,12 @@ import React from 'react';
 import 'antd/dist/antd.css';
 import './upload.css';
 import axios from 'axios'
-import { Upload, Icon, message } from 'antd';
+import { Upload, Icon, message ,Modal} from 'antd';
+import {connect} from 'react-redux';
+import * as actionCreators from '../store/actionCreators'
+import store from '../../../store';
 
 const baseURL='https://weibo-1252079771.cos.ap-beijing.myqcloud.com/';
-
-function getBase64(img, callback) {
-    const reader = new FileReader();
-    reader.addEventListener('load', () => callback(reader.result));
-    reader.readAsDataURL(img);
-}
 
 function beforeUpload(file) {
     const isJPG = file.type === 'image/jpeg';
@@ -33,7 +30,6 @@ const uploadProps = {
     },
     onSuccess(ret, file) {
         console.log('onSuccess', ret, file.name);
-        this.setState('imageUrl',baseURL+file.name)
     },
     onError(err) {
         console.log('onError', err);
@@ -73,30 +69,114 @@ const uploadProps = {
 
 class Avatar extends React.Component {
     state = {
-        loading: false,
-        imageUrl: ''
+        previewVisible: false,
+        previewImage: '',
+        fileList: [{
+            uid: -1,
+            name: 'xxx.png',
+            status: 'done',
+            url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+        }],
     };
 
+
+    uploadProps = (props)=>({
+        action: baseURL,
+        multiple: false,
+        onStart(file) {
+            console.log('onStart', file, file.name);
+        },
+        onSuccess(ret, file) {
+            props.handleChange(file)
+            console.log('onSuccess', ret, file.name);
+        },
+        onError(err) {
+            console.log('onError', err);
+        },
+        onProgress({ percent }, file) {
+            console.log('onProgress', `${percent}%`, file.name);
+        },
+        customRequest({
+                          action,
+                          data,
+                          file,
+                          filename,
+                          headers,
+                          onError,
+                          onProgress,
+                          onSuccess,
+                      }) {
+            axios
+                .put(action+file.name, file, {
+                    headers,
+                    onUploadProgress: ({ total, loaded }) => {
+                        onProgress({ percent: Math.round(loaded / total * 100).toFixed(2) }, file);
+                    },
+                })
+                .then(({ data: response }) => {
+                    onSuccess(response, file);
+                })
+                .catch(onError);
+
+            return {
+                abort() {
+                    console.log('upload progress is aborted.');
+                },
+            };
+        },
+    });
     render() {
+        const {fileList } = this.state;
         const uploadButton = (
             <div>
-                <Icon type={this.state.loading ? 'loading' : 'plus'} />
+                <Icon type="plus" />
                 <div className="ant-upload-text">Upload</div>
             </div>
         );
-        const imageUrl = this.state.imageUrl;
         return (
-            <Upload
-                {...uploadProps}
-                accept="image/*"
-                listType="picture-card"
-                className="avatar-uploader"
-                showUploadList={false}
-                beforeUpload={beforeUpload}
-            >
-                {imageUrl ? <img src={imageUrl} alt="avatar" /> : uploadButton}
-            </Upload>
+            <div className="clearfix">
+                <Upload
+                    {...this.uploadProps}
+                    listType="picture-card"
+                    onPreview={this.props.handlePreview}
+                    beforeUpload={beforeUpload}
+                    onChange={this.props.handleChange}
+                >
+                    {fileList.length >= 3 ? null : uploadButton}
+                </Upload>
+                <Modal visible={this.props.previewVisible} footer={null} onCancel={this.props.handleCancel}>
+                    <img alt="example" style={{ width: '100%' }} src={this.props.handlePreview} />
+                </Modal>
+            </div>
         );
     }
 }
-export default Avatar;
+
+const mapStateToProps=(state)=>{
+    return {
+        previewVisible:state.getIn(['register','previewVisible']),
+        previewImage:state.getIn(['register','previewImage']),
+        fileList:state.getIn(['register','fileList'])
+    }
+}
+
+
+const mapDispatchToProps = (dispatch)=>{
+    return {
+        handleCancel() {
+            console.log('删除预览')
+            dispatch(actionCreators.handlePreviewCancle())
+        },
+        handlePreview(file){
+            console.log('处理预览');
+            console.log(file);
+            dispatch(actionCreators.handlePreview(file))
+        },
+        handleChange(fileList){
+            console.log(fileList)
+            console.log("列表变化了")
+            dispatch(actionCreators.handleFileChange(fileList))
+        }
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Avatar);

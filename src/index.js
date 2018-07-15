@@ -10,11 +10,10 @@ import Welcome from './pages/welcome/loadable'
 import Home from './pages/home/Home'
 import MyFooter from "./common/footer";
 import Message from './pages/message/Message';
-import ProfileForm from "./pages/profile/components/ProfileForm";
-import Profile from "./pages/profile/Profile";
 import ProfileUI from "./pages/profile/ProfileUI";
 
 import Register from "./pages/register/loadable";
+
 
 const Index = (
     <Provider store={store}>

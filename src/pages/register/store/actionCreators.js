@@ -25,3 +25,17 @@ export const registerRequest=(values)=>{
             })
     }
 }
+
+export const handleFileChange=(fileList)=>({
+    type:actionTypes.HANDLE_FILE_CHANGE,
+    fileList
+})
+
+export const handlePreview=(file)=>({
+    type:actionTypes.HANDLE_PREVIEW,
+    file
+})
+
+export const handlePreviewCancle=()=>({
+    type:actionTypes.HANDLE_PREVIEW_CANCLE,
+})
