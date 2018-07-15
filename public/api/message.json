@@ -1,0 +1,19 @@
+{
+  "success":true,
+  "data":{
+    "errorCode":null,
+    "status":"success",
+    "messageList":[{
+      "messageID":1,
+      "type":1,
+      "content":"web will close",
+      "srcName":"测试"
+    },{
+      "messageID":2,
+      "type":2,
+      "content":"web will close",
+      "srcName":"测试"
+    }]
+  }
+
+}
