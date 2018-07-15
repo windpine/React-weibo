@@ -6099,17 +6099,9 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.2.7:
 
 react-avatar-editor@^11.0.4:
   version "11.0.4"
-  resolved "http://registry.npm.taobao.org/react-avatar-editor/download/react-avatar-editor-11.0.4.tgz#a32e2e10f1edc8480b1b852f3ab287c7b56c7ced"
+  resolved "https://registry.yarnpkg.com/react-avatar-editor/-/react-avatar-editor-11.0.4.tgz#a32e2e10f1edc8480b1b852f3ab287c7b56c7ced"
   dependencies:
     prop-types "^15.5.8"
-
-react-captcha-qiuz@^1.0.4:
-  version "1.0.4"
-  resolved "http://registry.npm.taobao.org/react-captcha-qiuz/download/react-captcha-qiuz-1.0.4.tgz#0b86df349589eb25baa8838c04fb0d94cb7debaf"
-  dependencies:
-    prop-types "^15.5.10"
-    react "^15.6.1"
-    react-dom "^15.6.1"
 
 react-dev-utils@^5.0.1:
   version "5.0.1"

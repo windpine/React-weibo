@@ -2,6 +2,7 @@ import React from 'react';
 import { Form, Tooltip, Icon,Row, Col, Button} from 'antd';
 import 'antd/dist/antd.css';
 import {RegisterInput} from "./styled";
+import Avatar from "./Upload";
 
 const FormItem = Form.Item;
 
@@ -102,22 +103,17 @@ export const RegisterFormUI =(props)=>{
                     <RegisterInput />
                 )}
             </FormItem>
-            {/*<FormItem*/}
-                {/*{...formItemLayout}*/}
-                {/*label="验证码"*/}
-                {/*extra="你不是一个机器人."*/}
-                {/*style={{visibility:'hidden'}}*/}
-            {/*>*/}
-                {/*{getFieldDecorator('captcha', {*/}
-                    {/*rules: [{ required: false, message: '请输入你获得的验证码!' }],*/}
-                {/*})(*/}
-                    {/*<RegisterInput />*/}
-                {/*)}*/}
-                {/*<Button style={{marginLeft:"10px"}}>获取验证码</Button>*/}
-            {/*</FormItem>*/}
+            <FormItem
+                {...formItemLayout}
+                label="上传头像"
+                extra="头像大小不能超过200kb"
+            >
+                <Avatar/>
+            </FormItem>
             <FormItem {...tailFormItemLayout}>
                 <Button type="primary" htmlType="submit">立刻注册</Button>
             </FormItem>
+
         </Form>
     )
 }
