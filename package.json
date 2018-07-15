@@ -8,6 +8,7 @@
     "immutable": "^3.8.2",
     "moment": "^2.22.2",
     "react": "^16.4.1",
+    "react-avatar-editor": "^11.0.4",
     "react-dom": "^16.4.1",
     "react-loadable": "^5.4.0",
     "react-redux": "^5.0.7",
