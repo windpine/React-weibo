@@ -8,6 +8,8 @@ import {connect} from "react-redux";
 import VCode from "./Vcode";
 import * as axios from "axios/index";
 import store from "../../../store";
+
+
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 const InputGroup = Input.Group;
@@ -248,7 +250,7 @@ class ModalForm extends Component {
                     email=this.state.email;
                 }
 //todo:add uid
-                this.props.handleModifyClick(uid,nickname,username,sex,email);
+                this.props.handleModifyClick(nickname,username,sex,email);
                 alert("修改成功！");
             }
         });

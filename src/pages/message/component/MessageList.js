@@ -1,6 +1,7 @@
 import React from 'react'
 import {Dropdown,Icon} from 'antd'
 import {MyMessageList,MySpan,RightButton,MyIcon} from './styled'
+
 const MENTION = 0;
 const COMMENT = 1;
 const LIKES = 2;
