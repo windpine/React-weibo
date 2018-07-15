@@ -9,6 +9,7 @@ const defaultState=fromJS(
 
         followers:[],//粉丝列表
         data:{
+            uid:'',//用户id
             nickname:'',//昵称
             username:'',//
             sex:'',//性别
