@@ -8,6 +8,8 @@ import {connect} from "react-redux";
 import VCode from "./Vcode";
 import * as axios from "axios/index";
 import store from "../../../store";
+
+
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 const InputGroup = Input.Group;

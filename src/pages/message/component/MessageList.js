@@ -1,130 +1,96 @@
 import React from 'react'
-import {Dropdown,Icon} from 'antd'
+import {Spin,Button} from 'antd'
 import {MyMessageList,MySpan,RightButton,MyIcon} from './styled'
-const MENTION = 0;
-const COMMENT = 1;
-const LIKES = 2;
-const ChoiceIcon= function(props){
-    switch (props.type){
-        case MENTION:
-            return <MyIcon type="exclamation-circle-o" />;
-        case COMMENT:
-            return <MyIcon type="message" />;
-        case LIKES:
-            return <MyIcon type="like-o" />;
-        default:
-            return <MyIcon type="loading"/>
+import  * as messageType from './messageType';
+import store from '../../../store'
+import * as words from "../wordInternationalization";
+import MessageListUI from './MessageListUI';
+import{connect} from 'react-redux'
+import axios from 'axios';
+import {config} from "../UriConfig";
+import{getData} from '../Message'
+
+
+
+function getDataButton(obj){
+        switch(obj.props.messageType){
+            case messageType.MENTION:
+                obj.props.handleLoadingMoreMessage();
+                axios.get('/mention',config).then((res) => {
+                    let messageList = obj.props.messageList.concat(res.data.data.messageList);
+                    obj.props.handleLoadMoreMessage(messageList);
+                }).catch((res)=>{
+                    obj.props.handleNoMoreMessage();
+                });
+            case messageType.COMMENT:
+                obj.props.handleLoadingMoreMessage();
+                axios.get('/comment',config).then((res) => {
+                    let messageList = obj.props.messageList.concat(res.data.data.messageList);
+                    obj.props.handleLoadMoreMessage(messageList);
+                }).catch((res)=>{
+                    obj.props.handleNoMoreMessage();
+                });
+            case messageType.LIKES:
+                obj.props.handleLoadingMoreMessage();
+                axios.get('/likes',config).then((res) => {
+                    let messageList = obj.props.messageList.concat(res.data.data.messageList);
+                    obj.props.handleLoadMoreMessage(messageList);
+                }).catch((res)=>{
+                    obj.props.handleNoMoreMessage();
+                });
+            default:
+                obj.props.handleLoadingMoreMessage();
+                axios.get('/mention',config).then((res) => {
+                    let messageList = obj.props.messageList.concat(res.data.data.messageList);
+                    obj.props.handleLoadMoreMessage(messageList);
+                }).catch((res)=>{
+                    obj.props.handleNoMoreMessage();
+                });
+        }
     }
-
+class MessageList extends React.Component{
+    constructor(props){
+        super(props);
+        store.subscribe(this.props.handleStoreChange.bind(this))
+    }
+    render(){
+        const loadMore = this.props.showLoadingMore ? (
+            <div style={{ textAlign: 'center', marginTop: 12, height: 32, lineHeight: '32px' }}>
+                {this.props.loadingMore && <Spin />}
+                {!this.props.loadingMore && <Button onClick={()=>{getDataButton(this)}}>{words.MESSAGE_LOAD_MORE_BUTTON}</Button>}
+            </div>
+        ) : null;
+        return (
+            <MessageListUI
+                title = {words.MESSAGE_TITLE}
+                loading={this.props.loading}
+                loadMore={loadMore}
+                messageList={this.props.messageList}
+                messageType={this.props.messageType}
+            />
+        )
+    }
 }
-const MessageList = (props)=>{
-    return(
-        <MyMessageList
-            className="Message"
-            loading={props.loading}
-            header={<MySpan fontSize="20px" marginLeft="10px" fontWeight="bold">{props.title}</MySpan>}
-            loadMore={props.loadMore}
-            dataSource={props.messageList.toJSON()}
-            itemLayout="vertical"
-            renderItem={item => {
-                switch (props.messageType){
-                    case 0:
-                        return(
-                            <MyMessageList.Item
-                            key={item.messageID}
-                            extra={
-                                <Dropdown overlay={props.menu}>
-                                    <RightButton size="small">
-                                        <Icon type="down"/>
-                                    </RightButton>
-                                </Dropdown>
-                            }
-                            >
-                            <MyMessageList.Item.Meta
-                            title={
-                                <MySpan fontSize="15px" marginLeft="50px" fontWeight="bold" marginTop="10px">
-                                    <a>{item.nickName}</a>
-                                </MySpan>
-                            }
-                            description={<MySpan fontSize="10px" marginLeft="60px" fontWeight="normal">{item.content}</MySpan>}
-                            />
+const convertStateToProps= (state)=>{
 
-                            </MyMessageList.Item>
-                        )
-                    case 1:
-                        return(
-                            <MyMessageList.Item
-                                key={item.messageID}
-                                extra={
-                                    <Dropdown overlay={props.menu}>
-                                        <RightButton size="small">
-                                            <Icon type="down"/>
-                                        </RightButton>
-                                    </Dropdown>
-                                }
-                            >
-                                <MyMessageList.Item.Meta
-                                    title={
-                                        <MySpan fontSize="15px" marginLeft="50px" fontWeight="bold" marginTop="10px">
-                                            <a>{item.nickName}</a>
-                                        </MySpan>
-                                    }
-                                    description={<MySpan fontSize="10px" marginLeft="60px" fontWeight="normal">{item.content}</MySpan>}
-                                />
-
-                            </MyMessageList.Item>
-                        )
-                    case 2:
-                        return(
-                            <MyMessageList.Item
-                                key={item.messageID}
-                                extra={
-                                    <Dropdown overlay={props.menu}>
-                                        <RightButton size="small">
-                                            <Icon type="down"/>
-                                        </RightButton>
-                                    </Dropdown>
-                                }
-                            >
-                                <MyMessageList.Item.Meta
-                                    title={
-                                        <MySpan fontSize="15px" marginLeft="50px" fontWeight="bold" marginTop="10px">
-                                            <a>{item.srcName}</a>
-                                        </MySpan>
-                                    }
-                                    description={<MySpan fontSize="10px" marginLeft="60px" fontWeight="normal">{item.content}</MySpan>}
-                                />
-
-                            </MyMessageList.Item>
-                        )
-                    default:
-                        return(
-                            <MyMessageList.Item
-                                key={item.messageID}
-                                extra={
-                                    <Dropdown overlay={props.menu}>
-                                        <RightButton size="small">
-                                            <Icon type="down"/>
-                                        </RightButton>
-                                    </Dropdown>
-                                }
-                            >
-                                <MyMessageList.Item.Meta
-                                    title={
-                                        <MySpan fontSize="15px" marginLeft="50px" fontWeight="bold" marginTop="10px">
-                                            <a>{item.srcName}</a>
-                                        </MySpan>
-                                    }
-                                    description={<MySpan fontSize="10px" marginLeft="60px" fontWeight="normal">{item.content}</MySpan>}
-                                />
-
-                            </MyMessageList.Item>
-                        );
-                }
-            }
-            }
-        />
-    );
+    return {
+        loading: state.getIn(["message", "loading"]),
+        loadingMore:state.getIn(["message","loadingMore"]),
+        messageList:state.getIn(["message","messageList"]),
+        messageType:state.getIn(["message","messageType"])
+    }
+}
+const convertDispatchToProps = (dispatch) =>{
+    return {
+        handleStoreChange() {
+            this.setState(store.getState(),() => {
+                // Resetting window's offsetTop so as to display react-virtualized demo underfloor.
+                // In real scene, you can using public method of react-virtualized:
+                // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
+                window.dispatchEvent(new Event('resize'));
+            })
+        }
+    }
 }
 
-export default MessageList;
+export default connect(convertStateToProps,convertDispatchToProps)(MessageList);
