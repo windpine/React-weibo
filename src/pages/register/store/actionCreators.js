@@ -26,9 +26,9 @@ export const registerRequest=(values)=>{
     }
 }
 
-export const handleFileChange=(fileList)=>({
+export const handleFileChange=(file)=>({
     type:actionTypes.HANDLE_FILE_CHANGE,
-    fileList
+    file
 })
 
 export const handlePreview=(file)=>({
