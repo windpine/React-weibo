@@ -8,127 +8,69 @@ import MessageUI from './MessageUI';
 import {actionCreators} from "./store";
 import * as words from './wordInternationalization'
 import {Redirect} from 'react-router-dom'
+import {config} from './UriConfig'
+import * as messageType from './component/messageType'
 
-const MENTION = 0;
-const COMMENT = 1;
-const LIKES = 2;
-var config = {
-    baseURL:'http://localhost:8080/message/',
-    params:{
-        UID :sessionStorage.getItem('uid')
+//向服务器获取更多信息
+function getData(obj,index){
+    if(obj.props.loading !== true)
+        switch(index){
+            case messageType.MENTION:
+                obj.props.handleLoadingMoreMessage();
+                axios.get('/mention',config).then((res) => {
+                    let messageList = res.data.data.messageList;
+                    obj.props.handleLoadMoreMessage(messageList,index);
+                }).catch((res)=>{
+                    obj.props.handleNoMoreMessage();
+
+                });
+                break;
+            case messageType.COMMENT:
+                obj.props.handleLoadingMoreMessage();
+                axios.get('/comment',config).then((res) => {
+                    let messageList = res.data.data.messageList;
+                    obj.props.handleLoadMoreMessage(messageList,index);
+                }).catch((res)=>{
+                    obj.props.handleNoMoreMessage();
+
+                });
+                break;
+            case messageType.LIKES:
+                obj.props.handleLoadingMoreMessage();
+                axios.get('/likes',config).then((res) => {
+                    let messageList = res.data.data.messageList;
+                    obj.props.handleLoadMoreMessage(messageList,index);
+                }).catch((res)=>{
+                    obj.props.handleNoMoreMessage();
+
+                });
+                break;
+            default:
+                obj.props.handleLoadingMoreMessage();
+                axios.get('/mention',config).then((res) => {
+                    let messageList = res.data.data.messageList;
+                    obj.props.handleLoadMoreMessage(messageList,index);
+                }).catch((res)=>{
+                    obj.props.handleNoMoreMessage();
+
+                });
     }
 }
-class Message extends Component{
 
+class Message extends Component{
     constructor(props){
         super(props);
         store.subscribe(this.props.handleStoreChange.bind(this));
     }
-    getDataButton(obj){
-        switch(obj.props.messageType){
-            case MENTION:
-                obj.props.handleLoadingMoreMessage();
-                axios.get('/mention',config).then((res) => {
-                    let messageList = obj.props.messageList.concat(res.data.data.messageList);
-                    obj.props.handleLoadMoreMessage(messageList);
-                }).catch((res)=>{
-                    obj.props.handleNoMoreMessage();
-                });
-            case COMMENT:
-                obj.props.handleLoadingMoreMessage();
-                axios.get('/comment',config).then((res) => {
-                    let messageList = obj.props.messageList.concat(res.data.data.messageList);
-                    obj.props.handleLoadMoreMessage(messageList);
-                }).catch((res)=>{
-                    obj.props.handleNoMoreMessage();
-                });
-            case LIKES:
-                obj.props.handleLoadingMoreMessage();
-                axios.get('/likes',config).then((res) => {
-                    let messageList = obj.props.messageList.concat(res.data.data.messageList);
-                    obj.props.handleLoadMoreMessage(messageList);
-                }).catch((res)=>{
-                    obj.props.handleNoMoreMessage();
-                });
-            default:
-                obj.props.handleLoadingMoreMessage();
-                axios.get('/mention',config).then((res) => {
-                    let messageList = obj.props.messageList.concat(res.data.data.messageList);
-                    obj.props.handleLoadMoreMessage(messageList);
-                }).catch((res)=>{
-                    obj.props.handleNoMoreMessage();
-                });
-        }
-    }
-    //向服务器获取更多信息
-    getData(obj,index){
-        switch(index){
-            case MENTION:
-                    obj.props.handleLoadingMoreMessage(index);
-                    axios.get('/mention',config).then((res) => {
-                        let messageList = res.data.data.messageList;
-                        obj.props.handleLoadMoreMessage(messageList);
-                    }).catch((res)=>{
-                        obj.props.handleNoMoreMessage();
-
-                    });
-            case COMMENT:
-                obj.props.handleLoadingMoreMessage(index);
-                axios.get('/comment',config).then((res) => {
-                    let messageList = res.data.data.messageList;
-                    obj.props.handleLoadMoreMessage(messageList);
-                }).catch((res)=>{
-                    obj.props.handleNoMoreMessage();
-
-                });
-            case LIKES:
-                obj.props.handleLoadingMoreMessage(index);
-                axios.get('/likes',config).then((res) => {
-                    let messageList = res.data.data.messageList;
-                    obj.props.handleLoadMoreMessage(messageList);
-                }).catch((res)=>{
-                    obj.props.handleNoMoreMessage();
-
-                });
-            default:
-                obj.props.handleLoadingMoreMessage(index);
-                axios.get('/mention',config).then((res) => {
-                    let messageList = res.data.data.messageList;
-                    obj.props.handleLoadMoreMessage(messageList);
-                }).catch((res)=>{
-                    obj.props.handleNoMoreMessage();
-
-                });
-        }
-    }
-
     render(){
-        const loadMore = this.props.showLoadingMore ? (
-            <div style={{ textAlign: 'center', marginTop: 12, height: 32, lineHeight: '32px' }}>
-                {this.props.loadingMore && <Spin />}
-                {!this.props.loadingMore && <Button onClick={()=>{this.getDataButton(this)}}>{words.MESSAGE_LOAD_MORE_BUTTON}</Button>}
-            </div>
-        ) : null;
-        const menu = (
-            <Menu style={{}}>
-                <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" >{words.MESSAGE_RIGHT_MENU[0]}</a>
-                </Menu.Item>
-            </Menu>
-        );
         if(sessionStorage.getItem('uid') !== null)
             return(
                 <MessageUI
                     title={words.MESSAGE_TITLE}
-                    menu = {menu}
-                    isList={true}
-                    loadMore={loadMore}
                     loading={this.props.loading}
                     messageList={this.props.messageList}
-                    siderMenuTitle={words.MESSAGE_SIDER_MENU_TITLE}
-                    siderMenuSubmenu={words.MESSAGE_SIDER_MENU_SUBMENU}
                     messageType={this.props.messageType}
-                    click={(index)=>this.getData(this,index)}
+                    click={(index)=>getData(this,index)}
                 />
             )
         else
@@ -160,19 +102,13 @@ const mapDispatchToProps = (dispatch)=>{
             dispatch(actionCreators.getGetMessageListAction(list));
         },
        handleStoreChange(){
-            this.setState(store.getState(),() => {
-                // Resetting window's offsetTop so as to display react-virtualized demo underfloor.
-                // In real scene, you can using public method of react-virtualized:
-                // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
-                window.dispatchEvent(new Event('resize'));
-            });
-
+            this.setState(store.getState());
         },
-        handleLoadingMoreMessage(type){
-            dispatch(actionCreators.getLoadMoreMessageAction(type));
+        handleLoadingMoreMessage(){
+            dispatch(actionCreators.getLoadMoreMessageAction());
         },
-        handleLoadMoreMessage(list){
-            dispatch(actionCreators.getLoadMoreMessageListAction(list));
+        handleLoadMoreMessage(list,type){
+            dispatch(actionCreators.getLoadMoreMessageListAction(list,type));
         },
         handleNoMoreMessage(){
             dispatch(actionCreators.getNoMoreMessageListAction());
@@ -180,5 +116,5 @@ const mapDispatchToProps = (dispatch)=>{
     }
 }
 
-
+export {getData};
 export default connect(mapStatesToProps,mapDispatchToProps)(Message);
