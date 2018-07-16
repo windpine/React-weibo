@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="bf5f1fcf-8aaf-461e-b179-6c9aacce376b" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/message/Message.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/message/Message.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/message/MessageUI.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/message/MessageUI.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/message/UriConfig.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/message/component/MessageList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/message/component/MessageList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/message/component/MessageListItem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/message/component/MessageListItemUI.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/message/component/MessageListUI.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/message/component/MessageListUI.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/message/component/leftMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/message/component/leftMenu.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/message/component/messageType.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/message/component/styled.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/message/component/styled.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/message/store/actionCreators.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/message/store/actionCreators.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/message/store/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/message/store/reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/profile/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/profile/Profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/profile/components/EditProfileContentUI.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/profile/components/EditProfileContentUI.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/profile/components/FollowListContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/profile/components/FollowListContent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/profile/components/FollowListContentUI.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/profile/components/FollowListContentUI.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/profile/components/FollowerListContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/profile/components/FollowerListContent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/profile/components/FollowerListContentUI.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/profile/components/FollowerListContentUI.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/profile/components/ProfileForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/profile/components/ProfileForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/profile/components/RightContentUI.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/profile/components/RightContentUI.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/profile/components/Vcode.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/profile/components/Vcode.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/profile/store/actionCreators.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/profile/store/actionCreators.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/profile/store/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/profile/store/reducer.js" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/.tmp/" />
+    <ignored path="$PROJECT_DIR$/temp/" />
+    <ignored path="$PROJECT_DIR$/tmp/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="React-weibo" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="Message.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/pages/message/Message.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="22" column="23" lean-forward="true" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
+              <folding>
+                <element signature="e#0#38#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>Mou</find>
+      <find>dataSource.</find>
+      <find>true</find>
+      <find>&quot;true&quot;</find>
+      <find>dataIn</find>
+      <find>dele</find>
+      <find>delete</find>
+      <find>key</find>
+      <find>getFollowList</find>
+      <find>handleD</find>
+      <find>.toJS</find>
+      <find>.toJS()</find>
+      <find>login</find>
+      <find>old</find>
+      <find>checkO</find>
+      <find>handleConfirmBlur</find>
+      <find>checkOl</find>
+      <find>checkOld</find>
+      <find>pass</find>
+      <find>handlePass</find>
+      <find>handles</find>
+      <find>handlesub</find>
+      <find>handle</find>
+      <find>验证码</find>
+      <find>row</find>
+      <find>input</find>
+      <find>handleSub</find>
+      <find>Sex</find>
+      <find>submi</find>
+      <find>axios</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="REMOTE">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="origin/develop-new" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/pages/profile/store/reduceer.js" />
+        <option value="$PROJECT_DIR$/src/pages/profile/components/MyCard.js" />
+        <option value="$PROJECT_DIR$/src/pages/profile/components/MyCardUI.js" />
+        <option value="$PROJECT_DIR$/src/pages/profile/components/leftSiderUI.js" />
+        <option value="$PROJECT_DIR$/src/pages/profile/components/rightContentUI.js" />
+        <option value="$PROJECT_DIR$/src/pages/welcome/store/actionCreators.js" />
+        <option value="$PROJECT_DIR$/src/pages/profile/store/index.js" />
+        <option value="$PROJECT_DIR$/public/api/weiboList.json" />
+        <option value="$PROJECT_DIR$/src/axios/index.js" />
+        <option value="$PROJECT_DIR$/src/pages/profile/ProfileUI.js" />
+        <option value="$PROJECT_DIR$/src/pages/profile/components/LeftSiderUI.js" />
+        <option value="$PROJECT_DIR$/src/pages/profile/loadable.js" />
+        <option value="$PROJECT_DIR$/src/pages/profile/components/ShowModal.js" />
+        <option value="$PROJECT_DIR$/src/pages/profile/components/ModalForm.js" />
+        <option value="$PROJECT_DIR$/src/index.js" />
+        <option value="$PROJECT_DIR$/src/pages/profile/components/ProfileForm 2.js" />
+        <option value="$PROJECT_DIR$/src/store/reducer.js" />
+        <option value="$PROJECT_DIR$/src/pages/profile/components/Vcode.css" />
+        <option value="$PROJECT_DIR$/src/common/header/index.js" />
+        <option value="$PROJECT_DIR$/src/pages/profile/components/ProfileContentUI.js" />
+        <option value="$PROJECT_DIR$/src/pages/profile/components/FollowListContent2.js" />
+        <option value="$PROJECT_DIR$/src/pages/profile/components/FollowerListContentUi.js" />
+        <option value="$PROJECT_DIR$/public/api/followList.json" />
+        <option value="$PROJECT_DIR$/public/api/followerList.json" />
+        <option value="$PROJECT_DIR$/public/api/UserInfo.json" />
+        <option value="$PROJECT_DIR$/src/pages/profile/store/actionTypes.js" />
+        <option value="$PROJECT_DIR$/src/pages/welcome/Welcome.js" />
+        <option value="$PROJECT_DIR$/public/api/userInfo.json" />
+        <option value="$PROJECT_DIR$/src/pages/home/store/actionCreators.js" />
+        <option value="$PROJECT_DIR$/src/pages/profile/components/EditProfileContentUI.js" />
+        <option value="$PROJECT_DIR$/src/pages/profile/components/RightContentUI.js" />
+        <option value="$PROJECT_DIR$/src/pages/profile/store/reducer.js" />
+        <option value="$PROJECT_DIR$/src/pages/profile/components/FollowListContentUI.js" />
+        <option value="$PROJECT_DIR$/src/pages/profile/store/actionCreators.js" />
+        <option value="$PROJECT_DIR$/src/pages/profile/components/FollowListContent.js" />
+        <option value="$PROJECT_DIR$/src/pages/profile/components/FollowerListContent.js" />
+        <option value="$PROJECT_DIR$/src/pages/profile/components/FollowerListContentUI.js" />
+        <option value="$PROJECT_DIR$/src/pages/profile/components/ProfileForm.js" />
+        <option value="$PROJECT_DIR$/src/pages/profile/components/Vcode.js" />
+        <option value="$PROJECT_DIR$/src/pages/profile/Profile.js" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NodeModulesDirectoryManager">
+    <handled-path value="$PROJECT_DIR$/node_modules" />
+  </component>
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths>
+      <path value="$PROJECT_DIR$/package.json" />
+    </packageJsonPaths>
+  </component>
+  <component name="ProjectFrameBounds" fullScreen="true">
+    <option name="width" value="1440" />
+    <option name="height" value="900" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="React-weibo" type="b2602c69:ProjectViewProjectNode" />
+              <item name="React-weibo" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="React-weibo" type="b2602c69:ProjectViewProjectNode" />
+              <item name="React-weibo" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="React-weibo" type="b2602c69:ProjectViewProjectNode" />
+              <item name="React-weibo" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="React-weibo" type="b2602c69:ProjectViewProjectNode" />
+              <item name="React-weibo" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="React-weibo" type="b2602c69:ProjectViewProjectNode" />
+              <item name="React-weibo" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="message" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="React-weibo" type="b2602c69:ProjectViewProjectNode" />
+              <item name="React-weibo" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="profile" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="React-weibo" type="b2602c69:ProjectViewProjectNode" />
+              <item name="React-weibo" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="profile" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="React-weibo" type="b2602c69:ProjectViewProjectNode" />
+              <item name="React-weibo" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="React-weibo" type="b2602c69:ProjectViewProjectNode" />
+              <item name="React-weibo" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="store" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="SearchEverywhereHistoryKey" value="Console&#9;ACTION&#9;IdeScriptingConsole&#10;change_input&#9;null&#9;null" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="nodejs_package_manager_path" value="yarn" />
+    <property name="settings.editor.selected.configurable" value="settings.nodejs" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/pages/profile/store" />
+      <recent name="$PROJECT_DIR$/src/pages/profile/components" />
+      <recent name="$PROJECT_DIR$/src/pages/profile" />
+      <recent name="$PROJECT_DIR$/src/axios" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="bf5f1fcf-8aaf-461e-b179-6c9aacce376b" name="Default" comment="" />
+      <created>1531274748378</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1531274748378</updated>
+      <workItem from="1531274750283" duration="4809000" />
+      <workItem from="1531287193474" duration="11451000" />
+      <workItem from="1531312786261" duration="113942000" />
+      <workItem from="1531642165324" duration="1378000" />
+      <workItem from="1531643732728" duration="25325000" />
+      <workItem from="1531756207690" duration="405000" />
+      <workItem from="1531756744718" duration="1379000" />
+    </task>
+    <task id="LOCAL-00001" summary="1">
+      <created>1531290392662</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1531290392662</updated>
+    </task>
+    <task id="LOCAL-00002" summary="+mofifyForm">
+      <created>1531376017772</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1531376017772</updated>
+    </task>
+    <task id="LOCAL-00003" summary="能够显示ModifyForm">
+      <created>1531384879917</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1531384879917</updated>
+    </task>
+    <task id="LOCAL-00004" summary="编辑个人资料功能完成">
+      <created>1531447813125</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1531447813125</updated>
+    </task>
+    <task id="LOCAL-00005" summary="获取关注列表ing">
+      <created>1531472203781</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1531472203781</updated>
+    </task>
+    <task id="LOCAL-00006" summary="个人主页功能基本完成">
+      <created>1531578486025</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1531578486025</updated>
+    </task>
+    <task id="LOCAL-00007" summary="个人主页功能基本完成">
+      <created>1531614436997</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1531614436997</updated>
+    </task>
+    <task id="LOCAL-00008" summary="个人主页与后端连接:profileForm">
+      <created>1531641570949</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1531641570949</updated>
+    </task>
+    <task id="LOCAL-00009" summary="个人信息修改+后台连接完成；关注&amp;粉丝ing">
+      <created>1531711641547</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1531711641547</updated>
+    </task>
+    <task id="LOCAL-00010" summary="1">
+      <created>1531712366173</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1531712366173</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="158689000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4981685" visible="true" weight="0.20577872" />
+      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49964765" weight="0.31151515" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.47357294" side_tool="true" visible="true" weight="0.33818182" />
+      <window_info anchor="bottom" id="Version Control" order="10" sideWeight="0.49753347" weight="0.46666667" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info id="Structure" order="1" sideWeight="0.50183153" side_tool="true" weight="0.36011276" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.5264271" visible="true" weight="0.33818182" />
+      <window_info id="Favorites" order="3" sideWeight="0.50183153" side_tool="true" weight="0.36011276" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="TypeScript" order="8" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info id="npm" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49964765" weight="0.32969698" />
+    </layout>
+    <layout-to-restore>
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info id="npm" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20648344" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49964765" weight="0.31151515" />
+      <window_info anchor="bottom" id="TypeScript" order="8" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49964765" weight="0.32969698" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.4989429" visible="true" weight="0.33818182" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5010571" side_tool="true" visible="true" weight="0.33818182" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Version Control" order="10" sideWeight="0.49964765" weight="0.32848486" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info id="Favorites" order="3" side_tool="true" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="+mofifyForm" />
+    <MESSAGE value="能够显示ModifyForm" />
+    <MESSAGE value="编辑个人资料功能完成" />
+    <MESSAGE value="获取关注列表ing" />
+    <MESSAGE value="个人主页功能基本完成" />
+    <MESSAGE value="个人主页与后端连接:profileForm" />
+    <MESSAGE value="个人信息修改+后台连接完成；关注&amp;粉丝ing" />
+    <MESSAGE value="1" />
+    <option name="LAST_COMMIT_MESSAGE" value="1" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="6" />
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/axios/index.js" />
+    <entry file="file://$PROJECT_DIR$/src/axios/tools.js" />
+    <entry file="file://$PROJECT_DIR$/src/common/header/index.js" />
+    <entry file="file://$PROJECT_DIR$/src/common/header/store/reducer.js" />
+    <entry file="file://$PROJECT_DIR$/src/common/header/store/index.js" />
+    <entry file="file://$PROJECT_DIR$/src/common/header/store/actionTypes.js" />
+    <entry file="file://$PROJECT_DIR$/public/api/userInfo.json" />
+    <entry file="file://$PROJECT_DIR$/src/common/header/store/actionCreators.js" />
+    <entry file="file://$PROJECT_DIR$/src/index.js" />
+    <entry file="file://$PROJECT_DIR$/src/pages/register/components/RegisterForm.js" />
+    <entry file="file://$PROJECT_DIR$/src/pages/register/components/RegisterFormUI.js" />
+    <entry file="file://$PROJECT_DIR$/src/pages/home/components/TweetBox.js" />
+    <entry file="file://$PROJECT_DIR$/src/pages/home/components/CommentBoxUI.js" />
+    <entry file="file://$PROJECT_DIR$/src/pages/message/store/actionCreators.js" />
+    <entry file="file://$PROJECT_DIR$/src/pages/message/store/reducer.js" />
+    <entry file="file://$PROJECT_DIR$/src/pages/message/MessageUI.js" />
+    <entry file="file://$PROJECT_DIR$/src/pages/message/loadable.js" />
+    <entry file="file://$PROJECT_DIR$/src/pages/message/component/InputMessageDialog.js" />
+    <entry file="file://$PROJECT_DIR$/src/pages/message/component/MessageListUI.js" />
+    <entry file="file://$PROJECT_DIR$/src/pages/message/component/MessageList.js" />
+    <entry file="file://$PROJECT_DIR$/src/pages/home/store/actionCreators.js" />
+    <entry file="file://$PROJECT_DIR$/src/pages/profile/store/actionTypes.js" />
+    <entry file="file://$PROJECT_DIR$/public/api/followerList.json" />
+    <entry file="file://$PROJECT_DIR$/src/pages/profile/components/RightContentUI.js" />
+    <entry file="file://$PROJECT_DIR$/src/pages/profile/components/EditProfileContentUI.js" />
+    <entry file="file://$PROJECT_DIR$/src/pages/register/store/index.js" />
+    <entry file="file://$PROJECT_DIR$/src/pages/register/store/actionTypes.js" />
+    <entry file="file://$PROJECT_DIR$/src/pages/register/store/reducer.js" />
+    <entry file="file://$PROJECT_DIR$/src/pages/register/Register.js" />
+    <entry file="file://$PROJECT_DIR$/src/pages/register/components/Upload.js" />
+    <entry file="file://$PROJECT_DIR$/src/pages/register/RegisterUI.js" />
+    <entry file="file://$PROJECT_DIR$/src/pages/register/store/actionCreators.js" />
+    <entry file="file://$PROJECT_DIR$/src/pages/profile/store/index.js" />
+    <entry file="file://$PROJECT_DIR$/public/api/followList.json" />
+    <entry file="file://$PROJECT_DIR$/node_modules/antd/lib/popconfirm/index.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="212">
+          <caret line="18" column="21" selection-start-line="18" selection-start-column="21" selection-end-line="18" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/profile/components/FollowerListContentUI.js" />
+    <entry file="file://$PROJECT_DIR$/src/pages/profile/components/FollowerListContent.js" />
+    <entry file="file://$PROJECT_DIR$/src/pages/profile/store/reducer.js" />
+    <entry file="file://$PROJECT_DIR$/src/pages/welcome/store/actionCreators.js" />
+    <entry file="file://$PROJECT_DIR$/src/pages/profile/store/actionCreators.js" />
+    <entry file="file://$PROJECT_DIR$/src/pages/welcome/Welcome.js" />
+    <entry file="file://$PROJECT_DIR$/src/pages/welcome/WelcomeUI.js" />
+    <entry file="file://$PROJECT_DIR$/src/pages/welcome/components/LoginForm.js" />
+    <entry file="file://$PROJECT_DIR$/src/pages/welcome/components/LoginFormUI.js" />
+    <entry file="file://$PROJECT_DIR$/src/pages/profile/components/Vcode.js" />
+    <entry file="file://$PROJECT_DIR$/src/pages/profile/ProfileUI.js" />
+    <entry file="file://$PROJECT_DIR$/src/pages/profile/components/ProfileForm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="383">
+          <caret line="472" column="58" selection-start-line="472" selection-start-column="58" selection-end-line="472" selection-end-column="58" />
+          <folding>
+            <element signature="e#46#87#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/profile/components/FollowListContent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="157">
+          <caret line="102" column="13" selection-start-line="102" selection-start-column="8" selection-end-line="102" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/profile/components/FollowListContentUI.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/profile/Profile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="22" column="35" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/message/Message.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="23" lean-forward="true" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

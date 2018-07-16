@@ -9,11 +9,10 @@ export const getChangeToInputMessage=()=>(
         type:actionTypes.CHANGE_TO_INPUT_MESSAGE,
     }
 )
-export const getLoadMoreMessageListAction=(messageList,messageType)=>(
+export const getLoadMoreMessageListAction=(messageList)=>(
     {
         type:actionTypes.LOAD_MORE_MESSAGE_LIST,
-        messageList,
-        messageType
+        messageList
     }
 )
 export const getSendMessage =(message)=>(
@@ -22,9 +21,10 @@ export const getSendMessage =(message)=>(
         message
     }
 )
-export const getLoadMoreMessageAction = ()=>(
+export const getLoadMoreMessageAction = (messageType)=>(
     {
         type:actionTypes.LOAD_MORE_MESSAGE,
+        messageType
     }
 )
 export const getNoMoreMessageListAction = () =>(

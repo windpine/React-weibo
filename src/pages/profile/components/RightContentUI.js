@@ -16,8 +16,6 @@ import FollowerListContentUI from "./FollowerListContentUI";
 const {Content} = Layout;
 const TabPane = Tabs.TabPane;
 
-//todo:rightContent需要滑动条
-
 class RightContentUI extends Component{
     constructor( props ) {
         super(props);
@@ -65,8 +63,8 @@ class RightContentUI extends Component{
                         style={{ height: '900px' }}
                     >
                         <TabPane tab="基本信息" key="1" disabled key="1"></TabPane>
-                        <TabPane tab="关注" key="2"><FollowListContentUI></FollowListContentUI></TabPane>
-                        <TabPane tab="粉丝" key="3"><FollowerListContentUI></FollowerListContentUI></TabPane>
+                        <TabPane tab="关注" key="2"><FollowListContentUI/></TabPane>
+                        <TabPane tab="粉丝" key="3"><FollowerListContentUI/></TabPane>
                         <TabPane tab="微博" key="4">微博</TabPane>
                         <TabPane tab="编辑个人资料" key="5"><EditProfileContentUI/></TabPane>
                     </Tabs>
@@ -92,7 +90,6 @@ const mapDispatchToProps=(dispatch)=>{
     return{
         handleModifyClick(nickname,username,sex,email){
             console.log("form_data:",nickname,username,sex,email);
-            //todo:this.nickname 在哪儿声明的
             dispatch(actionCreators.saveProfileDataAction(nickname,username,sex,email))
 
         },

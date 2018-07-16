@@ -59,7 +59,6 @@ class VCode extends Component {
     //检验验证码是否正确
     handleVcodeBlur=(e)=>{
         const value = e.target.value;
-        //todo：将字符拼接为字符串
         var vcode=this.state.data.map((v)=>String.fromCharCode(v > 57 && v < 84 ? v + 7 : ( v < 57 ? v : v + 13 )));
         var vcode2=`${vcode[0]}${vcode[1]}${vcode[2]}${vcode[3]}`;//提取字符串列表中的纯字符并拼接为串
         const newvcode=vcode2.toLowerCase();
@@ -69,7 +68,6 @@ class VCode extends Component {
         if (value && value !== newvcode) {
             alert("验证码输入不正确！");
         }
-        //todo:logicbug
         else if(value==''){
             alert("请输入验证码！");
 

@@ -19,15 +19,14 @@ export default (state=defaultState,action)=>{
         case actionTypes.LOAD_MORE_MESSAGE:
             //请求获取更多message
             return state.merge({
-                showLoadingMore:true,
                 loadingMore:true,
+                messageType:action.messageType
             })
         case actionTypes.LOAD_MORE_MESSAGE_LIST:
             //请求成功
             return state.merge({
                 messageList:action.messageList,
-                loadingMore:false,
-                messageType:action.messageType
+                loadingMore:false
             })
         case actionTypes.NO_MORE_MESSAGE:
             //无返回数据

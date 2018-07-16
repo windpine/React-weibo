@@ -1,44 +1,75 @@
 import * as actionTypes from './actionTypes'
 import {fromJS} from 'immutable';
+
 import axios from 'axios';
+
 
 
 var config = {
     baseURL: 'http://localhost:8080'
 };
 
-export const saveProfileDataAction=(nickname,username,sex,email,password)=>({
+export const saveProfileDataAction=(uid,nickname,username,tweets,follows,followers,avatarUrl,sex,password,email)=>({
     type:actionTypes.SAVE_FORM_DATA,
     value:{
-        //uid,
-        nickname,
-        username,
-        sex,
-        email,
-        password,
+        uid:uid,
+        nickname:nickname,
+        username:username,
+        tweets:tweets,
+        follows:follows,
+        followers:followers,
+        avatarUrl:avatarUrl,
+        sex:sex,
+        password:password,
+        email:email,
     },
 })
 
-// export const saveProfileRequest=(values)=>{
-//     return(dispatch)=>{
-//         const uid=values.get('uid');
-//         //todo:post地址以及res.data
-//         axios.post('`http://localhost:8080/users/${uid}`',values,config)
-//             .then(res=>{
-//                 console.log(res.data)
-//                 dispatch(saveProfileDataAction(res.data.data))
-//             });
-//     }
-// }
+export const saveProfileRequest=(uid,nickname,username,tweets,follows,followers,avatarUrl,sex,password,email)=>{
+    return(dispatch)=>{
+        const values={
+            uid:uid,
+            nickname:nickname,
+            username:username,
+            tweets:tweets,
+            follows:follows,
+            followers:followers,
+            avatarUrl:avatarUrl,
+            sex:sex,
+            password:password,
+            email:email,
+        }
+        const myuid=sessionStorage.getItem('uid');
+        axios.put("/users"+"/"+myuid,values,config)
+            .then(res=>{
+                //const userInfo=res.data;
+                //console.log("toUpdatePut:",userInfo);
+
+                dispatch(saveProfileDataAction(uid,nickname,username,
+                    tweets,follows,followers,avatarUrl,sex,password,
+                    email));
+            });
+    }
+}
+
+export const saveFollowListRequest=(result,deleteId)=>{
+    return(dispatch)=>{
+        const myuid=sessionStorage.getItem('uid');
+        axios.delete("/users"+"/"+myuid+"/"+deleteId,config)
+            .then(res=>{
+                dispatch(changeFollowListAction(result));
+            });
+    }
+}
 
 export const changeFollowListAction=(result)=>({
     type:actionTypes.CHANGE_FOLLOWLIST,
-    follows:fromJS(result),
+    follows:result,
 })
 
 export const changeFollowerListAction=(result)=>({
     type:actionTypes.CHANGE_FOLLOWERLIST,
-    followers:fromJS(result),
+    followers:result,
 })
 
 export const savePasswordAction=(password)=>({

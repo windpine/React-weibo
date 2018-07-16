@@ -22,6 +22,7 @@ export const MySpan = styled('span')`
 `
 export const RightButton = styled(Button)`
     border:none;
+    margin-right:50px;
 `
 export const MyIcon = styled(Icon)`
      fontSize:20;
