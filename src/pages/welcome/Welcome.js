@@ -1,7 +1,6 @@
 import React,{Component} from 'react';
 import WelcomeUI from "./WelcomeUI";
 import {withRouter,Redirect} from 'react-router-dom';
-import store from '../../store';
 import {connect} from 'react-redux';
 
 

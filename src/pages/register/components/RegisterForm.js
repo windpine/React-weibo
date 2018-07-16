@@ -31,7 +31,8 @@ class NormalRegisterForm extends Component{
 
 const mapStatesToProps = (state)=>{
     return {
-        autoCompleteResult:state.getIn(['register','autoCompleteResult'])
+        autoCompleteResult:state.getIn(['register','autoCompleteResult']),
+        avatarUrl:state.getIn(['register','register','avatarUrl'])
     }
 }
 const mapDispatchToProps = (dispatch)=>{
@@ -40,6 +41,7 @@ const mapDispatchToProps = (dispatch)=>{
             e.preventDefault();
             this.props.form.validateFieldsAndScroll((err, values) => {
                 if (!err) {
+                    values.avatarUrl=this.props.avatarUrl;
                     console.log('Received values of form: ', values);
                     dispatch(actionCreators.registerRequest(values))
                     this.props.history.push('/welcome');
