@@ -26,30 +26,9 @@ export const getInputChangeAction=(input,inputType)=>{
     }
 }
 
-//用来处理法微博输入框的@和#的3个
-export const setMentionList=(list)=>({
-    type:actionTypes.SET_MENTION_LIST,
-    list:fromJS(list)
-})
-
-export const getMentionUsers=()=>{
-    return(dispatch)=>{
-        axios.get('/api/MentionUsers.json').then((res)=>{
-            const result=res.data.data;
-            console.log('actionCreater:'+result);
-            dispatch(setMentionList(result))
-        });
-    }
-}
-export const getMentionTopics=()=>{
-    return(dispatch)=>{
-        axios.get('/api/MentionTopics.json').then((res)=>{
-            const result=res.data.data;
-            dispatch(setMentionList(result))
-        });
-    }
-}
-//创建发送微博、转发、评论的action
+/*
+创建发送微博、转发、评论的action，post到服务器
+ */
 export  const sendTweetAction=(value)=>{
     return (dispatch)=>{
         const data={
@@ -101,7 +80,7 @@ export const getCommentList=(tid)=>{
         axios.get("/comments"+"/"+tid,config).then((res)=> {
             const result = res.data.data.commentList;
             console.log(result);
-            const action = changeTweetList(result);
+            const action = changeCommentList(result);
             dispatch(action)
         })
     }
@@ -121,4 +100,11 @@ export const changeRepostList=(list)=>({
 export const changeCommentList=(list)=>({
     type:actionTypes.CHANGE_COMMENT_LIST,
     commentList:fromJS(list)
+})
+/*
+创建将提到的用户放Store里面的action
+ */
+export const getUserMentionAction=(data)=>({
+    type:actionTypes.ADD_USER_MENTION_LIST,
+    data:data
 })

@@ -248,7 +248,7 @@ class ModalForm extends Component {
                     email=this.state.email;
                 }
 //todo:add uid
-                this.props.handleModifyClick(uid,nickname,username,sex,email);
+                this.props.handleModifyClick(nickname,username,sex,email);
                 alert("修改成功！");
             }
         });

@@ -1,4 +1,4 @@
-import { List, Avatar, Button, Spin ,Row,Icon} from 'antd';
+import { List, Avatar, Spin ,Icon} from 'antd';
 import React,{Component} from 'react'
 import {connect} from 'react-redux';
 import 'antd/dist/antd.css';
@@ -39,7 +39,7 @@ class RepostList extends Component {
             callback(res);
         })
     }
-    //
+
     // onLoadMore = () => {
     //     this.setState({
     //         loadingMore: true,

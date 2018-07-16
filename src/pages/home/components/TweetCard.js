@@ -54,8 +54,6 @@ class TweetCard extends Component{
     }
     render(){
         const {tweetInfo}=this.props
-        console.log("没有进循环吗")
-        console.log(tweetInfo)
         return(
             <div style={{marginTop:20, marginRight:20 ,marginLeft:20}}>
                 <Card hoverable style={{marginTop:20}}

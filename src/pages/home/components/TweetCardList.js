@@ -1,7 +1,6 @@
 import React,{Component} from 'react'
 import {connect} from 'react-redux';
 import 'antd/dist/antd.css';
-import {actionCreators} from "../store";
 import TweetCard from './TweetCard'
 
 
@@ -12,7 +11,6 @@ class TweetCardList extends Component{
 
     render(){
         const {tweetList}=this.props
-        console.log("tweetList"+tweetList)
         return(
             <div>
                 {

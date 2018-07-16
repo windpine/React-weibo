@@ -5,16 +5,19 @@ import 'antd/dist/antd.css';
 import {actionCreators} from "../store";
 import InputBoxUI from "./InputBoxUI";
 import store from "../../../store";
+import {setMentionList} from "../store/actionCreators";
+import axios from "axios/index";
 
+const Nav = Mention.Nav
 const REPOST="repost";
 const COMMENT="comment"
 const TWEET="tweet"
 
-const { toString,toContentState} = Mention;
+var config = {
+    baseURL: 'http://localhost:8080'
+};
 
-function onSelect(suggestion) {
-    console.log('onSelect', suggestion);
-}
+const { toString,toContentState,getMentions} = Mention;
 
 class InputBox extends Component{
     constructor(props) {
@@ -28,14 +31,66 @@ class InputBox extends Component{
     }
 
     state={
-        inputValue:toContentState(this.props.value)
+        inputValue:toContentState(this.props.value),
+        suggestions:[]
     }
 
     onSearchChange = (value, trigger) => {
         //console.log('onSearchChange', value, trigger);
-        return trigger === '@' ? this.props.handleMentionUsers() : this.props.handleMentionTopics();
-
+        // return trigger === '@' ? this.props.handleMentionUsers() : this.props.handleMentionTopics();
+        if (trigger==="@"){
+            this.getUserSuggestions((result)=>{
+                const suggestions=result.map(suggestion=>(
+                    <Nav
+                        value={suggestion.nickname}
+                        data={suggestion}
+                    >
+                        {suggestion.nickname}
+                    </Nav>
+                ))
+                this.setState({
+                    suggestions:suggestions
+                })
+            })
+        }else if(trigger==="#"){
+            this.getTopicSuggestions((result)=>{
+                const suggestions=result.map(suggestion=>(
+                    <Nav
+                        value={suggestion.title}
+                        data={suggestion}
+                    >
+                        {suggestion.title}
+                    </Nav>
+                ))
+                this.setState({
+                    suggestions:suggestions
+                })
+            })
+        }
     }
+/*
+定义两个回调函数来取到需要的建议内容
+ */
+    getUserSuggestions=(callback)=>{
+        axios.get('/users',config).then((res)=>{
+            const result=res.data.data.userList;
+            callback(result)
+        });
+    }
+    getTopicSuggestions=(callback)=>{
+        axios.get('/api/MentionTopics.json').then((res)=>{
+            const result=res.data.data.topicList;
+            callback(result)
+        });
+    }
+
+    onSelect=(suggestion,data)=>{
+        console.log('onSelect',data);
+        if(data.uid){
+            this.props.handleUserMention(data)
+        }
+    }
+
     onChange=(editorState)=>{
         this.props.handleInputBoxChange(toString(editorState),this.props.inputType)
         this.setState({
@@ -56,8 +111,8 @@ class InputBox extends Component{
                 placeholder="input @ to mention people, # to mention tag"
                 prefix={['@', '#']}
                 onSearchChange={this.onSearchChange}
-                suggestions={this.props.mention.toArray()}
-                onSelect={onSelect}
+                suggestions={this.state.suggestions}
+                onSelect={this.onSelect}
                 onChange={this.onChange}
                 value={this.state.inputValue}/>
             </div>
@@ -66,25 +121,16 @@ class InputBox extends Component{
     }
 }
 
-const mapStatesToProps = (state)=>{
-    return {
-        mention:state.getIn(['home','mention'])
-    }
-}
-
 const mapDispatchToProps=(dispatch)=>{
     return{
         handleInputBoxChange(input,inputType){
+            console.log("handleInputBoxChange")
             const action=actionCreators.getInputChangeAction(input,inputType);
             dispatch(action)
         },
-        handleMentionUsers(){
-            console.log("handleMentionUsers")
-            dispatch(actionCreators.getMentionUsers())
-        },
-        handleMentionTopics(){
-            console.log("handleMentionTopics")
-            dispatch(actionCreators.getMentionTopics())
+        handleUserMention(data){
+            console.log("handleUserMention")
+            dispatch(actionCreators.getUserMentionAction(data))
         },
         handleStoreChange(){
             this.setState(store.getState());
@@ -94,4 +140,4 @@ const mapDispatchToProps=(dispatch)=>{
 }
 
 
-export default connect(mapStatesToProps,mapDispatchToProps)(InputBox);
+export default connect(null,mapDispatchToProps)(InputBox);
