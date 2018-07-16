@@ -1,6 +1,5 @@
 import * as actionTypes from './actionTypes'
 import axios from 'axios';
-import {saveSuccessInfo} from "../../welcome/store/actionCreators";
 
 var config = {
     baseURL: 'http://localhost:8080'

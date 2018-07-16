@@ -17,13 +17,3 @@ export function ContentSplit(content){
     })
     return format
 }
-
-export  function showContent(format) {
-
-    format.map((item)=>{
-        if(item.type===user){
-
-        }
-    })
-
-}

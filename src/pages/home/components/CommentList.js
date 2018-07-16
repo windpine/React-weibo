@@ -16,7 +16,6 @@ var config = {
 class CommentList extends Component {
     constructor(props){
         super(props);
-        store.subscribe(this.props.handleStoreChange.bind(this))
     }
     state = {
         loading: true,
@@ -103,9 +102,6 @@ const mapDispatchToProps=(dispatch)=>{
         handleGetComment(result){
             const action=actionCreators.changeCommentList(result);
             dispatch(action)
-        },
-        handleStoreChange(){
-            this.setState(store.getState());
         }
     }
 }

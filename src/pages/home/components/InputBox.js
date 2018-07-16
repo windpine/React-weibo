@@ -22,8 +22,6 @@ const { toString,toContentState,getMentions} = Mention;
 class InputBox extends Component{
     constructor(props) {
         super(props);
-        store.subscribe(this.props.handleStoreChange.bind(this))
-        //console.log("props:  "+props.value)
     }
 
     componentDidMount(){
@@ -52,14 +50,15 @@ class InputBox extends Component{
                     suggestions:suggestions
                 })
             })
-        }else if(trigger==="#"){
+        }
+        else if(trigger==="#"){
             this.getTopicSuggestions((result)=>{
                 const suggestions=result.map(suggestion=>(
                     <Nav
                         value={suggestion.title}
                         data={suggestion}
                     >
-                        {suggestion.title}
+                        {suggestion.title}-{suggestion.description}
                     </Nav>
                 ))
                 this.setState({
@@ -78,7 +77,7 @@ class InputBox extends Component{
         });
     }
     getTopicSuggestions=(callback)=>{
-        axios.get('/api/MentionTopics.json').then((res)=>{
+        axios.get('/topics',config).then((res)=>{
             const result=res.data.data.topicList;
             callback(result)
         });
@@ -124,16 +123,11 @@ class InputBox extends Component{
 const mapDispatchToProps=(dispatch)=>{
     return{
         handleInputBoxChange(input,inputType){
-            console.log("handleInputBoxChange")
             const action=actionCreators.getInputChangeAction(input,inputType);
             dispatch(action)
         },
         handleUserMention(data){
-            console.log("handleUserMention")
             dispatch(actionCreators.getUserMentionAction(data))
-        },
-        handleStoreChange(){
-            this.setState(store.getState());
         }
 
     }

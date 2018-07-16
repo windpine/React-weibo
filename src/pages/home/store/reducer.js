@@ -40,7 +40,7 @@ export default (state=defaultState,action)=>{
         }
     }
     /*
-    发送微博，转发和评论
+    发送微博，转发和评论过后清空输入框
      */
     if(action.type===actionTypes.SEND_TWEET){
         return state.set('tweetInput',"").set('tweetButton',true)
@@ -67,7 +67,7 @@ export default (state=defaultState,action)=>{
     if(action.type===actionTypes.ADD_USER_MENTION_LIST){
         const list=[]
         list.push(action.data)
-        return state.merge({userMentionList:list})
+        return state.set('userMentionList',state.get('userMentionList').concat(fromJS(list)))
     }
     return state;
 }

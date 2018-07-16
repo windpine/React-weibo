@@ -4,6 +4,7 @@ import 'antd/dist/antd.css';
 import { Card,Row,Col,Avatar,Icon,Divider} from 'antd';
 import RepostBox from './RepostBox'
 import CommentBox from './CommentBox'
+import TweetContent from './TweetContent'
 const {Meta}=Card
 class TweetCard extends Component{
     constructor(props){
@@ -48,7 +49,7 @@ class TweetCard extends Component{
         }
         if(this.state.RepostOrComment===2){
             return(
-                <CommentBox tid={this.props.tweetInfo.get('tid')}></CommentBox>
+                <CommentBox tid={this.props.tweetInfo.get('tid')} uid={this.props.tweetInfo.get('uid')}></CommentBox>
             )
         }
     }
@@ -71,9 +72,7 @@ class TweetCard extends Component{
                         <Col span={2}></Col>
                         <Col span={22}>
                             <Row>
-                                <p>
-                                {tweetInfo.get('content')}
-                                </p>
+                                <TweetContent content={tweetInfo.get('content')}/>
                             </Row>
                             {/*<Row>*/}
                                 {/*<Divider/>*/}
