@@ -14,6 +14,7 @@ import ProfileUI from "./pages/profile/ProfileUI";
 
 import Register from "./pages/register/loadable";
 
+
 const Index = (
     <Provider store={store}>
         <div>
