@@ -12,7 +12,7 @@ const confirm = Modal.confirm;
 class MessageListItem extends React.Component{
     constructor(props){
         super(props);
-        store.subscribe(this.props.handleStoreChange.bind(this));
+        //store.subscribe(this.props.handleStoreChange.bind(this));
     }
     deleteAction(messageID,obj){
         console.log(messageID);

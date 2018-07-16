@@ -60,7 +60,7 @@ function getData(obj,index){
 class Message extends Component{
     constructor(props){
         super(props);
-        store.subscribe(this.props.handleStoreChange.bind(this));
+        //store.subscribe(this.props.handleStoreChange.bind(this));
     }
     render(){
         if(sessionStorage.getItem('uid') !== null)
@@ -77,12 +77,14 @@ class Message extends Component{
             return <Redirect to='/welcome'/>;
     }
     componentDidMount(){
+        this.props.handleLoadingMoreMessage();
         axios.get('/mention',config).then((res) => {
-            let messageList=res.data.data.messageList;
-            this.props.handleGetMessageList(messageList);
+            let messageList = res.data.data.messageList;
+            this.props.handleLoadMoreMessage(messageList,index);
         }).catch((res)=>{
-            console.log(res);
-        })
+            this.props.handleNoMoreMessage();
+
+        });
     }
 }
 

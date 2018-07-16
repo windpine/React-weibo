@@ -51,7 +51,7 @@ function getDataButton(obj){
 class MessageList extends React.Component{
     constructor(props){
         super(props);
-        store.subscribe(this.props.handleStoreChange.bind(this))
+      //  store.subscribe(this.props.handleStoreChange.bind(this))
     }
     render(){
         const loadMore = this.props.showLoadingMore ? (
