@@ -2,7 +2,10 @@ import React from 'react';
 import 'antd/dist/antd.css';
 import './upload.css';
 import axios from 'axios'
-import { Upload, Icon, message } from 'antd';
+import { Upload, Icon, message ,Modal} from 'antd';
+import {connect} from 'react-redux';
+import * as actionCreators from '../store/actionCreators'
+import store from '../../../store';
 
 const baseURL='https://weibo-1252079771.cos.ap-beijing.myqcloud.com/';
 
@@ -25,78 +28,113 @@ function beforeUpload(file) {
 }
 
 
-const uploadProps = {
-    action: baseURL,
-    multiple: false,
-    onStart(file) {
-        console.log('onStart', file, file.name);
-    },
-    onSuccess(ret, file) {
-        console.log('onSuccess', ret, file.name);
-        this.setState('imageUrl',baseURL+file.name)
-    },
-    onError(err) {
-        console.log('onError', err);
-    },
-    onProgress({ percent }, file) {
-        console.log('onProgress', `${percent}%`, file.name);
-    },
-    customRequest({
-                      action,
-                      data,
-                      file,
-                      filename,
-                      headers,
-                      onError,
-                      onProgress,
-                      onSuccess,
-                  }) {
-        axios
-            .put(action+file.name, file, {
-                headers,
-                onUploadProgress: ({ total, loaded }) => {
-                    onProgress({ percent: Math.round(loaded / total * 100).toFixed(2) }, file);
-                },
-            })
-            .then(({ data: response }) => {
-                onSuccess(response, file);
-            })
-            .catch(onError);
-
-        return {
-            abort() {
-                console.log('upload progress is aborted.');
-            },
-        };
-    },
-};
 
 class Avatar extends React.Component {
-    state = {
-        loading: false,
-        imageUrl: ''
-    };
 
+    constructor(props){
+        super(props)
+        store.subscribe(this.props.handleStoreChange.bind(this))
+    }
+
+
+    uploadProps = {
+        action: baseURL,
+        multiple: false,
+        onStart(file) {
+            console.log('onStart', file, file.name);
+        },
+        onError(err) {
+            console.log('onError', err);
+        },
+        onProgress({ percent }, file) {
+            console.log('onProgress', `${percent}%`, file.name);
+        },
+        customRequest({
+                          action,
+                          data,
+                          file,
+                          filename,
+                          headers,
+                          onError,
+                          onProgress,
+                          onSuccess,
+                      }) {
+            axios
+                .put(action+file.name, file, {
+                    headers,
+                    onUploadProgress: ({ total, loaded }) => {
+                        onProgress({ percent: Math.round(loaded / total * 100).toFixed(2) }, file);
+                    },
+                })
+                .then(({ data: response }) => {
+                    onSuccess(response, file);
+                })
+                .catch(onError);
+
+            return {
+                abort() {
+                    console.log('upload progress is aborted.');
+                },
+            };
+        },
+    };
     render() {
+        const uploadProps = this.uploadProps;
+        const {handleChange,handlePreview,handleCancel,previewVisible,file}= this.props;
         const uploadButton = (
             <div>
-                <Icon type={this.state.loading ? 'loading' : 'plus'} />
+                <Icon type="plus" />
                 <div className="ant-upload-text">Upload</div>
             </div>
         );
-        const imageUrl = this.state.imageUrl;
         return (
-            <Upload
-                {...uploadProps}
-                accept="image/*"
-                listType="picture-card"
-                className="avatar-uploader"
-                showUploadList={false}
-                beforeUpload={beforeUpload}
-            >
-                {imageUrl ? <img src={imageUrl} alt="avatar" /> : uploadButton}
-            </Upload>
+            <div className="clearfix">
+                <Upload
+                    {...uploadProps}
+                    onSuccess={(ret,file)=>{
+                        handleChange(file);
+                        console.log('onSuccess', ret, file.name);
+                    }}
+                    onPreview={handlePreview}
+                    listType="picture-card"
+                    beforeUpload={beforeUpload}
+                >
+
+                    {file ? <img src={file.get('url')} alt="avatar" style={{ height:"10%" }} /> : uploadButton}
+                </Upload>
+
+            </div>
         );
     }
 }
-export default Avatar;
+
+const mapStateToProps=(state)=>{
+    return {
+        previewVisible:state.getIn(['register','previewVisible']),
+        previewImage:state.getIn(['register','previewImage']),
+        file:state.getIn(['register','file'])
+    }
+}
+
+
+const mapDispatchToProps = (dispatch)=>{
+    return {
+        handleCancel() {
+            console.log('删除预览')
+            dispatch(actionCreators.handlePreviewCancle())
+        },
+        handlePreview(){
+            console.log('处理预览');
+            dispatch(actionCreators.handlePreview())
+        },
+        handleChange(file){
+            console.log(file)
+            console.log("文件有变化了")
+            dispatch(actionCreators.handleFileChange(file))
+        },
+        handleStoreChange(){
+            this.setState(store.getState());
+        }
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Avatar);

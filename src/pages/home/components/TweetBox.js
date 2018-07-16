@@ -9,7 +9,6 @@ import store from "../../../store";
 class TweetBox extends Component{
     constructor(props){
         super(props);
-        store.subscribe(this.props.handleStoreChange.bind(this))
     }
     onClick=()=>{
         this.props.handleSendTweet(this.props.value)
@@ -19,7 +18,6 @@ class TweetBox extends Component{
         this.child = ref
     }
     render(){
-        console.log('value'+this.props.value)
         return(
             <TweetBoxUI onRef={this.onRef} onClick={this.onClick} buttonDisabled={this.props.buttonDisabled} value={this.props.value}/>
             )
@@ -37,9 +35,6 @@ const mapDispatchToProps=(dispatch)=>{
         handleSendTweet(value){
             console.log("handleSendTweet");
             dispatch(actionCreators.sendTweetAction(value))
-        },
-        handleStoreChange(){
-            this.setState(store.getState());
         }
     }
 }

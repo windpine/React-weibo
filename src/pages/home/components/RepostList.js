@@ -1,4 +1,4 @@
-import { List, Avatar, Button, Spin ,Row,Icon} from 'antd';
+import { List, Avatar, Spin ,Icon} from 'antd';
 import React,{Component} from 'react'
 import {connect} from 'react-redux';
 import 'antd/dist/antd.css';
@@ -13,7 +13,6 @@ import store from "../../../store";
 class RepostList extends Component {
     constructor(props){
         super(props);
-        store.subscribe(this.props.handleStoreChange.bind(this))
     }
     state = {
         loading: true,
@@ -39,7 +38,7 @@ class RepostList extends Component {
             callback(res);
         })
     }
-    //
+
     // onLoadMore = () => {
     //     this.setState({
     //         loadingMore: true,
@@ -98,12 +97,9 @@ const mapStateToProps=(state)=>{
 }
 const mapDispatchToProps=(dispatch)=>{
     return{
-        handleGetComment(result){
-            const action=actionCreators.changeRepostList(result);
+        handleGetComment(result) {
+            const action = actionCreators.changeRepostList(result);
             dispatch(action)
-        },
-        handleStoreChange(){
-            this.setState(store.getState());
         }
     }
 }

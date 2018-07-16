@@ -2,6 +2,9 @@ import * as actionTypes from './actionTypes';
 import {fromJS} from 'immutable';
 import axios from 'axios';
 import {actionCreators} from "./index";
+import {ContentSplit} from "../Util";
+import store from "../../../store";
+
 
 var config = {
     baseURL: 'http://localhost:8080'
@@ -26,49 +29,66 @@ export const getInputChangeAction=(input,inputType)=>{
     }
 }
 
-//用来处理法微博输入框的@和#的3个
-export const setMentionList=(list)=>({
-    type:actionTypes.SET_MENTION_LIST,
-    list:fromJS(list)
-})
-
-export const getMentionUsers=()=>{
-    return(dispatch)=>{
-        axios.get('/api/MentionUsers.json').then((res)=>{
-            const result=res.data.data;
-            console.log('actionCreater:'+result);
-            dispatch(setMentionList(result))
-        });
-    }
-}
-export const getMentionTopics=()=>{
-    return(dispatch)=>{
-        axios.get('/api/MentionTopics.json').then((res)=>{
-            const result=res.data.data;
-            dispatch(setMentionList(result))
-        });
-    }
-}
-//创建发送微博、转发、评论的action
+/*
+创建发送微博、转发、评论的action，post到服务器
+ */
 export  const sendTweetAction=(value)=>{
     return (dispatch)=>{
         const data={
             "uid":sessionStorage.getItem('uid'),
             "content":value
         }
-        console.log(data)
         axios.post('/tweets',data,config).then((res)=>{
+            //清空tweet的Input,刷新微博列表
             const action1=getInputChangeAction("","tweet")
             const action2=getTweetList()
             dispatch(action1)
             dispatch(action2)
+            publishMessage(res.data)
         })
     }
 }
+//检查是否需要发送@的提醒，不用export
+const publishMessage=(tweet)=>{
+    const format=ContentSplit(tweet.content);
+    const users=format.filter((item)=>{
+        return item.type==="user"
+    })
+    console.log("user:",users)
+    const userMentionList=store.getState().getIn(['home','userMentionList']);
+    console.log("userMentionList:",userMentionList)
+    users.map((userItem)=>{
+        userMentionList.map((item)=>{
+            console.log("item",item)
+            if(item.get('nickname')===userItem.data.substring(1)){
+                console.log("进入匹配了")
+                const message={
+                    "type":0,
+                    "srcId":tweet.tid,
+                    "content":tweet.content,
+                    "uid":item.get('uid'),
+                    "srcUid":tweet.uid
+                }
+                axios.post("/message",message,config).then(res=>{
+                    console.log("message:",res)
+                })
+                const mention={
+                    "tid":tweet.tid,
+                    "uid":item.get('uid')
+                }
+                axios.post("/mention",mention,config).then(res=>{
+                    console.log("mention:",res)
+                })
+            }
+        })
+    })
+}
+
+
 export  const sendRepostAction=()=>({
     type:actionTypes.SEND_TWEET
 })
-export  const sendCommentAction=(tid,content)=>{
+export  const sendCommentAction=(tid,uid,content)=>{
     return (dispatch)=>{
     const data={
         "uid":sessionStorage.getItem('uid'),
@@ -82,8 +102,22 @@ export  const sendCommentAction=(tid,content)=>{
         const action2=getCommentList(tid)
         dispatch(action1)
         dispatch(action2)
+        pulishCommentMesaage(tid,uid,content)
     })
 }
+}
+const pulishCommentMesaage=(tid,uid,content)=>{
+    const message={
+        "type":1,
+        "srcId":tid,
+        "content":content,
+        "uid":uid,
+        "srcUid":sessionStorage.getItem('uid')
+    }
+    axios.post("/message",message,config).then(res=>{
+        console.log("message:",res)
+    })
+
 }
 
 export const getTweetList=()=>{
@@ -101,7 +135,7 @@ export const getCommentList=(tid)=>{
         axios.get("/comments"+"/"+tid,config).then((res)=> {
             const result = res.data.data.commentList;
             console.log(result);
-            const action = changeTweetList(result);
+            const action = changeCommentList(result);
             dispatch(action)
         })
     }
@@ -121,4 +155,11 @@ export const changeRepostList=(list)=>({
 export const changeCommentList=(list)=>({
     type:actionTypes.CHANGE_COMMENT_LIST,
     commentList:fromJS(list)
+})
+/*
+创建将提到的用户放Store里面的action
+ */
+export const getUserMentionAction=(data)=>({
+    type:actionTypes.ADD_USER_MENTION_LIST,
+    data:data
 })

@@ -108,7 +108,8 @@ export const RegisterFormUI =(props)=>{
                 label="上传头像"
                 extra="头像大小不能超过200kb"
             >
-                <Avatar/>
+                {getFieldDecorator('avatarUrl',
+                    {rule:[{required:false}]})(<Avatar/>)}
             </FormItem>
             <FormItem {...tailFormItemLayout}>
                 <Button type="primary" htmlType="submit">立刻注册</Button>

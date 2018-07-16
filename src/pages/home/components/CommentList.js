@@ -1,4 +1,4 @@
-import { List, Avatar, Button, Spin ,Row,Icon} from 'antd';
+import { List, Avatar, Spin ,Icon} from 'antd';
 import React,{Component} from 'react'
 import {connect} from 'react-redux';
 import 'antd/dist/antd.css';
@@ -16,7 +16,6 @@ var config = {
 class CommentList extends Component {
     constructor(props){
         super(props);
-        store.subscribe(this.props.handleStoreChange.bind(this))
     }
     state = {
         loading: true,
@@ -103,9 +102,6 @@ const mapDispatchToProps=(dispatch)=>{
         handleGetComment(result){
             const action=actionCreators.changeCommentList(result);
             dispatch(action)
-        },
-        handleStoreChange(){
-            this.setState(store.getState());
         }
     }
 }
