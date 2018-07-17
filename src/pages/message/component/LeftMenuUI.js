@@ -1,8 +1,8 @@
 import React from 'react';
+import * as words from "../wordInternationalization";
 import {Menu,Icon} from 'antd';
-import {NavLink} from 'react-router-dom'
-import * as words from '../wordInternationalization'
-const LeftMenu = function(props){
+
+const LeftMenuUI = (props)=>{
     return(
         <Menu
             mode="inline"
@@ -13,11 +13,11 @@ const LeftMenu = function(props){
             <Menu.SubMenu key="sub1" title={<span><Icon type="user"/>{words.MESSAGE_SIDER_MENU_TITLE}</span>}>
                 {words.MESSAGE_SIDER_MENU_SUBMENU.map((siderMenuSubmenu,index)=>
                     <Menu.Item key={index} onClick={()=>{props.click(index)}}>
-                            {siderMenuSubmenu}
+                        {siderMenuSubmenu}
                     </Menu.Item>
                 )}
             </Menu.SubMenu>
         </Menu>
     )
 };
-export default LeftMenu;
+export default LeftMenuUI;
