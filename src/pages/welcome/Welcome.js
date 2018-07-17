@@ -12,7 +12,7 @@ class Welcome extends Component{
     render(){
         const {loginState} =this.props;
         return (
-            sessionStorage.getItem('uid')?<Redirect to="/home"/>:<WelcomeUI/>
+            loginState?<Redirect to="/home"/>:<WelcomeUI/>
         )
     }
 
