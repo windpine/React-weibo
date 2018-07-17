@@ -1,11 +1,6 @@
 import React from 'react'
-import {MyMessageList,MySpan,RightButton,MyIcon} from './styled'
-import {Dropdown,Icon,Menu} from 'antd';
+import {MyMessageList,MySpan} from './styled'
 import MessageListItem from './MessageListItem'
-import * as messageType from './messageType';
-import * as words from "../wordInternationalization";
-import {Modal} from "antd/lib/index";
-
 
 const MessageListUI = function(props){
 
@@ -21,5 +16,5 @@ const MessageListUI = function(props){
             locale={{emptyText: '暂无数据'}}
         />
     );
-}
+};
 export default MessageListUI;
