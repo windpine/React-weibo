@@ -10,12 +10,11 @@ class Profile extends Component{
 
     constructor(props){
         super(props);
-        store.subscribe(this.props.handleStoreChange.bind(this))
+        // store.subscribe(this.props.handleStoreChange.bind(this))
     }
     render(){
         return (
-            <ProfileForm
-                />
+            <ProfileForm/>
         )
     }
 }
@@ -27,14 +26,14 @@ const mapStatesToProps = (state)=>{
 }
 const mapDispatchToProps = (dispatch)=>{
     return{
-        handleStoreChange(){
-            this.setState(store.getState());
-        },
+        //     handleStoreChange(){
+        //         this.setState(store.getState());
+        //     },
+        // }
+
+
     }
 
 
-}
 
-
-
-export default connect(mapStatesToProps,mapDispatchToProps)(withRouter(Profile));
+    export default connect(mapStatesToProps,mapDispatchToProps)(withRouter(Profile));

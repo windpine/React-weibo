@@ -46,35 +46,47 @@ class FollowerListContent extends React.Component {
     constructor(props) {
         super(props);
         this.columns = [{
-            title: '用户名',
-            dataIndex: 'name',
+            title: '用户ID',
+            dataIndex: 'uid',
             width: '30%',
-            editable: true,
+            render: (text, record) => {
+                return (
+                    this.props.dataSource.length >= 1
+                        ? (
+
+                            <a href={`/profile/${record.uid}`}>{record.uid}</a>
+                        ) : null
+                );
+            },
+        },{
+            title: '用户名',
+            dataIndex: 'nickname',
+            width: '30%',
         }, {
             title: '性别',
             dataIndex: 'sex',
         }, {
             title: '邮箱',
             dataIndex: 'email',
-        }, ];
+        },  ];
 
         this.state = {
-            dataSource:this.props.dataSource.toJS,
+            dataSource:this.props.dataSource,
 
         };
     }
-    componentDidMount(){
-        axios.get('api/followerList.json').then((res)=>{
-            const result=res.data.data;
-            console.log("followerjsonresult:",result);
-            this.props.getFollowerList(result);
-        })
-    }
+    // componentDidMount(){
+    //     axios.get('api/followerList.json').then((res)=>{
+    //         const result=res.data.data;
+    //         console.log("followerjsonresult:",result);
+    //         this.props.getFollowerList(result);
+    //     })
+    // }
 
 
 
     render() {
-        const dataSource=[...this.props.dataSource.toJS()];
+        const dataSource=[...this.props.dataSource];
         console.log('datasource:',dataSource);
         const components = {
             body: {
@@ -115,7 +127,7 @@ class FollowerListContent extends React.Component {
 
 const mapStateToProps=(state)=>{
     return{
-        dataSource:state.getIn(['profile','followers']),
+        dataSource:state.getIn(['profile','followersList']),
 
     }
 

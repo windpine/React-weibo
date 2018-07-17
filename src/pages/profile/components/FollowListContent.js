@@ -7,6 +7,8 @@ import { Table, Input, Button, Popconfirm, Form } from 'antd';
 import {connect} from "react-redux";
 import * as axios from "axios";
 import {actionCreators} from "../store";
+import NavLink from "react-router-dom/es/NavLink";
+import {Link} from "react-router-dom";
 
 const FormItem = Form.Item;
 const EditableContext = React.createContext();
@@ -47,13 +49,13 @@ class EditableCell extends React.Component {
         } = this.props;
         return (
             <td ref={node => (this.cell = node)} {...restProps}>
-               <div
-                className="editable-cell-value-wrap"
-                style={{ paddingRight: 24 }}
-                //onClick={this.toggleEdit}
-            >
-                {restProps.children}
-            </div>
+                <div
+                    className="editable-cell-value-wrap"
+                    style={{ paddingRight: 24 }}
+                    //onClick={this.toggleEdit}
+                >
+                    {restProps.children}
+                </div>
 
             </td>
         );
@@ -67,10 +69,22 @@ class FollowListContent extends React.Component {
     constructor(props) {
         super(props);
         this.columns = [{
-            title: '用户名',
-            dataIndex: 'name',
+            title: '用户ID',
+            dataIndex: 'uid',
             width: '30%',
-            editable: true,
+            render: (text, record) => {
+                return (
+                    this.props.dataSource.length >= 1
+                        ? (
+
+                            <a href={`/profile/${record.uid}`}>{record.uid}</a>
+                        ) : null
+                );
+            },
+        },{
+            title: '用户名',
+            dataIndex: 'nickname',
+            width: '30%',
         }, {
             title: '性别',
             dataIndex: 'sex',
@@ -82,10 +96,9 @@ class FollowListContent extends React.Component {
             dataIndex: 'operation',
             render: (text, record) => {
                 return (
-                    //todo:处理button显示bug
-                    this.props.dataSource.toJS().length >= 1
+                    this.props.dataSource.length >= 1
                         ? (
-                            <Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete(record.key)}>
+                            <Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete(record.nickname,record.uid)}>
                                 <a href="javascript:;">取消关注</a>
                             </Popconfirm>
                         ) : null
@@ -94,31 +107,29 @@ class FollowListContent extends React.Component {
         }];
 
         this.state = {
-            dataSource:this.props.dataSource.toJS,
+            dataSource:this.props.dataSource,
 
             // count: 2,
         };
     }
-    componentDidMount(){
-        axios.get('api/followList.json').then((res)=>{
-            const result=res.data.data;
-            console.log("result",result);
-            this.props.getFollowList(result);
-        })
-    }
+    // componentDidMount(){
+    //     axios.get('api/followList.json').then((res)=>{
+    //         const result=res.data.data;
+    //         console.log("result",result);
+    //         this.props.getFollowList(result);
+    //     })
+    // }
 
     //todo:添加结束组件时重新回存
 
-    handleDelete = (key) => {
-        const dataSource = [...this.props.dataSource.toJS()];
-        //todo:删除时更新列表
-        this.props.getFollowList(dataSource.filter(item => item.key !== key));
+    handleDelete = (nickname,deleteId) => {
+        const dataSource = [...this.props.dataSource];
+        this.props.getFollowList(dataSource.filter(item => item.nickname !== nickname),deleteId);
     }
 
 
-    //todo：确认
     handleSave = (row) => {
-        const newData = [...this.props.dataSource.toJS()];
+        const newData = [...this.props.dataSource];
         console.log("newData:",newData);
         const index = newData.findIndex(item => row.key === item.key);
         const item = newData[index];
@@ -130,8 +141,8 @@ class FollowListContent extends React.Component {
     }
 
     render() {
-        const dataSource=[...this.props.dataSource.toJS()];
-        //console.log('datasource:',dataSource);
+        const dataSource=[...this.props.dataSource];
+        console.log('datasource:',dataSource);
         const components = {
             body: {
                 row: EditableFormRow,
@@ -171,7 +182,7 @@ class FollowListContent extends React.Component {
 
 const mapStateToProps=(state)=>{
     return{
-        dataSource:state.getIn(['profile','follows']),
+        dataSource:state.getIn(['profile','followsList']),
 
     }
 
@@ -179,11 +190,14 @@ const mapStateToProps=(state)=>{
 
 const mapDispatchToProps=(dispatch)=>{
     return{
-        getFollowList(result){
-            dispatch(actionCreators.changeFollowListAction(result));
-            console.log('dispatch_result:',result);
+        getFollowList(result,deleteId){
+            dispatch(actionCreators.saveFollowListRequest(result,deleteId));
+            console.log("result:",result);
+            console.log('deleteId:',deleteId);
 
         },
+
+
     }
 }
 

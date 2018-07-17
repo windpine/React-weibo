@@ -9,6 +9,11 @@ import {logoutRequest} from "../../pages/welcome/store/actionCreators";
 
 const {Header}=Layout;
 
+
+const uid=sessionStorage.getItem('uid');
+const path=`/profile/${uid}`;
+console.log("path:",path);
+
 class MyHeader extends Component {
 
     constructor(props){
@@ -37,7 +42,7 @@ class MyHeader extends Component {
                         </NavLink>
                     </Menu.Item>
                     <Menu.Item key="3">
-                        <NavLink to='/profile'>
+                        <NavLink to={path}>
                             我
                         </NavLink>
                     </Menu.Item>

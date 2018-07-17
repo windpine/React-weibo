@@ -10,81 +10,31 @@ import store from "../../../store";
 
 const {Content}=Layout;
 
-//todo:rightContent需要滑动条
+var config = {
+    baseURL: 'http://localhost:8080'
+};
 class EditProfileContentUI extends React.Component{
-    // componentDidMount(){//注意：是在组件加载完毕后立即执行
-    //     this.getUserInfo((res)=>{
-    //         // const result=JSON.parse(JSON.stringify(res.data));
-    //         this.setState({
-    //             loading: false,
-    //         });
-    //         const result=res.data.data;
-    //         const password=res.data.password;
-    //         console.log("userinfoResult2:",result);
-    //         console.log("pwd2:",password);
-    //         this.props.getUserInfo(result,password);
-    //         return(
-    //             <Content style={{ padding: '0 24px', minHeight: 280 }}>
-    //                 content
-    //                 <ProfileForm ></ProfileForm>
-    //             </Content>
-    //         )
-    //     })
-    // }
-    getUserInfo(callback){
-        axios.get("api/userInfo.json").then((res)=>{
-            callback(res);
-        })
-    }
-    componentDidMount(){//注意：是在组件加载完毕后立即执行
-        this.getUserInfo((res)=>{
-            // const result=JSON.parse(JSON.stringify(res.data));
-            this.setState({
-                loading: false,
-            });
-            const result=res.data.data;
-            const password=res.data.password;
-            console.log("userinfoResult2:",result);
-            console.log("pwd2:",password);
-            this.props.getUserInfo(result,password);
 
-        })
+    componentDidMount(){//注意：是在组件加载完毕后立即执行
+        const myuid=sessionStorage.getItem('uid');
+        console.log('uid',myuid);
+        axios.get("/users"+"/"+myuid,config)
+            .then(res=>{
+                this.setState({
+                    loading: false,
+                });
+                const result=res.data.data.user;
+                const password=result.password;
+                console.log("axiosUserInfo:",result);
+                console.log("pwd2:",password);
+                this.props.getUserInfo(result,password);
+            })
     }
 
     constructor(props){
         super(props);
 
-
-
     }
-
-    // changeUserInfo=()=>{
-    //     axios.get('/api/UserInfo.json').then((res)=>{
-    //         const result=res.data.data;
-    //         const password=res.data.password;
-    //         console.log("userinfoResult2:",result);
-    //         console.log("pwd2:",password);
-    //         this.props.getUserInfo(result,password);
-    //         this.contentInfo;
-    //         return(
-    //             <Content style={{ padding: '0 24px', minHeight: 280 }}>
-    //                 content
-    //                 <ProfileForm ></ProfileForm>
-    //             </Content>
-    //         )
-    //
-    //     });
-    //
-    // }
-
-    // contentInfo=()=>{
-    //     return(
-    //         <Content style={{ padding: '0 24px', minHeight: 280 }}>
-    //             content
-    //             <ProfileForm ></ProfileForm>
-    //         </Content>
-    //     )
-    // }
 
     render(){
         return(
