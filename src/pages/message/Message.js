@@ -77,14 +77,18 @@ class Message extends Component{
             return <Redirect to='/welcome'/>;
     }
     componentDidMount(){
-        this.props.handleLoadingMoreMessage();
+        let config = {
+            baseURL:'http://localhost:8080/message/',
+            params:{
+                UID :sessionStorage.getItem('uid')
+            }
+        }
         axios.get('/mention',config).then((res) => {
-            let messageList = res.data.data.messageList;
-            this.props.handleLoadMoreMessage(messageList,index);
+            let messageList=res.data.data.messageList;
+            this.props.handleGetMessageList(messageList);
         }).catch((res)=>{
-            this.props.handleNoMoreMessage();
-
-        });
+            console.log(res);
+        })
     }
 }
 
