@@ -19,7 +19,6 @@ function onSelect(suggestion) {
 class InputBox extends Component{
     constructor(props) {
         super(props);
-        store.subscribe(this.props.handleStoreChange.bind(this))
         //console.log("props:  "+props.value)
     }
 
@@ -86,9 +85,7 @@ const mapDispatchToProps=(dispatch)=>{
             console.log("handleMentionTopics")
             dispatch(actionCreators.getMentionTopics())
         },
-        handleStoreChange(){
-            this.setState(store.getState());
-        }
+
 
     }
 }

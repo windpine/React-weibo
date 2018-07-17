@@ -12,7 +12,6 @@ import {message} from "antd/lib/index";
 class RepostBox extends Component{
     constructor(props){
         super(props);
-        store.subscribe(this.props.handleStoreChange.bind(this))
     }
     state={
         checked:false
@@ -52,9 +51,6 @@ const mapDispatchToProps=(dispatch)=>{
         handleSendRepost(){
             dispatch(actionCreators.sendRepostAction())
         },
-        handleStoreChange(){
-            this.setState(store.getState());
-        }
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(RepostBox);

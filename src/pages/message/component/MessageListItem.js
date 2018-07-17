@@ -12,7 +12,6 @@ const confirm = Modal.confirm;
 class MessageListItem extends React.Component{
     constructor(props){
         super(props);
-        store.subscribe(this.props.handleStoreChange.bind(this));
     }
     deleteAction(messageID,obj){
         console.log(messageID);
@@ -61,9 +60,6 @@ const convertStateToProps= (state)=>{
 }
 const convertDispatchToProps = (dispatch) =>{
     return {
-        handleStoreChange() {
-            this.setState(store.getState())
-        },
         handleLoadingMoreMessage(){
             dispatch(actionCreators.getLoadMoreMessageAction());
         },
