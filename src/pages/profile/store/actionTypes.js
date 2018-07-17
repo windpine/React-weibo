@@ -10,3 +10,8 @@ export const CHANGE_INPUT_EMAIL='change_input_email';
 export const CHANGE_MODALVISIBLE='change_modalvisible';
 export const CHANGE_USERINFO='change_userInfo';
 
+export const HANDLE_PROFILEPREVIEW='handle_profielpreview';
+
+export const HANDLE_PROFILEFILE_CHANGE='handle_profilefile_change';
+
+export const HANDLE_PROFILEPREVIEW_CANCLE='handle_profilepreview_cancle';

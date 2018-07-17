@@ -11,6 +11,7 @@ const {Header}=Layout;
 
 
 const uid=sessionStorage.getItem('uid');
+console.log("currentuid:",uid);
 const path=`/profile/${uid}`;
 console.log("path:",path);
 

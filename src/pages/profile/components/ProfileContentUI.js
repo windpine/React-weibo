@@ -27,6 +27,7 @@ class ProfileContentUI extends Component{
             return(
                 <Layout style={{ padding: '24px 0', background: '#fff', height:'900px'}}>
                     <Tabs
+                        disabled key="1"
                         defaultActiveKey="2"
                         tabPosition={'left'}
                         style={{ height: '900px' }}
@@ -72,20 +73,6 @@ class ProfileContentUI extends Component{
 
                 </div>
                 {this.handleUserInfo()}
-                {/*<Layout style={{ padding: '24px 0', background: '#fff', height:'900px'}}>*/}
-                {/*<Tabs*/}
-                {/*defaultActiveKey="2"*/}
-                {/*tabPosition={'left'}*/}
-                {/*style={{ height: '900px' }}*/}
-                {/*>*/}
-                {/*<TabPane tab="基本信息" key="1" disabled key="1"></TabPane>*/}
-                {/*<TabPane tab="关注" key="2"><FollowListContentUI/></TabPane>*/}
-                {/*<TabPane tab="粉丝" key="3"><FollowerListContentUI/></TabPane>*/}
-                {/*<TabPane tab="微博" key="4">微博</TabPane>*/}
-                {/*<TabPane tab="编辑个人资料" key="5"><EditProfileContentUI/></TabPane>*/}
-                {/*</Tabs>*/}
-
-                {/*</Layout>*/}
             </Content>
         )
     }

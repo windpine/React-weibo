@@ -24,8 +24,8 @@ const mapStatesToProps = (state)=>{
 
     }
 }
-const mapDispatchToProps = (dispatch)=>{
-    return{
+const mapDispatchToProps = (dispatch)=> {
+    return {
         //     handleStoreChange(){
         //         this.setState(store.getState());
         //     },
@@ -35,5 +35,5 @@ const mapDispatchToProps = (dispatch)=>{
     }
 
 
-
-    export default connect(mapStatesToProps,mapDispatchToProps)(withRouter(Profile));
+}
+export default connect(mapStatesToProps,mapDispatchToProps)(withRouter(Profile));

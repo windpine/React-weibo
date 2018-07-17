@@ -1,6 +1,8 @@
 import {fromJS} from 'immutable';
 import * as actionTypes from "../../profile/store/actionTypes";
 
+const baseURL='https://weibo-1252079771.cos.ap-beijing.myqcloud.com/'
+
 const defaultState=fromJS(
     {
 
@@ -24,7 +26,14 @@ const defaultState=fromJS(
         //     sex:'',//性别
         //     email:'',//邮箱
         // },
-        userClick:'',
+        //userClick:'',
+        previewVisible: false,
+        file: {
+            uid: -1,
+            name: 'xxx.png',
+            status: 'done',
+            url: '',
+        },
     }
 );
 
@@ -68,9 +77,24 @@ export default (state=defaultState,action)=>{
                 .set('password',action.password)
                 .set('uid',action.userInfo['uid'])
                 .set('avatarUrl',action.userInfo['avatarUrl'])
+                .setIn(['file', 'url'],action.userInfo['avatarUrl'])
                 .set('tweets',action.userInfo['tweets'])
                 .set('follows',action.userInfo['follows'])
                 .set('followers',action.userInfo['followers'])
+        case actionTypes.HANDLE_PROFILEFILE_CHANGE: {
+            console.log('获得文件：' + action.file.name)
+            const file = action.file;
+            const url = baseURL + file.name;
+            console.log("ProfileavatarUrl:",url);
+            return state.setIn(['file', 'uid'], file.uid)
+                .setIn(['file', 'name'], file.name)
+                .setIn(['file', 'url'], url)
+                .set('avatarUrl', url)
+        }
+        case actionTypes.HANDLE_PROFILEPREVIEW:
+            return state.set('previewVisible',true);
+        case actionTypes.HANDLE_PROFILEPREVIEW_CANCLE:
+            return state.set('previewVisible',false);
 
         default:
             return state;

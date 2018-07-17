@@ -145,3 +145,16 @@ export const changeModalVisible=(value)=>({
 
 //Todo:getFollowsList()  & getFollowersList()
 
+export const handleProfileFileChange=(file)=>({
+    type:actionTypes.HANDLE_PROFILEFILE_CHANGE,
+    file
+})
+
+export const handleProfilePreview=(file)=>({
+    type:actionTypes.HANDLE_PROFILEPREVIEW,
+    file
+})
+
+export const handleProfilePreviewCancel=()=>({
+    type:actionTypes.HANDLE_PROFILEPREVIEW_CANCLE,
+})

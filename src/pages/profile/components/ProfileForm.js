@@ -6,7 +6,7 @@ import {Modal,Card, Form, Input, Tooltip, Icon, Select, Row, Col, Button,Breadcr
 import {actionCreators} from "../store";
 import {connect} from "react-redux";
 import VCode from "./Vcode";
-
+import Avatar from "./Upload";
 import store from "../../../store";
 import axios from 'axios';
 const FormItem = Form.Item;
@@ -147,29 +147,6 @@ class ModalForm extends Component {
         });
     };
 
-//     handleVcodeCheck=(rule,value,callback)=>{
-//         const form=this.props.form;
-//         // console.log("oldpassword:",this.props.password);
-//         console.log('输入的原密码:',value);
-//         // if (value && value !== this.props.password) {
-//         //     callback('密码不一致');
-//         // } else {
-//         //     callback();
-//         // }
-//         var vcode=this.state.data.map((v)=>String.fromCharCode(v > 57 && v < 84 ? v + 7 : ( v < 57 ? v : v + 13 )));
-//         var vcode2=`${vcode[0]}${vcode[1]}${vcode[2]}${vcode[3]}`;//提取字符串列表中的纯字符并拼接为串
-//         const newvcode=vcode2.toLowerCase();
-//         console.log('vcode',vcode)
-//         console.log('newvcode:',newvcode);
-//         console.log("input:",value);
-//         if (value && value !== newvcode) {
-//             callback('验证码输入不正确');
-//         }
-//         else{
-//             callback();
-//
-//         }
-// }
 
     checkOldPassword = (rule, value, callback) => {
         const form=this.form;
@@ -192,12 +169,6 @@ class ModalForm extends Component {
                 }
             })
 
-        // if (result!= this.props.password ) {
-        //     callback('密码不一致');
-        // } else {
-        //     callback();
-        //
-        // }
     };
 
     checkPassword = (rule, value, callback) => {
@@ -261,7 +232,8 @@ class ModalForm extends Component {
                     avatarUrl=this.props.avatarUrl;
                     console.log('avartarUrl:',avatarUrl);
                 }else{
-                    avatarUrl=this.state.avatarUrl;
+                    avatarUrl=this.props.avatarUrl;
+                    console.log('NotnullavartarUrl:',avatarUrl);
                 }
                 this.props.handleModifyClick(this.props.uid,nickname,this.props.username,this.props.tweets,this.props.follows
                     ,this.props.followers,avatarUrl,sex,this.props.password,email);
@@ -331,7 +303,7 @@ class ModalForm extends Component {
                                 extra="头像大小不能超过200kb"
                             >
                                 {getFieldDecorator('avatarUrl',
-                                    {rule:[{required:false}]})}
+                                    {rule:[{required:false}]})(<Avatar/>)}
                             </FormItem>
 
                             <FormItem
