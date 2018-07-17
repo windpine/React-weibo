@@ -24,10 +24,6 @@ const mapStatesToProps = (state)=>{
         loginState:state.getIn(['welcome','loginState'])
     }
 }
-const mapDispatchToProps = (dispatch)=>{
-    return {
 
-    }
-}
 
-export default connect(mapStatesToProps,mapDispatchToProps)(withRouter(Welcome));
+export default connect(mapStatesToProps,null)(withRouter(Welcome));

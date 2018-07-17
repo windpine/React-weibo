@@ -60,7 +60,6 @@ function getData(obj,index){
 class Message extends Component{
     constructor(props){
         super(props);
-        //store.subscribe(this.props.handleStoreChange.bind(this));
     }
     render(){
         if(sessionStorage.getItem('uid') !== null)
@@ -106,9 +105,6 @@ const mapDispatchToProps = (dispatch)=>{
     return {
         handleGetMessageList(list){
             dispatch(actionCreators.getGetMessageListAction(list));
-        },
-       handleStoreChange(){
-            this.setState(store.getState());
         },
         handleLoadingMoreMessage(){
             dispatch(actionCreators.getLoadMoreMessageAction());

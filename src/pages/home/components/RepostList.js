@@ -13,7 +13,6 @@ import store from "../../../store";
 class RepostList extends Component {
     constructor(props){
         super(props);
-        store.subscribe(this.props.handleStoreChange.bind(this))
     }
     state = {
         loading: true,
@@ -102,9 +101,6 @@ const mapDispatchToProps=(dispatch)=>{
             const action=actionCreators.changeRepostList(result);
             dispatch(action)
         },
-        handleStoreChange(){
-            this.setState(store.getState());
-        }
     }
 }
 

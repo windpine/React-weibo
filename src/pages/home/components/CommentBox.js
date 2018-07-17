@@ -9,7 +9,6 @@ import {actionCreators} from "../store";
 class CommentBox extends Component{
     constructor(props){
         super(props);
-        store.subscribe(this.props.handleStoreChange.bind(this))
     }
 
     state={
@@ -50,9 +49,7 @@ const mapDispatchToProps=(dispatch)=>{
         handleSendComment(tid,content){
             dispatch(actionCreators.sendCommentAction(tid,content))
         },
-        handleStoreChange(){
-            this.setState(store.getState());
-        }
+
     }
 }
 

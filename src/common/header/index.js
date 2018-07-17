@@ -1,7 +1,7 @@
-import React from 'react';
+import React,{Component} from 'react';
 import {Layout,Menu} from 'antd';
 import 'antd/dist/antd.css'
-import {NavLink,withRouter,Link} from 'react-router-dom'
+import {NavLink,withRouter,Redirect,Link} from 'react-router-dom'
 import {LoginButton,RegisterButton,Greeting} from './styled';
 import store from '../../store';
 import {connect} from 'react-redux';
@@ -9,8 +9,14 @@ import {logoutRequest} from "../../pages/welcome/store/actionCreators";
 
 const {Header}=Layout;
 
-const MyHeader =(props)=>{
+class MyHeader extends Component {
 
+    constructor(props){
+        super(props)
+    }
+
+    render(){
+        const props = this.props;
         return(
             <Header>
                 <div className="logo" />
@@ -46,11 +52,15 @@ const MyHeader =(props)=>{
                     </Link>
                 </div>
                 <Greeting style={props.loginState?{visibility:'visible'}:{visibility:'hidden'}}>
-                    <LoginButton onClick={props.handleLogoutBtn}>注销</LoginButton>
+                    <LoginButton onClick={props.handleLogoutBtn.bind(this)}>注销</LoginButton>
                     欢迎回来,{sessionStorage.getItem('username')}
-                    </Greeting>
+                </Greeting>
             </Header>
         )
+    }
+
+
+
 
 }
 
@@ -67,6 +77,8 @@ const mapDispatchToProps = (dispatch)=>{
         },
         handleLogoutBtn(){
             dispatch(logoutRequest());
+            console.log('测试跳转')
+
         }
     }
 }
