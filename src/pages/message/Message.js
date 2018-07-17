@@ -17,7 +17,7 @@ function getData(obj,index){
         switch(index){
             case messageType.MENTION:
                 obj.props.handleLoadingMoreMessage();
-                axios.get('/mention',config).then((res) => {
+                axios.get('/mention',config()).then((res) => {
                     let messageList = res.data.data.messageList;
                     obj.props.handleLoadMoreMessage(messageList,index);
                 }).catch((res)=>{
@@ -27,7 +27,7 @@ function getData(obj,index){
                 break;
             case messageType.COMMENT:
                 obj.props.handleLoadingMoreMessage();
-                axios.get('/comment',config).then((res) => {
+                axios.get('/comment',config()).then((res) => {
                     let messageList = res.data.data.messageList;
                     obj.props.handleLoadMoreMessage(messageList,index);
                 }).catch((res)=>{
@@ -37,7 +37,7 @@ function getData(obj,index){
                 break;
             case messageType.LIKES:
                 obj.props.handleLoadingMoreMessage();
-                axios.get('/likes',config).then((res) => {
+                axios.get('/likes',config()).then((res) => {
                     let messageList = res.data.data.messageList;
                     obj.props.handleLoadMoreMessage(messageList,index);
                 }).catch((res)=>{
@@ -47,7 +47,7 @@ function getData(obj,index){
                 break;
             default:
                 obj.props.handleLoadingMoreMessage();
-                axios.get('/mention',config).then((res) => {
+                axios.get('/mention',config()).then((res) => {
                     let messageList = res.data.data.messageList;
                     obj.props.handleLoadMoreMessage(messageList,index);
                 }).catch((res)=>{
@@ -76,13 +76,7 @@ class Message extends Component{
             return <Redirect to='/welcome'/>;
     }
     componentDidMount(){
-        let config = {
-            baseURL:'http://localhost:8080/message/',
-            params:{
-                UID :sessionStorage.getItem('uid')
-            }
-        }
-        axios.get('/mention',config).then((res) => {
+        axios.get('/mention',config()).then((res) => {
             let messageList=res.data.data.messageList;
             this.props.handleGetMessageList(messageList);
         }).catch((res)=>{
