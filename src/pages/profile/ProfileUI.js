@@ -48,8 +48,8 @@ class ProfileUI extends Component{
         return (
             <div>
                 <MyHeader/>
-                <MyCardUI username={this.props.nickname} avatarUrl={this.props.avatarUrl} uid={this.props.uid}/>
-                <ProfileContentUI uid={this.props.uid}/>
+                <MyCardUI username={this.props.username} avatarUrl={this.props.avatarUrl} uid={this.props.uid}/>
+                <ProfileContentUI/>
             </div>
         )
     }
@@ -58,7 +58,7 @@ class ProfileUI extends Component{
 const mapStatesToProps = (state)=>{
     return {
         uid:state.getIn(['profile','uid']),
-        nickname:state.getIn(['profile','nickname']),
+        username:state.getIn(['profile','username']),
         avatarUrl:state.getIn(['profile','avatarUrl']),
     }
 }

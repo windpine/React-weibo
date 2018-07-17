@@ -57,19 +57,19 @@ export const saveProfileRequest=(uid,nickname,username,tweets,follows,followers,
             });
     }
 }
-
-export const getUserInfoRequest=(uid)=>{
-    return(dispatch)=>{
-        axios.get("/users"+"/"+uid,config)
-            .then(res=>{
-                const userInfo=res.data;
-                console.log("toUpdatePut:",userInfo);
-                dispatch(saveProfileDataAction(uid,userInfo.nickname,userInfo.username,
-                    userInfo.tweets,userInfo.follows,userInfo.followers,userInfo.avatarUrl,userInfo.sex,userInfo.password,
-                    userInfo.email));
-            });
-    }
-}
+//
+// export const getUserInfoRequest=(uid)=>{
+//     return(dispatch)=>{
+//         axios.get("/users"+"/"+uid,config)
+//             .then(res=>{
+//                 const userInfo=res.data;
+//                 console.log("toUpdatePut:",userInfo);
+//                 dispatch(saveProfileDataAction(uid,userInfo.nickname,userInfo.username,
+//                     userInfo.tweets,userInfo.follows,userInfo.followers,userInfo.avatarUrl,userInfo.sex,userInfo.password,
+//                     userInfo.email));
+//             });
+//     }
+// }
 
 export const saveFollowListRequest=(result,deleteId)=>{
     return(dispatch)=>{

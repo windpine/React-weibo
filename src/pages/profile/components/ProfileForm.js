@@ -97,6 +97,7 @@ class ModalForm extends Component {
             sex: this.props.sex,
             email: this.props.email,
             avatarUrl:this.props.avatarUrl,
+            vcode:'',
         };
     }
 
@@ -118,6 +119,13 @@ class ModalForm extends Component {
             email: e.target.value
         } );
     }
+
+    handleVcodeBlur=(e)=>{
+        this.setState( {
+            vcode: e.target.value
+        } );
+    }
+
     showModal = () => {
         this.setState({ visible: true });
     };
@@ -366,7 +374,6 @@ class ModalForm extends Component {
 
                             </FormItem>
                             <FormItem
-                                label={"性别"}
                                 hasfeedback
                             >
                                 {getFieldDecorator('sex', {
@@ -374,9 +381,12 @@ class ModalForm extends Component {
                                         required: false,
                                     }],
                                 })(
-                                    //todo:当使用radioGroup时
-                                    <div style={{ marginBottom: 16 }}>
-                                        <Input defaultValue={this.props.sex} onChange={this.handleSexChange}/>
+                                    <div style={{marginLeft:'29%'}}>
+                                        性别：
+                                        <RadioGroup onChange={this.handleSexChange} defaultValue={this.props.sex}>
+                                            <Radio value="男">男</Radio>
+                                            <Radio value="女">女</Radio>
+                                        </RadioGroup>
                                     </div>
                                 )
                                 }
@@ -404,19 +414,33 @@ class ModalForm extends Component {
                                     handleConfirmBlur={this.handleConfirmBlur}
                                 />
                             </FormItem>
-
-                            //todo:验证码必须聚焦检测问题
                             <FormItem
                                 {...formItemLayout}
                                 label="验证码"
                                 extra="请不是机器人的你以小写格式输入验证"
                             >
-                                <VCode/>
+                                {getFieldDecorator('sex', {
+                                    rules: [ {
+                                        required: true,message:"请输入验证码！"
+                                    }],
+                                })(
+                                    <Input onBlur={this.handleVcodeBlur}/>
+
+                                )
+                                }
+                                <VCode vcode={this.state.vcode}/>
+
 
                             </FormItem>
+                            <br/><br/><br/><br/>
+
 
                             <FormItem {...tailFormItemLayout}>
-                                <Button type="primary" htmlType="submit" onClick={this.handleSubmit} size="large">确认修改</Button>
+                                <div style={{marginRight:-1000}}>
+                                    <Button type="primary" htmlType="submit" onClick={this.handleSubmit} size="large">确认修改</Button>
+                                    <div>(友情提示：空值输入将默认存储为最新修改记录)</div>
+                                </div>
+
                             </FormItem>
                         </Form>
                         {/*<iframe id="id_iframe" name="nm_iframe" style="display:none;"></iframe>*/}

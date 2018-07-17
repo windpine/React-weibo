@@ -22,7 +22,7 @@ class VCode extends Component {
         return {
             data: this.getRandom(109,48,4),//返回一个数据列表
             rotate: this.getRandom(75,-75,4),
-            fz: this.getRandom(8,20,4),
+            fz: this.getRandom(15,40,4),
             color: [this.getRandom(100,255,3),this.getRandom(100,255,4),this.getRandom(100,255,3),this.getRandom(100,255,3)]
         }
     };
@@ -57,14 +57,13 @@ class VCode extends Component {
     };
 
     //检验验证码是否正确
-    handleVcodeBlur=(e)=>{
-        const value = e.target.value;
+    handleVcodeBlur=()=>{
+        const value=this.props.vcode;
         var vcode=this.state.data.map((v)=>String.fromCharCode(v > 57 && v < 84 ? v + 7 : ( v < 57 ? v : v + 13 )));
         var vcode2=`${vcode[0]}${vcode[1]}${vcode[2]}${vcode[3]}`;//提取字符串列表中的纯字符并拼接为串
         const newvcode=vcode2.toLowerCase();
-        console.log('vcode',vcode)
+        console.log('inputvcode',value)
         console.log('newvcode:',newvcode);
-        console.log("input:",value);
         if (value && value !== newvcode) {
             alert("验证码输入不正确！");
         }
@@ -75,16 +74,21 @@ class VCode extends Component {
 
     };
 
-//     checkVcode=(rule,value,callback)=>{
-//         const form = this.form;
-//         console.log("input_vcode",value);
-//
-//         if (value && value !== this.state.data) {
-//             callback('验证码不正确！');
-//         } else {
-//             callback();
-//         }
-// };
+    // componentWillMount(){//注意：是在组件加载完毕后立即执行
+    //     const value=this.props.vcode;
+    //     var vcode=this.state.data.map((v)=>String.fromCharCode(v > 57 && v < 84 ? v + 7 : ( v < 57 ? v : v + 13 )));
+    //     var vcode2=`${vcode[0]}${vcode[1]}${vcode[2]}${vcode[3]}`;//提取字符串列表中的纯字符并拼接为串
+    //     const newvcode=vcode2.toLowerCase();
+    //     console.log('inputvcode',value)
+    //     console.log('newvcode:',newvcode);
+    //     if (value && value !== newvcode) {
+    //         alert("验证码输入不正确！");
+    //     }
+    //     else if(value==''){
+    //         alert("请输入验证码！");
+    //
+    //     }
+    // }
 
     render() {
 
@@ -93,43 +97,37 @@ class VCode extends Component {
         const { rotate, fz, color } = this.state
         //const { getFieldDecorator } = this.form;
         return (
-            <Row gutter={20}>
-                <Col span={12}>
-                    <Input onBlur={this.handleVcodeBlur}/>
-                </Col>
-                <Col span={12}>
-                    <div className='vcodewrap' >
-                        <canvas id="bgi" width="200" height="200"></canvas>
-                        {this.state.data.map((v,i) =>
-                            <div
-                                key={i}
-                                className='itemStr'
-                                style={{
-                                    transform:`rotate(${rotate[i]}deg)`,
-                                    fontSize: `${fz[i]}px`,
-                                    color: `rgb(${color[i].toString()})`
-                                }}
-                                onMouseEnter={() => this.setState({refresh:true})}
-                            >
-                                {String.fromCharCode(v > 57 && v < 84 ? v + 7 : ( v < 57 ? v : v + 13 ))}
-                            </div>
-                        )}
-                        {
-                            this.state.refresh
-                                ? <div
-                                    className='mask'
-                                    onClick={() => {
-                                        this.setState({...this.initState(),refresh: false})
-                                        this.canvas()
-                                    }}
-                                    onMouseLeave={() => {this.setState({refresh: false})}}
-                                > 看不清？点击刷新
-                                </div>
-                                : null}
+            <div className='vcodewrap' >
+                <canvas id="bgi" width="200" height="200"></canvas>
+                {this.state.data.map((v,i) =>
+                    <div
+                        key={i}
+                        className='itemStr'
+                        style={{
+                            transform:`rotate(${rotate[i]}deg)`,
+                            fontSize: `${fz[i]}px`,
+                            color: `rgb(${color[i].toString()})`
+                        }}
+                        onMouseEnter={() => this.setState({refresh:true})}
+                    >
+                        {String.fromCharCode(v > 57 && v < 84 ? v + 7 : ( v < 57 ? v : v + 13 ))}
                     </div>
+                )}
+                {
+                    this.state.refresh
+                        ? <div
+                            className='mask'
+                            onClick={() => {
+                                this.setState({...this.initState(),refresh: false})
+                                this.canvas()
+                            }}
+                            onMouseLeave={() => {this.setState({refresh: false})}}
+                        > 看不清？点击刷新
+                        </div>
+                        : null}
+                {/*{()=>this.handleVcodeBlur()}*/}
+            </div>
 
-                </Col>
-            </Row>
 
 
         )

@@ -3,51 +3,87 @@ import React from "react";
 import Button from "antd/es/button/button";
 import {actionCreators} from "../store";
 import {connect} from "react-redux";
+import axios from "axios/index";
+import {changeFollowListAction} from "../store/actionCreators";
 
 const { Meta } = Card;
-
+var config = {
+    baseURL: 'http://localhost:8080'
+};
 
 //个人主页上方卡片
 class MyCardUI extends React.Component{
 
     constructor(props){
         super(props);
+        this.state={
+            isFocus:"no",
+        }
+    }
 
+    handleIsFollow() {
+        const uid = this.props.uid;//别人的ID
+        const currentId=sessionStorage.getItem('uid');//我的ID
+        console.log("currentId:",currentId);
+        console.log("uid:",uid);
+        if (uid != currentId) {//进入了别人的主页
+            {this.checkIsFollow(currentId,uid)};
+            switch (this.state.isFocus){
+                case "yes"://已经关注了
+                    return(
+                        <div style={{paddingRight: 10, textAlign: 'right',height:50,marginTop:-20}}>
+                            <Button onClick={() => {
+                                this.handleDeleteFollow(uid);
+                            }}>取消关注</Button>
+                        </div>
+                    )
+                case "no"://没有关注
+                    return(
+                        <div style={{paddingRight: 10, textAlign: 'right',height:50,marginTop:-20}}>
+                            <Button onClick={() => {
+                                this.props.handleAddFollow(uid);
+                            }}>添加关注</Button>
+                        </div>
+                    )
+            }
+        }
+    }
+
+    checkIsFollow(currentId,uid){
+        console.log("currentId:",currentId);
+        console.log("followId:",uid);
+        axios.get("/users"+"/"+currentId+"/fans/"+uid,config)
+            .then(res=>{
+                // dispatch(changeFollowListAction(result));
+                const result=res.data.data;
+                console.log("axiosCheckInfo:",result);
+                this.setState( {
+                    isFocus: result
+                } );
+
+            });
+    }
+
+    handleDeleteFollow(followId){
+        const dataSource = [...this.props.dataSource];
+        this.props.getFollowList(dataSource.filter(item => item.uid !== followId),followId);
     }
 
     render(){
         return(
             <Card
-                style={{ textAlign: 'center',marginLeft:'10%',marginRight:'10%'}}
-                cover={<img alt="example" src={this.props.avatarUrl} height="200" width="200"  />}
+                style={{ textAlign: 'center',marginLeft:'10%',marginRight:'10%',backgroundColor:'grey'}}
+                cover={<img alt="example" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531847584917&di=b44cf46c3557b368f47670da0a50d682&imgtype=0&src=http%3A%2F%2Fbpic.588ku.com%2Fback_pic%2F05%2F18%2F93%2F2959c4380ce1e49.jpg " height="200" width="200"  />}
                 actions={[<Icon type="profile" spin="true">我的主页</Icon>, <Icon type="setting" tex="管理中心" spin="true">管理中心</Icon>]}
             >
-                <div style={{textAlign:'center'}}>
-                    <Meta
-                        avatar={<Avatar src={this.props.avatarUrl} />}
+                <div style={{textAlign:'center',marginTop:-80,height:70}}>
+                    <Meta  style={{ textAlign: 'center',marginLeft:'40%',marginRight:'40%',width:'300px'}}
+                        avatar={<Avatar style={{width:'80px',height:'80px'}} src={this.props.avatarUrl} />}
                         title={this.props.username}
-                        description="This is the description"
+                        description="欢迎访问我的主页~"
                     />
+                    {this.handleIsFollow()}
                 </div>
-                <div style={{ paddingRight:10,textAlign: 'right',}}>
-                    <Button onClick={()=>{this.props.handleAddFollow(this.props.uid)}}>添加关注</Button>
-                </div>
-
-
-                {/*<Card.Grid style={{width:'80%', textAlign:'center'}}>*/}
-                {/*<div style={{textAlign:'center'}}>*/}
-                {/*<Meta*/}
-                {/*avatar={<Avatar src={this.props.avatarUrl} />}*/}
-                {/*title={this.props.username}*/}
-                {/*description="This is the description"*/}
-                {/*/>*/}
-                {/*</div>*/}
-                {/*</Card.Grid>*/}
-                {/*<Card.Grid style={{width:'20%', textAlign:'center'}}>*/}
-                {/*<div style={{ paddingRight:10,textAlign: 'right',}}>*/}
-                {/*<Button onClick={()=>{this.props.handleAddFollow(this.props.uid)}}>添加关注</Button>*/}
-                {/*</div>*/}
-                {/*</Card.Grid>*/}
 
             </Card>
 
@@ -57,6 +93,7 @@ class MyCardUI extends React.Component{
 
 const mapStateToProps=(state)=>{
     return{
+        dataSource:state.getIn(['profile','followsList']),
     }
 
 }
@@ -66,7 +103,16 @@ const mapDispatchToProps=(dispatch)=>{
         handleAddFollow(uid){
             console.log("buttonClicker!");
             dispatch(actionCreators.addFollowRequest(uid));
-        }
+        },
+        getFollowList(result,deleteId){
+            dispatch(actionCreators.saveFollowListRequest(result,deleteId));
+            console.log("result:",result);
+            console.log('deleteId:',deleteId);
+
+        },
+
+
+
 
     }
 }

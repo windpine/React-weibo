@@ -27,10 +27,11 @@ class ProfileContentUI extends Component{
             return(
                 <Layout style={{ padding: '24px 0', background: '#fff', height:'900px'}}>
                     <Tabs
+                        size="large"
                         disabled key="1"
                         defaultActiveKey="2"
                         tabPosition={'left'}
-                        style={{ height: '900px' }}
+                        style={{ height: '900px'}}
                     >
                         <TabPane tab="基本信息" key="1" disabled key="1"></TabPane>
                         <TabPane tab="关注" key="2"><FollowListContentUI/></TabPane>
@@ -64,14 +65,14 @@ class ProfileContentUI extends Component{
 
     render(){
         return (
-            <Content style={{ padding: '0 50px' }}>
+            <Content style={{marginLeft:'10%',marginRight:'10%'}}>
                 <Breadcrumb style={{ margin: '16px 0' }}>
                     <Breadcrumb.Item><a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">首页</a></Breadcrumb.Item>
                     <Breadcrumb.Item>个人主页</Breadcrumb.Item>
                 </Breadcrumb>
-                <div>
+                {/*<div>*/}
 
-                </div>
+                {/*</div>*/}
                 {this.handleUserInfo()}
             </Content>
         )

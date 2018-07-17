@@ -41,7 +41,6 @@ class EditProfileContentUI extends React.Component{
             <div>
                 {/*{this.changeUserInfo()}*/}
                 <Content style={{ padding: '0 24px', minHeight: 280 }}>
-                    输入空值将默认存储为最新修改记录
                     <ProfileForm ></ProfileForm>
                 </Content>
             </div>
