@@ -33,7 +33,7 @@ class MyCardUI extends React.Component{
     handleIsFollow() {
         const uid = this.props.uid;//别人的ID
         const currentId=sessionStorage.getItem('uid');//我的ID
-        const isFollow=this.props.checkresult;
+        const isFollow=this.props.checkResult;
         console.log("currentId:",currentId);
         console.log("uid:",uid);
         console.log("checkresult:",isFollow);

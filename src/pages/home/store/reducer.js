@@ -25,6 +25,7 @@ const defaultState = fromJS({
     tweets:0,
     follows:0,
     followers:0,
+    activeKey:'',
 
 })
 
@@ -84,6 +85,9 @@ export default (state=defaultState,action)=>{
         const list=[]
         list.push(action.data)
         return state.set('userMentionList',state.get('userMentionList').concat(fromJS(list)))
+    }
+    if(action.type===actionTypes.CHANGE_ACTIVEKEY){
+        return state.set('activeKey',action.result);
     }
 
     /*

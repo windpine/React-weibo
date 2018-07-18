@@ -14,9 +14,7 @@ const {Header}=Layout;
 
 
 var uid=sessionStorage.getItem('uid');
-console.log("============currentuid:",uid);
-var path=`/profile/${uid}`;
-console.log("path:",path);
+var path=`/profile/${uid}/1`;
 
 var config = {
     baseURL: 'http://localhost:8080'
@@ -28,17 +26,17 @@ class MyHeader extends Component {
         super(props)
     }
 
-    componentDidMount(){//注意：是在组件加载完毕后立即执行
-        const myuid=sessionStorage.getItem('uid');
-        axios.get("/users"+"/"+myuid,config)
-            .then(res=>{
-                this.setState({
-                    loading: false,
-                });
-                const result=res.data.data.user;
-                this.props.getUserInfo(result,result.password);
-            })
-    }
+    // componentDidMount(){//注意：是在组件加载完毕后立即执行
+    //     const myuid=sessionStorage.getItem('uid');
+    //     axios.get("/users"+"/"+myuid,config)
+    //         .then(res=>{
+    //             this.setState({
+    //                 loading: false,
+    //             });
+    //             const result=res.data.data.user;
+    //             this.props.getUserInfo(result,result.password);
+    //         })
+    // }
     render(){
         const props = this.props;
         return(

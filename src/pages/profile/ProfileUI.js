@@ -16,7 +16,6 @@ var config = {
 };
 
 const uid=sessionStorage.getItem('uid');
-console.log("currentuid:",uid);
 const path=`/profile/${uid}`;
 
 class ProfileUI extends Component{
@@ -33,6 +32,7 @@ class ProfileUI extends Component{
         const myuid=this.props.match.params.uid;
         const currentuid=sessionStorage.getItem('uid');
         console.log('pramisuid:',myuid);
+        console.log('mykey:',this.props.match.params.key);
         axios.get("/users"+"/"+myuid,config)
             .then(res=>{
                 this.setState({
@@ -41,7 +41,7 @@ class ProfileUI extends Component{
                 const result=res.data.data.user;
                 console.log("pramUserInfo:",result);
                 console.log("pramUserInfo:",result.password);
-                this.props.getUserInfo(result,result.password);
+                this.props.getUserInfo(result,result.password,this.props.match.params.key);
                 this.checkIsFollow(myuid,currentuid);
             })
     }
@@ -70,7 +70,7 @@ class ProfileUI extends Component{
             this.props.loginState?(
                 <div>
                     <MyHeader/>
-                    <MyCardUI username={this.props.username} avatarUrl={this.props.avatarUrl} uid={this.props.uid} checkresult={this.props.isFollow}/>
+                    <MyCardUI username={this.props.username} avatarUrl={this.props.avatarUrl} uid={this.props.match.params.uid} checkResult={this.props.isFollow}/>
                     <ProfileContentUI/>
                 </div>
             ): <Redirect to='/welcome'/>
@@ -90,8 +90,8 @@ const mapStatesToProps = (state)=>{
 }
 const mapDispatchToProps = (dispatch)=>{
     return{
-        getUserInfo(result,password){
-            dispatch(actionCreators.changeUserInfoActoin(result,password));
+        getUserInfo(result,password,key){
+            dispatch(actionCreators.changeUserInfoActoin(result,password,key));
         },
         changeIsFollow(result){
             dispatch(actionCreators.changeIsFollow(result));

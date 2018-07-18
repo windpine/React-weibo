@@ -4,6 +4,7 @@ import axios from 'axios';
 import {actionCreators} from "./index";
 import {ContentSplit} from "../Util";
 import store from "../../../store";
+import {CHANGE_ACTIVEKEY} from "../../profile/store/actionTypes";
 
 
 var config = {
@@ -36,6 +37,11 @@ export const changeUserInfoActoin=(result,password)=>({
     userInfo:result,
     password:password,
 
+})
+
+export const changeActiveKey=(result)=>({
+    type:actionTypes.CHANGE_ACTIVEKEY,
+    result:result,
 })
 
 /*

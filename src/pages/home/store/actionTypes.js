@@ -17,3 +17,5 @@ export const HANDLE_PREVIEW_CANCLE='handle_preview_cancle';
 
 
 export const CHANGE_USERINFO='change_userInfo';
+
+export const CHANGE_ACTIVEKEY='change_activekey';
