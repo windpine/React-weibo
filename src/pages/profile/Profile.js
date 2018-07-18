@@ -14,8 +14,7 @@ class Profile extends Component{
     }
     render(){
         return (
-            <ProfileForm
-                />
+            <ProfileForm/>
         )
     }
 }
@@ -34,7 +33,6 @@ const mapDispatchToProps = (dispatch)=>{
 
 
 }
-
 
 
 export default connect(mapStatesToProps,mapDispatchToProps)(withRouter(Profile));

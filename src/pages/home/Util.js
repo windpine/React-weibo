@@ -17,3 +17,10 @@ export function ContentSplit(content){
     })
     return format
 }
+
+export function formatTime(time) {
+    var d=new Date(time);
+    d.setHours(d.getHours()-5)
+    var times=d.getUTCFullYear() + '-' + (d.getUTCMonth() + 1) + '-' + d.getUTCDate() + ' ' + d.getUTCHours() + ':' + d.getUTCMinutes() + ':' + d.getUTCSeconds();
+    return times
+}

@@ -43,7 +43,7 @@ class RepostBoxUI extends Component{
                 </div>
                 <div>
                     <Row>
-                        <RepostList/>
+                        <RepostList tid={this.props.tid}/>
                     </Row>
                 </div>
             </div>

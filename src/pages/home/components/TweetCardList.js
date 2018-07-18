@@ -16,7 +16,7 @@ class TweetCardList extends Component{
                 {
                     tweetList.map((tweetItem)=>{
                         return(
-                            <TweetCard key={tweetItem.get('tid')}  tweetInfo={tweetItem}/>
+                            <TweetCard key={tweetItem.get(0).get('tid')}  tweetItem={tweetItem} />
                             )
                     })
                 }
