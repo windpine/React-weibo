@@ -17,7 +17,7 @@ class CommentBox extends Component{
 
     onClick=()=>{
         message.info('This is a normal message');
-        this.props.handleSendComment(this.props.tid,this.props.value)
+        this.props.handleSendComment(this.props.tid,this.props.uid,this.props.value)
         this.child.clearCommentInput()
     }
     onRef = (ref) => {
@@ -46,10 +46,9 @@ const mapStateToProps=(state)=>{
 }
 const mapDispatchToProps=(dispatch)=>{
     return{
-        handleSendComment(tid,content){
-            dispatch(actionCreators.sendCommentAction(tid,content))
-        },
-
+        handleSendComment(tid,uid,content){
+            dispatch(actionCreators.sendCommentAction(tid,uid,content))
+        }
     }
 }
 

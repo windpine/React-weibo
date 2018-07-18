@@ -1,14 +1,18 @@
-import { List, Avatar, Button, Spin ,Row,Icon} from 'antd';
+import { List, Avatar, Spin ,Icon} from 'antd';
 import React,{Component} from 'react'
 import {connect} from 'react-redux';
 import 'antd/dist/antd.css';
 import axios from "axios/index";
 import {actionCreators} from "../store";
 import store from "../../../store";
+import {formatTime} from "../Util";
 
 //import reqwest from 'reqwest';
 
 //const fakeDataUrl = 'https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo';
+var config = {
+    baseURL: 'http://localhost:8080'
+};
 
 class RepostList extends Component {
     constructor(props){
@@ -28,17 +32,17 @@ class RepostList extends Component {
             this.setState({
                 loading: false,
             });
-            const result=res.data.data;
-            this.props.handleGetComment(result)
+            const result=res.data.data.repostList;
+            this.props.handleGetRepost(result)
         });
     }
 
     getData = (callback) => {
-        axios.get("api/Tweets.json").then((res)=>{
+        axios.get("/tweets/repost/"+this.props.tid ,config).then((res)=>{
             callback(res);
         })
     }
-    //
+
     // onLoadMore = () => {
     //     this.setState({
     //         loadingMore: true,
@@ -77,10 +81,10 @@ class RepostList extends Component {
                     <List.Item actions={[<Icon type="export"/>,<Icon type="like-o"/>]}>
                         <List.Item.Meta
                             avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                            title={<a href="https://ant.design">{item.uid}</a>}
+                            title={<a href="#">{item.nickname}</a>}
                             description={item.content}
                         />
-                        <font size="2" color="#a9a9a9">{item.createTime}</font>
+                        <font size="2" color="#a9a9a9">{formatTime(item.createTime)}</font>
                     </List.Item>
                 )}
             />
@@ -90,17 +94,17 @@ class RepostList extends Component {
 
 const mapStateToProps=(state)=>{
     return {
-        buttonDisabled:state.getIn(['home','commentButton']),
-        value:state.getIn(['home','commentInput']),
+        buttonDisabled:state.getIn(['home','repostButton']),
+        value:state.getIn(['home','repostInput']),
         repostList:state.getIn(['home','repostList'])
     }
 }
 const mapDispatchToProps=(dispatch)=>{
     return{
-        handleGetComment(result){
-            const action=actionCreators.changeRepostList(result);
+        handleGetRepost(result) {
+            const action = actionCreators.changeRepostList(result);
             dispatch(action)
-        },
+        }
     }
 }
 

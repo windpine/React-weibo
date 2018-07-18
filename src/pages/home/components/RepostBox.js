@@ -19,8 +19,8 @@ class RepostBox extends Component{
 
     onClick=()=>{
         message.info('This is a normal message');
-        this.props.handleSendComment()
-        this.child.clearCommentInput()
+        this.props.handleSendRepost(this.props.tid,this.props.uid,this.props.value)
+        this.child.clearRepostInput()
     }
     onRef = (ref) => {
         this.child = ref
@@ -35,7 +35,7 @@ class RepostBox extends Component{
 
     render(){
         return(
-            <RepostBoxUI onChange={this.onChange} checked={this.state.checked} onRef={this.onRef} onClick={this.onClick} buttonDisabled={this.props.buttonDisabled} value={this.props.value}/>
+            <RepostBoxUI tid={this.props.tid} onChange={this.onChange} checked={this.state.checked} onRef={this.onRef} onClick={this.onClick} buttonDisabled={this.props.buttonDisabled} value={this.props.value}/>
             )
     }
 }
@@ -48,9 +48,9 @@ const mapStateToProps=(state)=>{
 }
 const mapDispatchToProps=(dispatch)=>{
     return{
-        handleSendRepost(){
-            dispatch(actionCreators.sendRepostAction())
-        },
+        handleSendRepost(tid,uid,content){
+            dispatch(actionCreators.sendRepostAction(tid,uid,content))
+        }
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(RepostBox);
