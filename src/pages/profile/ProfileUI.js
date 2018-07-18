@@ -8,6 +8,7 @@ import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import * as axios from "axios/index";
 import {actionCreators} from "./store";
+import Redirect from "react-router-dom/es/Redirect";
 
 
 var config = {
@@ -65,11 +66,15 @@ class ProfileUI extends Component{
 
     render(){
         return (
-            <div>
-                <MyHeader/>
-                <MyCardUI username={this.props.username} avatarUrl={this.props.avatarUrl} uid={this.props.uid} checkresult={this.props.isFollow}/>
-                <ProfileContentUI/>
-            </div>
+
+            this.props.loginState?(
+                <div>
+                    <MyHeader/>
+                    <MyCardUI username={this.props.username} avatarUrl={this.props.avatarUrl} uid={this.props.uid} checkresult={this.props.isFollow}/>
+                    <ProfileContentUI/>
+                </div>
+            ): <Redirect to='/welcome'/>
+
         )
     }
 }
@@ -80,6 +85,7 @@ const mapStatesToProps = (state)=>{
         username:state.getIn(['profile','username']),
         avatarUrl:state.getIn(['profile','avatarUrl']),
         isFollow:state.getIn(['profile','isFollow']),
+        loginState:state.getIn(['welcome','loginState']),
     }
 }
 const mapDispatchToProps = (dispatch)=>{

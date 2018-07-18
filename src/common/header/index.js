@@ -13,9 +13,9 @@ import {actionCreators} from "../../pages/profile/store";
 const {Header}=Layout;
 
 
-const uid=sessionStorage.getItem('uid');
-console.log("currentuid:",uid);
-const path=`/profile/${uid}`;
+var uid=sessionStorage.getItem('uid');
+console.log("============currentuid:",uid);
+var path=`/profile/${uid}`;
 console.log("path:",path);
 
 var config = {
