@@ -1,6 +1,6 @@
 import React,{Component} from 'react'
 import 'antd/dist/antd.css';
-import { Card,Row,Col,Avatar,Icon,Divider,Button,Checkbox} from 'antd';
+import { Row,Col,Avatar,Icon,Divider,Button,Checkbox} from 'antd';
 import InputBox from './InputBox'
 import RepostList from './RepostList'
 

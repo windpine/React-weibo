@@ -28,6 +28,15 @@ export const getInputChangeAction=(input,inputType)=>{
         }
     }
 }
+/*
+将获取到的个人信息存起来存到Home的子reducer
+ */
+export const changeUserInfoActoin=(result,password)=>({
+    type:actionTypes.CHANGE_USERINFO,
+    userInfo:result,
+    password:password,
+
+})
 
 /*
 创建发送微博、转发、评论的action，post到服务器

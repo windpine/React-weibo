@@ -26,6 +26,9 @@ export const loginRequest=(values)=>{
                 const action = saveSuccessInfo(res.data.data);
                 dispatch(action)
             })
+            .catch(error => {
+                alert(error.response.data.msg)
+            })
     }
 }
 

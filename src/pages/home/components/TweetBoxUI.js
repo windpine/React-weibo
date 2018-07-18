@@ -26,7 +26,7 @@ class TweetBoxUI extends Component{
         return(
             <div>
                 <Card hoverable style={{marginLeft:20,marginRight:20}}>
-                    <Row style={{marginBottom:10}}><font size="3" color="#000">发送你的第一条微博</font></Row>
+                    <Row style={{marginBottom:10}}><font size="3" color="#000">发微博，分享身边事</font></Row>
                     <Row>
                         <InputBox inputType="tweet" onRef={this.onRef}  value={this.props.value} style={{ width: '100%',height:100 }} placeholder="input @ to mention people, # to mention tag"/>
                     </Row>

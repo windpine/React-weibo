@@ -20,6 +20,12 @@ const defaultState = fromJS({
         url: '',
     },
 
+    nickname:'',
+    avatarUrl:'',
+    tweets:0,
+    follows:0,
+    followers:0,
+
 })
 
 const baseURL='https://weibo-1252079771.cos.ap-beijing.myqcloud.com/'
@@ -97,6 +103,14 @@ export default (state=defaultState,action)=>{
     }
     if(action.type===actionTypes.HANDLE_PREVIEW_CANCLE){
         return state.set('previewVisible',false);
+    }
+
+    if(action.type===actionTypes.CHANGE_USERINFO){
+        return state.set('nickname', action.userInfo['nickname'])
+            .set('avatarUrl',action.userInfo['avatarUrl'])
+            .set('tweets',action.userInfo['tweets'])
+            .set('follows',action.userInfo['follows'])
+            .set('followers',action.userInfo['followers'])
     }
 
     return state;
