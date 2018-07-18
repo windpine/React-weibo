@@ -8,7 +8,7 @@ import {connect} from 'react-redux';
 import {logoutRequest} from "../../pages/welcome/store/actionCreators";
 import Avatar from "antd/es/avatar/index";
 import * as axios from "axios/index";
-import {actionCreators} from "../../pages/profile/store";
+import {actionCreators} from "../../pages/home/store";
 
 const {Header}=Layout;
 

@@ -18,7 +18,6 @@ class TweetBox extends Component{
         this.child = ref
     }
     render(){
-        console.log('value'+this.props.value)
         return(
             <TweetBoxUI onRef={this.onRef} onClick={this.onClick} buttonDisabled={this.props.buttonDisabled} value={this.props.value}/>
             )
@@ -36,7 +35,7 @@ const mapDispatchToProps=(dispatch)=>{
         handleSendTweet(value){
             console.log("handleSendTweet");
             dispatch(actionCreators.sendTweetAction(value))
-        },
+        }
     }
 }
 

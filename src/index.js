@@ -8,7 +8,7 @@ import './index.css';
 import {Layout} from 'antd';
 import 'antd/dist/antd.css'
 import Welcome from './pages/welcome/loadable'
-import Home from './pages/home/Home'
+import Home from './pages/home/loadable'
 import MyFooter from "./common/footer";
 import Message from './pages/message/Message';
 import ProfileUI from "./pages/profile/ProfileUI";
