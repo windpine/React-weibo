@@ -106,6 +106,11 @@ export const changeFollowerListAction=(result)=>({
     followers:result,
 })
 
+export const changeIsFollow=(result)=>({
+    type:actionTypes.CHANGE_ISFOLLOW,
+    result:result,
+})
+
 export const savePasswordAction=(password)=>({
     type:actionTypes.CHANGE_PASSWORD,
     password

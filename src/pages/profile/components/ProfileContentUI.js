@@ -67,7 +67,7 @@ class ProfileContentUI extends Component{
         return (
             <Content style={{marginLeft:'10%',marginRight:'10%'}}>
                 <Breadcrumb style={{ margin: '16px 0' }}>
-                    <Breadcrumb.Item><a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">首页</a></Breadcrumb.Item>
+                    <Breadcrumb.Item>首页</Breadcrumb.Item>
                     <Breadcrumb.Item>个人主页</Breadcrumb.Item>
                 </Breadcrumb>
                 {/*<div>*/}

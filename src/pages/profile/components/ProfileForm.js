@@ -244,6 +244,17 @@ class ModalForm extends Component {
                     ,this.props.followers,avatarUrl,sex,this.props.password,email);
 
                 alert("修改成功！");
+                // this.child.forceUpdate();
+                this.props.form.resetFields(['vcode']);
+                // this.child.setState({...this.initState()});
+                this.child.setState({
+                    data: this.child.getRandom(109,48,4),//返回一个数据列表
+                    rotate: this.child.getRandom(75,-75,4),
+                    fz: this.child.getRandom(15,40,4),
+                    color: [this.child.getRandom(100,255,3),this.child.getRandom(100,255,4),this.child.getRandom(100,255,3),this.child.getRandom(100,255,3)],
+                    refresh: false,
+                })
+
             }
         });
     };
@@ -430,7 +441,7 @@ class ModalForm extends Component {
                             <FormItem
                                 {...formItemLayout}
                                 label="验证码"
-                                extra="请不是机器人的你以小写格式输入验证"
+                                extra="友情提示：不是机器人的你只允许以小写格式输入验证哦~"
                             >
                                 {getFieldDecorator('vcode', {
                                     rules: [ {
@@ -442,7 +453,7 @@ class ModalForm extends Component {
                                 })(
                                     <Row gutter={20}>
                                         <Col span={12}>
-                                            <Input/>
+                                            <Input defaultValue=""/>
                                         </Col>
                                         <Col span={12}>
                                             <VCode onRef={this.onRef} />

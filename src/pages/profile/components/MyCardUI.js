@@ -11,30 +11,41 @@ var config = {
     baseURL: 'http://localhost:8080'
 };
 
+const uid=sessionStorage.getItem('uid');
+console.log("currentuid:",uid);
+const path=`/profile/${uid}`;
+
 //个人主页上方卡片
 class MyCardUI extends React.Component{
 
     constructor(props){
         super(props);
         this.state={
-            isFocus:"no",
+            isFocus:'',
+
         }
+
     }
+
+
+
 
     handleIsFollow() {
         const uid = this.props.uid;//别人的ID
         const currentId=sessionStorage.getItem('uid');//我的ID
+        const isFollow=this.props.checkresult;
         console.log("currentId:",currentId);
         console.log("uid:",uid);
+        console.log("checkresult:",isFollow);
         if (uid != currentId) {//进入了别人的主页
-            {this.checkIsFollow(currentId,uid)};
-            switch (this.state.isFocus){
+            // this.checkIsFollow(currentId,uid);
+            switch (isFollow){
                 case "yes"://已经关注了
                     return(
                         <div style={{paddingRight: 10, textAlign: 'right',height:50,marginTop:-20}}>
                             <Button onClick={() => {
                                 this.handleDeleteFollow(uid);
-                            }}>取消关注</Button>
+                           }}  >取消关注</Button>
                         </div>
                     )
                 case "no"://没有关注
@@ -49,24 +60,45 @@ class MyCardUI extends React.Component{
         }
     }
 
-    checkIsFollow(currentId,uid){
-        console.log("currentId:",currentId);
-        console.log("followId:",uid);
-        axios.get("/users"+"/"+currentId+"/fans/"+uid,config)
-            .then(res=>{
-                // dispatch(changeFollowListAction(result));
-                const result=res.data.data;
-                console.log("axiosCheckInfo:",result);
-                this.setState( {
-                    isFocus: result
-                } );
+    // checkIsFollow(){
+    //     const currentId2=this.state.currentId;
+    //     const uid2=this.state.uid;
+    //     console.log("currentcheckId:",currentId2);
+    //     console.log("followcheckId:",uid2);
+    //     axios.get("/users"+"/"+currentId2+"/fans/"+uid2,config)
+    //         .then(res=>{
+    //             // dispatch(changeFollowListAction(result));
+    //             const result=res.data.data;
+    //             console.log("axiosCheckResult:",result);
+    //             this.setState( {
+    //                 isFocus: result
+    //             } );
+    //
+    //         });
+    // }
 
-            });
-    }
+    // componentDidMount(){//注意：是在组件加载完毕后立即执行
+    //     const uid = this.props.uid;//别人的ID
+    //     const currentId=sessionStorage.getItem('uid');//我的ID
+    //     console.log("currentcheckId:",currentId);
+    //     console.log("followcheckId:",uid);
+    //     axios.get("/users"+"/"+currentId+"/fans/"+uid,config)
+    //         .then(res=>{
+    //             // dispatch(changeFollowListAction(result));
+    //             const result=res.data.data;
+    //             console.log("axiosCheckInfo:",result);
+    //             this.setState( {
+    //                 isFocus: result
+    //             } );
+    //
+    //         });
+    //     console.log("state.isFocus:",this.state.isFocus);
+    // }
 
     handleDeleteFollow(followId){
         const dataSource = [...this.props.dataSource];
         this.props.getFollowList(dataSource.filter(item => item.uid !== followId),followId);
+
     }
 
     render(){
@@ -102,12 +134,15 @@ const mapDispatchToProps=(dispatch)=>{
     return{
         handleAddFollow(uid){
             console.log("buttonClicker!");
+            dispatch(actionCreators.changeIsFollow('yes'));
             dispatch(actionCreators.addFollowRequest(uid));
         },
         getFollowList(result,deleteId){
+            dispatch(actionCreators.changeIsFollow('no'));
             dispatch(actionCreators.saveFollowListRequest(result,deleteId));
             console.log("result:",result);
             console.log('deleteId:',deleteId);
+
 
         },
 

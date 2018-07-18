@@ -34,6 +34,7 @@ const defaultState=fromJS(
             status: 'done',
             url: '',
         },
+        isFollow:'',
     }
 );
 
@@ -95,6 +96,8 @@ export default (state=defaultState,action)=>{
             return state.set('previewVisible',true);
         case actionTypes.HANDLE_PROFILEPREVIEW_CANCLE:
             return state.set('previewVisible',false);
+        case actionTypes.CHANGE_ISFOLLOW:
+            return state.set('isFollow',action.result);
 
         default:
             return state;

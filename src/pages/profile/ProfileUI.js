@@ -14,23 +14,23 @@ var config = {
     baseURL: 'http://localhost:8080'
 };
 
+const uid=sessionStorage.getItem('uid');
+console.log("currentuid:",uid);
+const path=`/profile/${uid}`;
+
 class ProfileUI extends Component{
 
     constructor(props){
         super(props);
         // store.subscribe(this.props.handleStoreChange.bind(this))
         // this.state = {
-        //     nickname: this.props.nickname,
-        //     username:this.props.username,
-        //     sex: this.props.sex,
-        //     email: this.props.email,
-        //     avatarUrl:this.props.avatarUrl,
-        //     tweetsList:[],
+        //     isFollow:'',
         // };
     }
 
     componentDidMount(){//注意：是在组件加载完毕后立即执行
         const myuid=this.props.match.params.uid;
+        const currentuid=sessionStorage.getItem('uid');
         console.log('pramisuid:',myuid);
         axios.get("/users"+"/"+myuid,config)
             .then(res=>{
@@ -41,14 +41,33 @@ class ProfileUI extends Component{
                 console.log("pramUserInfo:",result);
                 console.log("pramUserInfo:",result.password);
                 this.props.getUserInfo(result,result.password);
+                this.checkIsFollow(myuid,currentuid);
             })
+    }
+
+    checkIsFollow=(myuid,currentId)=>{
+        console.log("111:",currentId);
+        console.log("222:",myuid);
+        axios.get("/users"+"/"+currentId+"/fans/"+myuid,config)
+            .then(res=>{
+                // dispatch(changeFollowListAction(result));
+                const result=res.data.data;
+                console.log("axiosCheckInfo:",result);
+                // this.setState({
+                //     isFollow:result,
+                // });
+                this.props.changeIsFollow(result);
+
+
+            });
+
     }
 
     render(){
         return (
             <div>
                 <MyHeader/>
-                <MyCardUI username={this.props.username} avatarUrl={this.props.avatarUrl} uid={this.props.uid}/>
+                <MyCardUI username={this.props.username} avatarUrl={this.props.avatarUrl} uid={this.props.uid} checkresult={this.props.isFollow}/>
                 <ProfileContentUI/>
             </div>
         )
@@ -60,14 +79,18 @@ const mapStatesToProps = (state)=>{
         uid:state.getIn(['profile','uid']),
         username:state.getIn(['profile','username']),
         avatarUrl:state.getIn(['profile','avatarUrl']),
+        isFollow:state.getIn(['profile','isFollow']),
     }
 }
 const mapDispatchToProps = (dispatch)=>{
     return{
         getUserInfo(result,password){
             dispatch(actionCreators.changeUserInfoActoin(result,password));
+        },
+        changeIsFollow(result){
+            dispatch(actionCreators.changeIsFollow(result));
+            console.log("change_isFollow:",result);
         }
-
 
     }
 }

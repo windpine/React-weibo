@@ -15,3 +15,6 @@ export const HANDLE_PROFILEPREVIEW='handle_profielpreview';
 export const HANDLE_PROFILEFILE_CHANGE='handle_profilefile_change';
 
 export const HANDLE_PROFILEPREVIEW_CANCLE='handle_profilepreview_cancle';
+
+
+export const CHANGE_ISFOLLOW='change_isfollow';

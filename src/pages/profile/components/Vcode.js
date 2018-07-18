@@ -11,25 +11,26 @@ class VCode extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            ...this.initState(),
-            refresh: false
-        };
-
-    }
-
-    // componentDidMount(){
-    //     this.props.onRef(this)
-    // }
-
-
-    initState(){
-        return {
+            // ...this.initState(),
             data: this.getRandom(109,48,4),//返回一个数据列表
             rotate: this.getRandom(75,-75,4),
             fz: this.getRandom(15,40,4),
-            color: [this.getRandom(100,255,3),this.getRandom(100,255,4),this.getRandom(100,255,3),this.getRandom(100,255,3)]
-        }
-    };
+            color: [this.getRandom(100,255,3),this.getRandom(100,255,4),this.getRandom(100,255,3),this.getRandom(100,255,3)],
+            refresh: false,
+        };
+
+    }
+    
+
+
+    // initState(){
+    //     return {
+    //         data: this.getRandom(109,48,4),//返回一个数据列表
+    //         rotate: this.getRandom(75,-75,4),
+    //         fz: this.getRandom(15,40,4),
+    //         color: [this.getRandom(100,255,3),this.getRandom(100,255,4),this.getRandom(100,255,3),this.getRandom(100,255,3)]
+    //     }
+    // };
 
     getRandom(max, min, num) {
         const asciiNum = ~~(Math.random()*(max-min+1)+min)
