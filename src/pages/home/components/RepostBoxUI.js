@@ -1,6 +1,6 @@
 import React,{Component} from 'react'
 import 'antd/dist/antd.css';
-import { Card,Row,Col,Avatar,Icon,Divider,Button,Checkbox} from 'antd';
+import { Row,Col,Avatar,Icon,Divider,Button,Checkbox} from 'antd';
 import InputBox from './InputBox'
 import RepostList from './RepostList'
 
@@ -43,7 +43,7 @@ class RepostBoxUI extends Component{
                 </div>
                 <div>
                     <Row>
-                        <RepostList/>
+                        <RepostList tid={this.props.tid}/>
                     </Row>
                 </div>
             </div>

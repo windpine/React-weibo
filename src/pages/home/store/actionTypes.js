@@ -8,3 +8,12 @@ export const CHANGE_TWEET_LIST='change_tweet_list';
 export const CHANGE_REPOST_LIST='change_repost_list';
 export const CHANGE_COMMENT_LIST='change_comment_list';
 export const ADD_USER_MENTION_LIST='add_user_mention_list';
+
+export const HANDLE_PREVIEW='handle_preview';
+
+export const HANDLE_FILE_CHANGE='handle_file_change';
+
+export const HANDLE_PREVIEW_CANCLE='handle_preview_cancle';
+
+
+export const CHANGE_USERINFO='change_userInfo';

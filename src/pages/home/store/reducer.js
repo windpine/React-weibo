@@ -10,9 +10,25 @@ const defaultState = fromJS({
     tweetList:[],
     repostList:[],
     commentList:[],
-    userMentionList:[]
+    userMentionList:[],
+
+    previewVisible: false,
+    file: {
+        uid: -1,
+        name: 'xxx.png',
+        status: 'done',
+        url: '',
+    },
+
+    nickname:'',
+    avatarUrl:'',
+    tweets:0,
+    follows:0,
+    followers:0,
 
 })
+
+const baseURL='https://weibo-1252079771.cos.ap-beijing.myqcloud.com/'
 
 export default (state=defaultState,action)=>{
     /*
@@ -69,5 +85,33 @@ export default (state=defaultState,action)=>{
         list.push(action.data)
         return state.set('userMentionList',state.get('userMentionList').concat(fromJS(list)))
     }
+
+    /*
+    关于上传图片
+     */
+    if(action.type===actionTypes.HANDLE_FILE_CHANGE){
+        console.log('获得文件：'+action.file.name)
+        const file = action.file;
+        const url=baseURL+file.name;
+        return state.setIn(['file','uid'],file.uid)
+            .setIn(['file','name'],file.name)
+            .setIn(['file','url'],url)
+            .setIn(['register','avatarUrl'],url)
+    }
+    if(action.type===actionTypes.HANDLE_PREVIEW){
+        return state.set('previewVisible',true);
+    }
+    if(action.type===actionTypes.HANDLE_PREVIEW_CANCLE){
+        return state.set('previewVisible',false);
+    }
+
+    if(action.type===actionTypes.CHANGE_USERINFO){
+        return state.set('nickname', action.userInfo['nickname'])
+            .set('avatarUrl',action.userInfo['avatarUrl'])
+            .set('tweets',action.userInfo['tweets'])
+            .set('follows',action.userInfo['follows'])
+            .set('followers',action.userInfo['followers'])
+    }
+
     return state;
 }

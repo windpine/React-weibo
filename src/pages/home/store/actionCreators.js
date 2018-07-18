@@ -28,15 +28,27 @@ export const getInputChangeAction=(input,inputType)=>{
         }
     }
 }
+/*
+将获取到的个人信息存起来存到Home的子reducer
+ */
+export const changeUserInfoActoin=(result,password)=>({
+    type:actionTypes.CHANGE_USERINFO,
+    userInfo:result,
+    password:password,
+
+})
 
 /*
 创建发送微博、转发、评论的action，post到服务器
  */
 export  const sendTweetAction=(value)=>{
     return (dispatch)=>{
+        console.log(store.getState().getIn(['home','file']).get('url'))
         const data={
             "uid":sessionStorage.getItem('uid'),
-            "content":value
+            "srcId":-1,
+            "content":value,
+            "imageUrl":store.getState().getIn(['home','file']).get('url')
         }
         axios.post('/tweets',data,config).then((res)=>{
             //清空tweet的Input,刷新微博列表
@@ -85,9 +97,40 @@ const publishMessage=(tweet)=>{
 }
 
 
-export  const sendRepostAction=()=>({
-    type:actionTypes.SEND_TWEET
-})
+export  const sendRepostAction=(tid,uid,content)=>{
+    return (dispatch)=>{
+        console.log("进入转发了,tid:",tid)
+    const data={
+        "uid":sessionStorage.getItem('uid'),
+        "srcId":tid,
+        "content":content
+    }
+    axios.post('/tweets',data,config).then((res)=>{
+        //清空tweet的Input,刷新微博列表
+        const action1=getInputChangeAction("","repost")
+        const action2=getRepostList(tid)
+        const action3=getTweetList()
+        dispatch(action1)
+        dispatch(action2)
+        dispatch(action3)
+        pulishRepostMesaage(tid,uid,content)
+    })
+    }
+}
+const pulishRepostMesaage=(tid,uid,content)=>{
+    const message={
+        "type":3,
+        "srcId":tid,
+        "content":content,
+        "uid":uid,
+        "srcUid":sessionStorage.getItem('uid')
+    }
+    axios.post("/message",message,config).then(res=>{
+        console.log("message:",res)
+    })
+
+}
+
 export  const sendCommentAction=(tid,uid,content)=>{
     return (dispatch)=>{
     const data={
@@ -119,7 +162,7 @@ const pulishCommentMesaage=(tid,uid,content)=>{
     })
 
 }
-
+//拿到发送微博的，评论的和转发的列表
 export const getTweetList=()=>{
     return (dispatch)=>{
         axios.get("/tweets",config).then((res)=> {
@@ -136,6 +179,16 @@ export const getCommentList=(tid)=>{
             const result = res.data.data.commentList;
             console.log(result);
             const action = changeCommentList(result);
+            dispatch(action)
+        })
+    }
+}
+export const getRepostList=(tid)=>{
+    return (dispatch)=>{
+        axios.get("/tweets/repost/"+tid,config).then((res)=> {
+            const result = res.data.data.repostList;
+            console.log(result);
+            const action = changeRepostList(result);
             dispatch(action)
         })
     }
@@ -162,4 +215,22 @@ export const changeCommentList=(list)=>({
 export const getUserMentionAction=(data)=>({
     type:actionTypes.ADD_USER_MENTION_LIST,
     data:data
+})
+
+
+/*
+关于上传图片
+ */
+export const handleFileChange=(file)=>({
+    type:actionTypes.HANDLE_FILE_CHANGE,
+    file
+})
+
+export const handlePreview=(file)=>({
+    type:actionTypes.HANDLE_PREVIEW,
+    file
+})
+
+export const handlePreviewCancle=()=>({
+    type:actionTypes.HANDLE_PREVIEW_CANCLE,
 })

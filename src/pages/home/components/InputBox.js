@@ -107,7 +107,7 @@ class InputBox extends Component{
             <div>
             <InputBoxUI
                 style={this.props.style}
-                placeholder="input @ to mention people, # to mention tag"
+                placeholder={this.props.placeholder}
                 prefix={['@', '#']}
                 onSearchChange={this.onSearchChange}
                 suggestions={this.state.suggestions}

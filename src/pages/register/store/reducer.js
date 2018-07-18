@@ -35,6 +35,7 @@ export default (state=defaultState,action)=>{
         console.log('获得文件：'+action.file.name)
         const file = action.file;
         const url=baseURL+file.name;
+        console.log("RegisteravatarUrl:",url);
         return state.setIn(['file','uid'],file.uid)
             .setIn(['file','name'],file.name)
             .setIn(['file','url'],url)

@@ -12,7 +12,7 @@ class Welcome extends Component{
     render(){
         const {loginState} =this.props;
         return (
-            sessionStorage.getItem('uid')?<Redirect to="/home"/>:<WelcomeUI/>
+            loginState?<Redirect to="/home"/>:<WelcomeUI/>
         )
     }
 
@@ -24,10 +24,6 @@ const mapStatesToProps = (state)=>{
         loginState:state.getIn(['welcome','loginState'])
     }
 }
-const mapDispatchToProps = (dispatch)=>{
-    return {
 
-    }
-}
 
-export default connect(mapStatesToProps,mapDispatchToProps)(withRouter(Welcome));
+export default connect(mapStatesToProps,null)(withRouter(Welcome));
