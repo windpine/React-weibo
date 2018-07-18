@@ -120,11 +120,7 @@ class ModalForm extends Component {
         } );
     }
 
-    handleVcodeBlur=(e)=>{
-        this.setState( {
-            vcode: e.target.value
-        } );
-    }
+
 
     showModal = () => {
         this.setState({ visible: true });
@@ -243,6 +239,7 @@ class ModalForm extends Component {
                     avatarUrl=this.props.avatarUrl;
                     console.log('NotnullavartarUrl:',avatarUrl);
                 }
+
                 this.props.handleModifyClick(this.props.uid,nickname,this.props.username,this.props.tweets,this.props.follows
                     ,this.props.followers,avatarUrl,sex,this.props.password,email);
 
@@ -251,16 +248,32 @@ class ModalForm extends Component {
         });
     };
 
-    // componentDidMount(){//注意：是在组件加载完毕后立即执行
-    //     axios.get('api/userInfo.json').then((res)=>{
-    //         // const result=JSON.parse(JSON.stringify(res.data));
-    //         const result=res.data.data;
-    //         const password=res.data.password;
-    //         console.log("userinfoResult:",result);
-    //         console.log("pwd:",password);
-    //         this.props.getUserInfo(result,password);
-    //     })
+    onRef = (ref) => {
+        this.child = ref
+    }
+
+    // handleVcodeChange=(e)=>{
+    //     this.setState( {
+    //         vcode: e.target.value
+    //     } );
+    //     console.log(e.target.value);
+    //     console.log("传送的vcode:",this.state.vcode);
     // }
+
+    handleVcodeChange=(rule, value, callback)=>{
+        console.log("传送的vcode:",value);
+        switch (this.child.handleVcodeBlur(value)){
+            case "yes":
+                callback();
+            case "no":
+                callback("验证码不正确");
+            case "empty":
+                callback();
+        } ;
+
+    }
+
+
 
     render() {
         const { getFieldDecorator } = this.props.form;
@@ -419,16 +432,25 @@ class ModalForm extends Component {
                                 label="验证码"
                                 extra="请不是机器人的你以小写格式输入验证"
                             >
-                                {getFieldDecorator('sex', {
+                                {getFieldDecorator('vcode', {
                                     rules: [ {
                                         required: true,message:"请输入验证码！"
-                                    }],
-                                })(
-                                    <Input onBlur={this.handleVcodeBlur}/>
+                                    },{
+                                        validator:this.handleVcodeChange
 
+                                }],
+                                })(
+                                    <Row gutter={20}>
+                                        <Col span={12}>
+                                            <Input/>
+                                        </Col>
+                                        <Col span={12}>
+                                            <VCode onRef={this.onRef} />
+                                        </Col>
+                                    </Row>
                                 )
                                 }
-                                <VCode vcode={this.state.vcode}/>
+
 
 
                             </FormItem>

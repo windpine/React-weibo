@@ -17,6 +17,10 @@ class VCode extends Component {
 
     }
 
+    // componentDidMount(){
+    //     this.props.onRef(this)
+    // }
+
 
     initState(){
         return {
@@ -53,42 +57,29 @@ class VCode extends Component {
         }
     };
     componentDidMount() {
-        this.canvas()
+        this.canvas();
+        this.props.onRef(this);
     };
 
     //检验验证码是否正确
-    handleVcodeBlur=()=>{
-        const value=this.props.vcode;
+    handleVcodeBlur=(value)=>{
+        // const value=this.props.vcode;
         var vcode=this.state.data.map((v)=>String.fromCharCode(v > 57 && v < 84 ? v + 7 : ( v < 57 ? v : v + 13 )));
         var vcode2=`${vcode[0]}${vcode[1]}${vcode[2]}${vcode[3]}`;//提取字符串列表中的纯字符并拼接为串
         const newvcode=vcode2.toLowerCase();
         console.log('inputvcode',value)
         console.log('newvcode:',newvcode);
         if (value && value !== newvcode) {
-            alert("验证码输入不正确！");
+            return "no";
         }
         else if(value==''){
-            alert("请输入验证码！");
+            return "empty";
 
+        }else{
+            return "yes";
         }
 
     };
-
-    // componentWillMount(){//注意：是在组件加载完毕后立即执行
-    //     const value=this.props.vcode;
-    //     var vcode=this.state.data.map((v)=>String.fromCharCode(v > 57 && v < 84 ? v + 7 : ( v < 57 ? v : v + 13 )));
-    //     var vcode2=`${vcode[0]}${vcode[1]}${vcode[2]}${vcode[3]}`;//提取字符串列表中的纯字符并拼接为串
-    //     const newvcode=vcode2.toLowerCase();
-    //     console.log('inputvcode',value)
-    //     console.log('newvcode:',newvcode);
-    //     if (value && value !== newvcode) {
-    //         alert("验证码输入不正确！");
-    //     }
-    //     else if(value==''){
-    //         alert("请输入验证码！");
-    //
-    //     }
-    // }
 
     render() {
 
@@ -125,7 +116,6 @@ class VCode extends Component {
                         > 看不清？点击刷新
                         </div>
                         : null}
-                {/*{()=>this.handleVcodeBlur()}*/}
             </div>
 
 
