@@ -31,34 +31,28 @@ class ProfileUI extends Component{
     componentWillMount(){//注意：是在组件加载完毕后立即执行
         const myuid=this.props.match.params.uid;
         const currentuid=sessionStorage.getItem('uid');
-        console.log('pramisuid:',myuid);
-        console.log('mykey:',this.props.match.params.key);
-        axios.get("/users"+"/"+myuid,config)
+                axios.get("/users"+"/"+myuid,config)
             .then(res=>{
                 this.setState({
                     loading: false,
                 });
                 const result=res.data.data.user;
-                console.log("pramUserInfo:",result);
-                console.log("pramUserInfo:",result.password);
-                this.props.getUserInfo(result,result.password,this.props.match.params.key);
+                               this.props.getUserInfo(result,result.password,this.props.match.params.key);
                 this.checkIsFollow(myuid,currentuid);
             })
     }
 
     checkIsFollow=(myuid,currentId)=>{
-        console.log("111:",currentId);
-        console.log("222:",myuid);
+
         axios.get("/users"+"/"+currentId+"/fans/"+myuid,config)
             .then(res=>{
                 // dispatch(changeFollowListAction(result));
                 const result=res.data.data;
-                console.log("axiosCheckInfo:",result);
+
                 // this.setState({
                 //     isFollow:result,
                 // });
                 this.props.changeIsFollow(result);
-
 
             });
 
@@ -71,7 +65,7 @@ class ProfileUI extends Component{
                 <div>
                     <MyHeader/>
                     <MyCardUI username={this.props.username} avatarUrl={this.props.avatarUrl} uid={this.props.match.params.uid} checkResult={this.props.isFollow}/>
-                    <ProfileContentUI/>
+                    <ProfileContentUI uid={this.props.match.params.uid}/>
                 </div>
             ): <Redirect to='/welcome'/>
 
@@ -91,11 +85,12 @@ const mapStatesToProps = (state)=>{
 const mapDispatchToProps = (dispatch)=>{
     return{
         getUserInfo(result,password,key){
+            console.log("个人主页的get userinfo")
             dispatch(actionCreators.changeUserInfoActoin(result,password,key));
         },
         changeIsFollow(result){
             dispatch(actionCreators.changeIsFollow(result));
-            console.log("change_isFollow:",result);
+
         }
 
     }

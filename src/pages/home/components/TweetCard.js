@@ -7,6 +7,7 @@ import TweetContent from './TweetContent'
 import SubContent from './SubContent'
 import axios from 'axios'
 import {formatTime} from "../Util";
+import {Redirect} from 'react-router-dom';
 
 var config = {
     baseURL: 'http://localhost:8080'
@@ -63,7 +64,7 @@ class TweetCard extends Component{
         }
         if(this.state.RepostOrComment===1){
             return(
-                <RepostBox tid={this.props.tweetItem.get(0).get('tid')} uid={this.props.tweetItem.get(0).get('uid')}></RepostBox>
+                <RepostBox type={this.props.type} tid={this.props.tweetItem.get(0).get('tid')} uid={this.props.tweetItem.get(0).get('uid')}></RepostBox>
             )
         }
         if(this.state.RepostOrComment===2){
@@ -101,7 +102,11 @@ class TweetCard extends Component{
         }
     }
     onUserClick=(UID)=>{
-        message.info(UID)
+        const path="profile/"+UID+"/1"
+        console.log(path)
+        return(
+            <Redirect to={path}/>
+        )
     }
     render(){
         const tweetInfo=this.props.tweetItem.get(0);
@@ -114,8 +119,8 @@ class TweetCard extends Component{
                                 <div><Icon type="like-o" onClick={this.onLikeClick}/>{this.state.likes? this.state.likes: ''}</div>]}>
                     <Row>
                         <Meta
-                            avatar={<Avatar size="large" src={tweetInfo.get('avatarUrl')} onClick={()=>{this.onUserClick(tweetInfo.get('uid'))}}/>}
-                            title={<div onClick={()=>{this.onUserClick(tweetInfo.get('uid'))}} >{tweetInfo.get('nickname')}</div>}
+                            avatar={<a href={`/profile/${tweetInfo.get('uid')}/1`}><Avatar size="large" src={tweetInfo.get('avatarUrl')}/></a>}
+                            title={<a href={`/profile/${tweetInfo.get('uid')}/1`}>{tweetInfo.get('username')}</a>}
                             description={formatTime(tweetInfo.get('createTime'))}
                         />
                     </Row>

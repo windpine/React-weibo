@@ -4,7 +4,6 @@ import axios from 'axios';
 import {actionCreators} from "./index";
 import {ContentSplit} from "../Util";
 import store from "../../../store";
-import {CHANGE_ACTIVEKEY} from "../../profile/store/actionTypes";
 
 
 var config = {
@@ -32,11 +31,9 @@ export const getInputChangeAction=(input,inputType)=>{
 /*
 将获取到的个人信息存起来存到Home的子reducer
  */
-export const changeUserInfoActoin=(result,password)=>({
-    type:actionTypes.CHANGE_USERINFO,
+export const changeHomeUserInfoActoin=(result)=>({
+    type:actionTypes.CHANGE_HOME_USERINFO,
     userInfo:result,
-    password:password,
-
 })
 
 export const changeActiveKey=(result)=>({
@@ -103,7 +100,7 @@ const publishMessage=(tweet)=>{
 }
 
 
-export  const sendRepostAction=(tid,uid,content)=>{
+export  const sendRepostAction=(tid,uid,content,type)=>{
     return (dispatch)=>{
         console.log("进入转发了,tid:",tid)
     const data={
@@ -115,10 +112,15 @@ export  const sendRepostAction=(tid,uid,content)=>{
         //清空tweet的Input,刷新微博列表
         const action1=getInputChangeAction("","repost")
         const action2=getRepostList(tid)
-        const action3=getTweetList()
         dispatch(action1)
         dispatch(action2)
-        dispatch(action3)
+        if(type==="personal"){
+            const action3=getPersonalList(sessionStorage.getItem('uid'))
+            dispatch(action3)
+        }if(type==="all"){
+            const action4=getTweetList()
+            dispatch(action4)
+        }
         pulishRepostMesaage(tid,uid,content)
     })
     }
@@ -168,6 +170,19 @@ const pulishCommentMesaage=(tid,uid,content)=>{
     })
 
 }
+
+//拿到个人微博的列表的活动
+export const getPersonalList=(UID)=>{
+    return (dispatch)=>{
+        axios.get("/tweets/"+UID,config).then((res)=> {
+            const result = res.data.data.tweetList;
+            console.log(result);
+            const action = changeTweetList(result);
+            dispatch(action)
+        })
+    }
+}
+
 //拿到发送微博的，评论的和转发的列表
 export const getTweetList=()=>{
     return (dispatch)=>{

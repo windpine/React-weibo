@@ -111,7 +111,7 @@ class CommentList extends Component {
                     <List.Item actions={item.get('uid')===sessionStorage.getItem('uid')?[<Popconfirm title="Are you sure？" okText="Yes" cancelText="No" onConfirm={()=>{this.confirm(item.get('cid'))}}><Icon type="delete"/></Popconfirm>]:[<br/>]}>
                         <List.Item.Meta
                             avatar={<Avatar src={item.get('avatarUrl')} />}
-                            title={<a href="#">{item.get('nickname')}</a>}
+                            title={<a href="#">{item.get('username')}</a>}
                             description={item.get('content')}
                         />
                         <font size="2" color="#a9a9a9">{formatTime(item.get('createTime'))}</font>

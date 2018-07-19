@@ -16,6 +16,6 @@ export const HANDLE_FILE_CHANGE='handle_file_change';
 export const HANDLE_PREVIEW_CANCLE='handle_preview_cancle';
 
 
-export const CHANGE_USERINFO='change_userInfo';
+export const CHANGE_HOME_USERINFO='change_home_userInfo';
 
 export const CHANGE_ACTIVEKEY='change_activekey';

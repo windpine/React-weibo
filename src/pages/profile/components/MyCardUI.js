@@ -12,7 +12,7 @@ var config = {
 };
 
 const uid=sessionStorage.getItem('uid');
-console.log("currentuid:",uid);
+
 const path=`/profile/${uid}`;
 
 //个人主页上方卡片
@@ -34,9 +34,7 @@ class MyCardUI extends React.Component{
         const uid = this.props.uid;//别人的ID
         const currentId=sessionStorage.getItem('uid');//我的ID
         const isFollow=this.props.checkResult;
-        console.log("currentId:",currentId);
-        console.log("uid:",uid);
-        console.log("checkresult:",isFollow);
+
         if (uid != currentId) {//进入了别人的主页
             // this.checkIsFollow(currentId,uid);
             switch (isFollow){
@@ -63,13 +61,13 @@ class MyCardUI extends React.Component{
     // checkIsFollow(){
     //     const currentId2=this.state.currentId;
     //     const uid2=this.state.uid;
-    //     console.log("currentcheckId:",currentId2);
-    //     console.log("followcheckId:",uid2);
+    //     ("currentcheckId:",currentId2);
+    //     ("followcheckId:",uid2);
     //     axios.get("/users"+"/"+currentId2+"/fans/"+uid2,config)
     //         .then(res=>{
     //             // dispatch(changeFollowListAction(result));
     //             const result=res.data.data;
-    //             console.log("axiosCheckResult:",result);
+    //             ("axiosCheckResult:",result);
     //             this.setState( {
     //                 isFocus: result
     //             } );
@@ -80,19 +78,19 @@ class MyCardUI extends React.Component{
     // componentDidMount(){//注意：是在组件加载完毕后立即执行
     //     const uid = this.props.uid;//别人的ID
     //     const currentId=sessionStorage.getItem('uid');//我的ID
-    //     console.log("currentcheckId:",currentId);
-    //     console.log("followcheckId:",uid);
+    //     ("currentcheckId:",currentId);
+    //     ("followcheckId:",uid);
     //     axios.get("/users"+"/"+currentId+"/fans/"+uid,config)
     //         .then(res=>{
     //             // dispatch(changeFollowListAction(result));
     //             const result=res.data.data;
-    //             console.log("axiosCheckInfo:",result);
+    //             ("axiosCheckInfo:",result);
     //             this.setState( {
     //                 isFocus: result
     //             } );
     //
     //         });
-    //     console.log("state.isFocus:",this.state.isFocus);
+    //     ("state.isFocus:",this.state.isFocus);
     // }
 
     handleDeleteFollow(followId){
@@ -133,15 +131,13 @@ const mapStateToProps=(state)=>{
 const mapDispatchToProps=(dispatch)=>{
     return{
         handleAddFollow(uid){
-            console.log("buttonClicker!");
+
             dispatch(actionCreators.changeIsFollow('yes'));
             dispatch(actionCreators.addFollowRequest(uid));
         },
         getFollowList(result,deleteId){
             dispatch(actionCreators.changeIsFollow('no'));
             dispatch(actionCreators.saveFollowListRequest(result,deleteId));
-            console.log("result:",result);
-            console.log('deleteId:',deleteId);
 
 
         },

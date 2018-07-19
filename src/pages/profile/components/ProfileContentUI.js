@@ -7,6 +7,8 @@ import {connect} from "react-redux";
 import { Tabs, Radio } from 'antd';
 import FollowListContentUI from "./FollowListContentUI";
 import FollowerListContentUI from "./FollowerListContentUI";
+import PersonalTweetContent from './PersonalTweetContent'
+import OthersTweetContent from './OthersTweetContent'
 
 
 
@@ -22,20 +24,20 @@ class ProfileContentUI extends Component{
     }
 
     handleUserInfo(){//注意：是在组件加载完毕后立即执行
-        const uid=this.props.clickUid;
-        console.log("kkkkkkkey:",this.props.key);
+        const uid=this.props.uid;
+        console.log("dhsajdhjashdka     ",uid)
         if(uid==sessionStorage.getItem('uid')){
             return(
-                <Layout style={{ padding: '24px 0', background: '#fff', height:'900px'}}>
+                <Layout style={{ padding: '24px 0', background: '#fff'}}>
                     <Tabs
                         size="large"
                         disabled key="2"
                         defaultActiveKey={this.props.activeKey}
                         tabPosition={'left'}
-                        style={{ height: '900px'}}
+                        // style={{ height: '900px'}}
                     >
 
-                        <TabPane tab="微博" key="1">微博</TabPane>
+                        <TabPane tab="微博" key="1"><PersonalTweetContent/></TabPane>
                         <TabPane tab="--基本信息--" key="2" disabled key="2"></TabPane>
                         <TabPane tab="关注" key="3"><FollowListContentUI/></TabPane>
                         <TabPane tab="粉丝" key="4"><FollowerListContentUI/></TabPane>
@@ -46,16 +48,16 @@ class ProfileContentUI extends Component{
             );
         }else{
             return(
-                <Layout style={{ padding: '24px 0', background: '#fff', height:'900px'}}>
+                <Layout style={{ padding: '24px 0', background: '#fff'}}>
                     <Tabs
                         defaultActiveKey="1"
                         tabPosition={'left'}
-                        style={{ height: '900px' }}
+                        // style={{ height: '900px' }}
                     >
                         {/*<TabPane tab="基本信息" key="1" disabled key="1"></TabPane>*/}
                         {/*<TabPane tab="关注" key="2"><FollowListContentUI/></TabPane>*/}
                         {/*<TabPane tab="粉丝" key="3"><FollowerListContentUI/></TabPane>*/}
-                        <TabPane tab="微博" key="1">微博</TabPane>
+                        <TabPane tab="微博" key="1"><OthersTweetContent uid={this.props.uid}/></TabPane>
                         {/*<TabPane tab="编辑个人资料" key="2"><EditProfileContentUI/></TabPane>*/}
                     </Tabs>
 

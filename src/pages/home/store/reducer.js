@@ -21,7 +21,7 @@ const defaultState = fromJS({
         url: '',
     },
 
-    nickname:'',
+    username:'',
     avatarUrl:'',
     tweets:0,
     follows:0,
@@ -113,8 +113,9 @@ export default (state=defaultState,action)=>{
         return state.set('previewVisible',false);
     }
 
-    if(action.type===actionTypes.CHANGE_USERINFO){
-        return state.set('nickname', action.userInfo['nickname'])
+    if(action.type===actionTypes.CHANGE_HOME_USERINFO){
+        sessionStorage.setItem('avatarUrl',action.userInfo['avatarUrl'])
+        return state.set('username', action.userInfo['username'])
             .set('avatarUrl',action.userInfo['avatarUrl'])
             .set('tweets',action.userInfo['tweets'])
             .set('follows',action.userInfo['follows'])

@@ -62,6 +62,7 @@ const mapStateToProps=(state)=>{
 const mapDispatchToProps=(dispatch)=>{
     return{
         getUserInfo(result,password){
+            console.log("编辑信息里面的getUserInfo")
             dispatch(actionCreators.changeUserInfoActoin(result,password));
         }
 

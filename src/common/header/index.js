@@ -28,15 +28,6 @@ class MyHeader extends Component {
         super(props)
 
     }
-
-
-
-    // componentDidMount(){//注意：是在组件加载完毕后立即执行
-    //     const uid=sessionStorage.getItem('uid');
-    //     console.log('p.uid:',uid);
-    //     this.setState({sessionUid:uid});
-    //     console.log('state.uid:',this.state.sessionUid);
-    // }
     render(){
         const props = this.props;
         var path=sessionStorage.getItem('uid')?`/profile/${sessionStorage.getItem('uid')}/1`:`/profile/${this.props.uid}/1`;
@@ -63,7 +54,7 @@ class MyHeader extends Component {
                     <Menu.Item key="3" >
                         <div style={props.loginState?{visibility:'visible'}:{visibility:'hidden'}}>
                             <a href={path}>
-                                <Avatar src={this.props.avatarUrl}></Avatar>
+                                <Avatar src={sessionStorage.getItem('avatarUrl')}></Avatar>
                                 {sessionStorage.getItem('username')}
                             </a>
 
@@ -95,7 +86,6 @@ class MyHeader extends Component {
 const mapStatesToProps = (state)=>{
     return {
         loginState:state.getIn(['welcome','loginState']),
-        avatarUrl:state.getIn(['profile','avatarUrl']),
         uid:state.getIn(['welcome','sessionUid']),
     }
 }
@@ -109,12 +99,8 @@ const mapDispatchToProps = (dispatch)=>{
             dispatch(logoutRequest());
             console.log('测试跳转')
 
-        },
-        getUserInfo(result,password){
-            dispatch(actionCreators.changeUserInfoActoin(result,password));
-        },
+        }
     }
 }
-
 
 export default connect(mapStatesToProps,mapDispatchToProps)(withRouter(MyHeader));

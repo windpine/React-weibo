@@ -1,4 +1,4 @@
-import { List, Avatar, Spin ,Icon} from 'antd';
+import { List, Avatar, Spin ,Icon,message} from 'antd';
 import React,{Component} from 'react'
 import {connect} from 'react-redux';
 import 'antd/dist/antd.css';
@@ -65,12 +65,10 @@ class RepostList extends Component {
     //     });
     // }
 
-    onLikeClick=()=>{
-        // const TID=this.props.tweetItem.get(0).get('tid')
-        // axios.put("/tweets/likes/"+TID,null,config).then((res)=>{
-        //     message.info("点赞成功")
-        // })
-
+    onLikeClick=(TID)=>{
+        axios.put("/tweets/likes/"+TID,null,config).then((res)=>{
+            message.info("点赞成功")
+        })
     }
     render() {
         const { loading, loadingMore, showLoadingMore } = this.state;
@@ -89,10 +87,10 @@ class RepostList extends Component {
                 loadMore={loadMore}
                 dataSource={data}
                 renderItem={item => (
-                    <List.Item actions={[<Icon type="like-o" onClick={this.onLikeClick}/>]}>
+                    <List.Item actions={[<Icon type="like-o" onClick={()=>{this.onLikeClick(item.get('tid'))}}/>]}>
                         <List.Item.Meta
                             avatar={<Avatar src={item.get('avatarUrl')} />}
-                            title={<a href="#">{item.get('nickname')}</a>}
+                            title={<a href="#">{item.get('username')}</a>}
                             description={item.get('content')}
                         />
                         <font size="2" color="#a9a9a9">{formatTime(item.get('createTime'))}</font>

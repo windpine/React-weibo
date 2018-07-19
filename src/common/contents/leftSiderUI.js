@@ -22,7 +22,7 @@ class LeftSiderUI extends Component{
                         <div >
                         <Avatar  style={{verticalAlign:"center"}} src={this.props.avatarUrl}  size="large"/>
                         <b style={{marginLeft:20,fontSize:20,verticalAlign:"center"}}>
-                            {this.props.nickname}
+                            {this.props.username}
                         </b>
                         </div>
                     </Row>
@@ -54,7 +54,7 @@ class LeftSiderUI extends Component{
 const mapStateToProps=(state)=>{
     return {
         avatarUrl:state.getIn(['home','avatarUrl']),
-        nickname:state.getIn(['home','nickname'])
+        username:state.getIn(['home','username'])
     }
 }
 
