@@ -10,43 +10,6 @@ import{getData} from '../Message'
 import {actionCreators} from "../store";
 
 
-
-/*function getDataButton(obj){
-        switch(obj.props.messageType){
-            case messageType.MENTION:
-                obj.props.handleLoadingMoreMessage();
-                axios.get('/mention',config).then((res) => {
-                    let messageList = obj.props.messageList.concat(res.data.data.messageList);
-                    obj.props.handleLoadMoreMessage(messageList);
-                }).catch((res)=>{
-                    obj.props.handleNoMoreMessage();
-                });
-            case messageType.COMMENT:
-                obj.props.handleLoadingMoreMessage();
-                axios.get('/comment',config).then((res) => {
-                    let messageList = obj.props.messageList.concat(res.data.data.messageList);
-                    obj.props.handleLoadMoreMessage(messageList);
-                }).catch((res)=>{
-                    obj.props.handleNoMoreMessage();
-                });
-            case messageType.LIKES:
-                obj.props.handleLoadingMoreMessage();
-                axios.get('/likes',config).then((res) => {
-                    let messageList = obj.props.messageList.concat(res.data.data.messageList);
-                    obj.props.handleLoadMoreMessage(messageList);
-                }).catch((res)=>{
-                    obj.props.handleNoMoreMessage();
-                });
-            default:
-                obj.props.handleLoadingMoreMessage();
-                axios.get('/mention',config).then((res) => {
-                    let messageList = obj.props.messageList.concat(res.data.data.messageList);
-                    obj.props.handleLoadMoreMessage(messageList);
-                }).catch((res)=>{
-                    obj.props.handleNoMoreMessage();
-                });
-        }
-    }*/
 class MessageList extends React.Component{
     constructor(props){
         super(props);
@@ -86,17 +49,12 @@ const convertStateToProps= (state)=>{
 const convertDispatchToProps = (dispatch) =>{
     return {
        handleLoadMoreMessage(list,type){
-           let URL;
-           if(type === 0)
-               URL = '/mention';
-           else if( type === 1)
-               URL = '/comment';
-           else
-               URL = '/likes';
            dispatch(actionCreators.getLoadMoreMessageAction());
-           axios.get(URL,getConfig()).then((res) => {
+           axios.get('/',getConfig(type)).then((res) => {
                let messageList = list.concat(res.data.data.messageList);
                dispatch(actionCreators.getLoadMoreMessageListAction(messageList));
+           }).catch((error)=>{
+               alert(error.msg);
            })
        }
     }
