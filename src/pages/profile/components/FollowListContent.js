@@ -77,7 +77,7 @@ class FollowListContent extends React.Component {
                     this.props.dataSource.length >= 1
                         ? (
 
-                            <a href={`/profile/${record.uid}`}>{record.uid}</a>
+                            <a href={`/profile/${record.uid}/1`}>{record.uid}</a>
                         ) : null
                 );
             },

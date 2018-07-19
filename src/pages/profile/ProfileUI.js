@@ -28,7 +28,7 @@ class ProfileUI extends Component{
         // };
     }
 
-    componentDidMount(){//注意：是在组件加载完毕后立即执行
+    componentWillMount(){//注意：是在组件加载完毕后立即执行
         const myuid=this.props.match.params.uid;
         const currentuid=sessionStorage.getItem('uid');
         console.log('pramisuid:',myuid);

@@ -12,9 +12,11 @@ import {actionCreators} from "../../pages/home/store";
 
 const {Header}=Layout;
 
-
-var uid=sessionStorage.getItem('uid');
-var path=`/profile/${uid}/1`;
+//
+// var uid=sessionStorage.getItem('uid');
+// console.log('headerUid:',uid);
+// var path=`/profile/${uid}/1`;
+// console.log('headerPath:',path);
 
 var config = {
     baseURL: 'http://localhost:8080'
@@ -24,21 +26,20 @@ class MyHeader extends Component {
 
     constructor(props){
         super(props)
+
     }
 
+
+
     // componentDidMount(){//注意：是在组件加载完毕后立即执行
-    //     const myuid=sessionStorage.getItem('uid');
-    //     axios.get("/users"+"/"+myuid,config)
-    //         .then(res=>{
-    //             this.setState({
-    //                 loading: false,
-    //             });
-    //             const result=res.data.data.user;
-    //             this.props.getUserInfo(result,result.password);
-    //         })
+    //     const uid=sessionStorage.getItem('uid');
+    //     console.log('p.uid:',uid);
+    //     this.setState({sessionUid:uid});
+    //     console.log('state.uid:',this.state.sessionUid);
     // }
     render(){
         const props = this.props;
+        var path=sessionStorage.getItem('uid')?`/profile/${sessionStorage.getItem('uid')}/1`:`/profile/${this.props.uid}/1`;
         return(
             <Header>
                 <div className="logo" />
@@ -93,7 +94,8 @@ class MyHeader extends Component {
 const mapStatesToProps = (state)=>{
     return {
         loginState:state.getIn(['welcome','loginState']),
-        avatarUrl:state.getIn(['profile','avatarUrl'])
+        avatarUrl:state.getIn(['profile','avatarUrl']),
+        uid:state.getIn(['welcome','sessionUid']),
     }
 }
 const mapDispatchToProps = (dispatch)=>{
