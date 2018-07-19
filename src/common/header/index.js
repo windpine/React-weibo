@@ -25,6 +25,7 @@ class MyHeader extends Component {
     render(){
         const props = this.props;
         var path=sessionStorage.getItem('uid')?`/profile/${sessionStorage.getItem('uid')}/1`:`/profile/${this.props.uid}/1`;
+        var avatarUrl=sessionStorage.getItem('avatarUrl')?sessionStorage.getItem('avatarUrl'):this.props.avatarUrl;
         return(
             <Header>
                 <div className="logo" />
@@ -48,7 +49,7 @@ class MyHeader extends Component {
                     <Menu.Item key="3" >
                         <div style={props.loginState?{visibility:'visible'}:{visibility:'hidden'}}>
                             <a href={path}>
-                                <Avatar src={this.props.avatarUrl}></Avatar>
+                                <Avatar src={avatarUrl}></Avatar>
                                 {sessionStorage.getItem('username')}
                             </a>
 
