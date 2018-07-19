@@ -22,6 +22,7 @@ class ProfileContentUI extends Component{
 
     handleUserInfo(){//注意：是在组件加载完毕后立即执行
         const uid=this.props.clickUid;
+        console.log("clickUid:",uid);
         if(uid==sessionStorage.getItem('uid')){
             return(
                 <Layout style={{ padding: '24px 0', background: '#fff', height:'900px'}}>
