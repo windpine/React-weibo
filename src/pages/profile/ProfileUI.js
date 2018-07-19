@@ -24,8 +24,6 @@ class ProfileUI extends Component{
     componentWillMount(){//注意：是在组件加载完毕后立即执行
         const myuid=this.props.match.params.uid;
         const currentuid=sessionStorage.getItem('uid');
-        console.log('pramisuid:',myuid);
-        console.log('mykey:',this.props.match.params.key);
         axios.get("/users"+"/"+myuid,config)
             .then(res=>{
                 this.setState({
@@ -40,6 +38,7 @@ class ProfileUI extends Component{
     checkIsFollow=(myuid,currentId)=>{
         axios.get("/users"+"/"+currentId+"/fans/"+myuid,config)
             .then(res=>{
+                // dispatch(changeFollowListAction(result));
                 const result=res.data.data;
                 this.props.changeIsFollow(result);
 
@@ -55,7 +54,7 @@ class ProfileUI extends Component{
                 <div>
                     <MyHeader/>
                     <MyCardUI username={this.props.username} avatarUrl={this.props.avatarUrl} uid={this.props.match.params.uid} checkResult={this.props.isFollow}/>
-                    <ProfileContentUI/>
+                    <ProfileContentUI uid={this.props.match.params.uid}/>
                 </div>
             ): <Redirect to='/welcome'/>
 

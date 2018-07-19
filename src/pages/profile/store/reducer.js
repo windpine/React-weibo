@@ -65,6 +65,7 @@ export default (state=defaultState,action)=>{
         case actionTypes.CHANGE_FOLLOWERLIST:
             return state.set('followersList',action.followers);
         case actionTypes.CHANGE_USERINFO:
+            console.log("个人主页的reducer的get")
             return state.set('nickname', action.userInfo['nickname'])
                 .set('username', action.userInfo['username'])
                 .set('sex', action.userInfo['sex'])

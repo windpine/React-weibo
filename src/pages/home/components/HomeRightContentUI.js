@@ -3,12 +3,13 @@ import 'antd/dist/antd.css';
 import TweetBox from  "./TweetBox"
 import TweetCardList from "./TweetCardList";
 
+const type="personal";
 class HomeRightContentUI extends Component{
     render(){
         return(
             <div>
             <TweetBox/>
-            <TweetCardList/>
+            <TweetCardList type={type}/>
             </div>
         )
     }

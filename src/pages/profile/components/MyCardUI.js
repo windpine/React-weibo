@@ -12,7 +12,7 @@ var config = {
 };
 
 const uid=sessionStorage.getItem('uid');
-console.log("currentuid:",uid);
+
 const path=`/profile/${uid}`;
 
 //个人主页上方卡片

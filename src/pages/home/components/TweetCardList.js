@@ -16,7 +16,7 @@ class TweetCardList extends Component{
                 {
                     tweetList.map((tweetItem)=>{
                         return(
-                            <TweetCard key={tweetItem.get(0).get('tid')}  tweetItem={tweetItem} />
+                            <TweetCard type={this.props.type} key={tweetItem.get(0).get('tid')}  tweetItem={tweetItem} />
                             )
                     })
                 }
@@ -30,5 +30,4 @@ const mapStatesToProps = (state)=>{
         tweetList:state.getIn(['home','tweetList'])
     }
 }
-
 export default connect(mapStatesToProps)(TweetCardList);

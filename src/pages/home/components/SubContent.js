@@ -15,7 +15,7 @@ const SubContent=(props)=>{
         return(
             <div>
                 <Divider/>
-                <Row ><a onClick={()=>{props.onClick(props.item.get('uid'))}}>@{props.item.get('nickname')}</a></Row>
+                <Row ><a href={`/profile/${props.item.get('uid')}/1`}>@{props.item.get('username')}</a></Row>
                 <Row>{formatTime(props.item.get('createTime'))}</Row>
                 <p><TweetContent content={props.item.get('content')}/></p>
                 <p>
@@ -27,7 +27,7 @@ const SubContent=(props)=>{
     else{
         return(
             <font-face>
-                //<a heaf="#"  onClick={()=>{props.onClick(props.item.get('uid'))}}>@{props.item.get('nickname')}</a>：{props.item.get('content')}
+                //<a heaf="#"  onClick={()=>{props.onClick(props.item.get('uid'))}}>@{props.item.get('username')}</a>：{props.item.get('content')}
             </font-face>
         )
     }

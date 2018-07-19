@@ -1,4 +1,5 @@
 import {fromJS} from 'immutable';
+import Immutable from 'immutable';
 import * as actionTypes from './actionTypes';
 
 const defaultState = fromJS({
@@ -8,8 +9,8 @@ const defaultState = fromJS({
     tweetButton:true,
     commentButton:true,
     tweetList:[],
-    repostList:[],
-    commentList:[],
+    repostList:Immutable.Map(),
+    commentList:Immutable.Map(),
     userMentionList:[],
 
     previewVisible: false,
@@ -20,7 +21,7 @@ const defaultState = fromJS({
         url: '',
     },
 
-    nickname:'',
+    username:'',
     avatarUrl:'',
     tweets:0,
     follows:0,
@@ -73,10 +74,13 @@ export default (state=defaultState,action)=>{
         return state.set('tweetList',action.tweetList)
     }
     if(action.type===actionTypes.CHANGE_REPOST_LIST){
-        return state.set('repostList',action.repostList)
+        const tid=action.repostList[0].srcId;
+        return state.set('repostList',state.get('repostList').set(tid,fromJS(action.repostList)))
     }
-    if(action.type===actionTypes.CHANGE_COMMENT_LIST){
-        return state.set('commentList',action.commentList)
+    //修改commentList
+    if(action.type===actionTypes.ADD_COMMENT_LIST){
+        const tid=action.commentList[0].tid;
+        return state.set('commentList',state.get('commentList').set(tid,fromJS(action.commentList)))
     }
     /*
     修改userMentionList里面的值
@@ -109,8 +113,9 @@ export default (state=defaultState,action)=>{
         return state.set('previewVisible',false);
     }
 
-    if(action.type===actionTypes.CHANGE_USERINFO){
-        return state.set('nickname', action.userInfo['nickname'])
+    if(action.type===actionTypes.CHANGE_HOME_USERINFO){
+        sessionStorage.setItem('avatarUrl',action.userInfo['avatarUrl'])
+        return state.set('username', action.userInfo['username'])
             .set('avatarUrl',action.userInfo['avatarUrl'])
             .set('tweets',action.userInfo['tweets'])
             .set('follows',action.userInfo['follows'])
