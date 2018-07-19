@@ -38,7 +38,6 @@ class ProfileUI extends Component{
     checkIsFollow=(myuid,currentId)=>{
         axios.get("/users"+"/"+currentId+"/fans/"+myuid,config)
             .then(res=>{
-                // dispatch(changeFollowListAction(result));
                 const result=res.data.data;
                 this.props.changeIsFollow(result);
 
@@ -54,7 +53,7 @@ class ProfileUI extends Component{
                 <div>
                     <MyHeader/>
                     <MyCardUI username={this.props.username} avatarUrl={this.props.avatarUrl} uid={this.props.match.params.uid} checkResult={this.props.isFollow}/>
-                    <ProfileContentUI uid={this.props.match.params.uid}/>
+                    <ProfileContentUI uid={this.props.match.params.uid} activeKey={this.props.match.params.key}/>
                 </div>
             ): <Redirect to='/welcome'/>
 

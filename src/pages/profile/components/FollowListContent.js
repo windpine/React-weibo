@@ -1,4 +1,3 @@
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
@@ -9,6 +8,7 @@ import * as axios from "axios";
 import {actionCreators} from "../store";
 import NavLink from "react-router-dom/es/NavLink";
 import {Link} from "react-router-dom";
+import Avatar from "antd/es/avatar/index";
 
 const FormItem = Form.Item;
 const EditableContext = React.createContext();
@@ -69,22 +69,23 @@ class FollowListContent extends React.Component {
     constructor(props) {
         super(props);
         this.columns = [{
-            title: '用户ID',
-            dataIndex: 'uid',
+            title: '用户头像',
+            dataIndex: 'avatarUrl',
             width: '30%',
             render: (text, record) => {
                 return (
                     this.props.dataSource.length >= 1
                         ? (
 
-                            <a href={`/profile/${record.uid}/1`}>{record.uid}</a>
+                            <a href={`/profile/${record.uid}/1`}><Avatar src={record.avatarUrl}></Avatar></a>
                         ) : null
                 );
             },
         },{
             title: '用户名',
-            dataIndex: 'nickname',
+            dataIndex: 'username',
             width: '30%',
+
         }, {
             title: '性别',
             dataIndex: 'sex',
@@ -98,7 +99,7 @@ class FollowListContent extends React.Component {
                 return (
                     this.props.dataSource.length >= 1
                         ? (
-                            <Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete(record.nickname,record.uid)}>
+                            <Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete(record.username,record.uid)}>
                                 <a href="javascript:;">取消关注</a>
                             </Popconfirm>
                         ) : null
@@ -111,12 +112,9 @@ class FollowListContent extends React.Component {
 
         };
     }
-
-    //todo:添加结束组件时重新回存
-
-    handleDelete = (nickname,deleteId) => {
+    handleDelete = (username,deleteId) => {
         const dataSource = [...this.props.dataSource];
-        this.props.getFollowList(dataSource.filter(item => item.nickname !== nickname),deleteId);
+        this.props.getFollowList(dataSource.filter(item => item.username !== username),deleteId);
     }
 
 

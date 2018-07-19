@@ -25,13 +25,15 @@ class ProfileContentUI extends Component{
 
     handleUserInfo(){//注意：是在组件加载完毕后立即执行
         const uid=this.props.uid;
+        console.log('key:',this.props.activeKey);
+        const key=this.props.activeKey;
         if(uid==sessionStorage.getItem('uid')){
             return(
                 <Layout style={{ padding: '24px 0', background: '#fff'}}>
                     <Tabs
                         size="large"
                         disabled key="2"
-                        defaultActiveKey={this.props.activeKey}
+                        defaultActiveKey={key}
                         tabPosition={'left'}
                         // style={{ height: '900px'}}
                     >
@@ -82,7 +84,7 @@ class ProfileContentUI extends Component{
 const mapStateToProps=(state)=>{
     return{
         clickUid:state.getIn(['profile','uid']),
-        activeKey:state.getIn(['profile','activeKey']),
+        // activeKey:state.getIn(['profile','activeKey']),
     }
 
 }

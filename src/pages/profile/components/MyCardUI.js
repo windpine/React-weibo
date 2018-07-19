@@ -70,7 +70,6 @@ class MyCardUI extends React.Component{
             <Card
                 style={{ textAlign: 'center',marginLeft:'10%',marginRight:'10%',backgroundColor:'grey'}}
                 cover={<img alt="example" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531847584917&di=b44cf46c3557b368f47670da0a50d682&imgtype=0&src=http%3A%2F%2Fbpic.588ku.com%2Fback_pic%2F05%2F18%2F93%2F2959c4380ce1e49.jpg " height="200" width="200"  />}
-                actions={[<Icon type="profile" spin="true">我的主页</Icon>, <Icon type="setting" tex="管理中心" spin="true">管理中心</Icon>]}
             >
                 <div style={{textAlign:'center',marginTop:-80,height:70}}>
                     <Meta  style={{ textAlign: 'center',marginLeft:'40%',marginRight:'40%',width:'300px'}}

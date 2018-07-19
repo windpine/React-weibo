@@ -4,15 +4,40 @@ import 'antd/dist/antd.css';
 import {connect} from 'react-redux';
 import {actionCreators} from "../../pages/home/store";
 import Button from "antd/es/button/button";
+import * as axios from "axios/index";
 
 const {Sider}=Layout;
 const {SubMenu}=Menu;
 
-const uid=sessionStorage.getItem('uid');
-console.log("currentuid:",uid);
-const path=`/profile/${uid}/1`;
+// var uid=sessionStorage.getItem('uid');
+// console.log("currentuid:",uid);
+// var path=`/profile/${uid}/1`;
 
 class LeftSiderUI extends Component{
+
+    constructor(props){
+        super(props);
+        this.state={
+            sessionId:sessionStorage.getItem('uid'),
+        }
+    }
+
+    // componentWillMount(){//注意：是在组件加载完毕后立即执行
+    //     if(sessionStorage.getItem('uid')!=this.props.uid){
+    //         return this.props.uid;
+    //     }else{
+    //         return sessionStorage.getItem('uid');
+    //     }
+    // }
+
+    // handleSessionId=()=>{
+    //     if(sessionStorage.getItem('uid')!=this.props.uid){
+    //         return this.props.uid;
+    //     }else{
+    //         return sessionStorage.getItem('uid');
+    //     }
+    // }
+
     render(){
         const data=[{title:"个人主页",type:"user",key:1},{title:"关注",type:"heart-o",key:3},{title:"粉丝",type:"heart",key:4}];
         return(
@@ -34,7 +59,7 @@ class LeftSiderUI extends Component{
                             renderItem={item=>(
                                 <List.Item>
                                     <div >
-                                        <a href={`/profile/${uid}/${item.key}`}>
+                                        <a href={`/profile/${this.state.sessionId}/${item.key}`}>
                                             <Icon type={item.type}/>
                                             <font style={{marginLeft:20}}>
                                                 {item.title}
@@ -54,7 +79,8 @@ class LeftSiderUI extends Component{
 const mapStateToProps=(state)=>{
     return {
         avatarUrl:state.getIn(['home','avatarUrl']),
-        username:state.getIn(['home','username'])
+        username:state.getIn(['home','username']),
+        uid:state.getIn(['profile','uid']),
     }
 }
 

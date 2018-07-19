@@ -22,6 +22,12 @@ export const registerRequest=(values)=>{
                 console.log(res.data)
                 dispatch(saveRegisterInfo(res.data.data))
             })
+            .catch(error=>{
+                if(error.response.data !==null){
+                    alert(error.response.data.msg);
+                }else alert(error.response);
+
+            })
     }
 }
 
