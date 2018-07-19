@@ -25,7 +25,7 @@ const Index = (
                     <div>
                         <Route path='/welcome' exact component={Welcome}/>
                         <Route path='/home' exact component={Home}/>
-                        <Route path='/profile/:uid' exact component={ProfileUI}/>
+                        <Route path='/profile/:uid/:key' exact component={ProfileUI}/>
                         <Route path='/register' exact component={Register}/>
                         <Route path='/' exact render={()=><Redirect to='/welcome'/>}/>
                         <Route path='/message' exact component = {Message}/>

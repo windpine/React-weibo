@@ -1,8 +1,9 @@
 import React from 'react'
-import {Menu,Dropdown,Icon,List} from 'antd'
+import {Menu,Dropdown,Icon,List,Modal} from 'antd'
 import {RightButton,MySpan,MyIcon} from './styled'
 import * as words from "../wordInternationalization";
 import * as messageType from './messageType'
+import MyModal from './MyModal'
 
 const MessageListItemUI = (props)=>{
     function MyMenu(props){
@@ -25,54 +26,70 @@ const MessageListItemUI = (props)=>{
             case messageType.MENTION:
                 return (
                     <List.Item
-                        key={props.item.messageId}
-                        actions={[RightDropdown]}
+                        key={props.item.messageID}
+
                     >
                         <List.Item.Meta
                             title={
                                 <MySpan fontSize="15px" marginLeft="50px" fontWeight="bold" marginTop="10px">
                                     <MyIcon type="exclamation-circle-o" />
-                                    <a>{props.item.nickName}</a>
+                                    <a href={"/profile/"+props.item.srcUID}>{props.item.nickName}</a>
                                 </MySpan>
                             }
-                            description={<MySpan fontSize="10px" marginLeft="60px" fontWeight="normal">在"{props.item.content}"提到你</MySpan>}
+                            description={<MySpan onClick={props.showModal} fontSize="10px" marginLeft="60px" fontWeight="normal">在"{props.item.content.substring(0,5)}..."提到你</MySpan>}
                         />
-                        <div style={{"margin-right":"20px"}}>{props.item.createTime.substring(0,10)}</div>
+                       <MyModal item ={props.item}/>
                     </List.Item>
                 )
             case messageType.COMMENT:
                 return (
                     <List.Item
-                        key={props.item.messageId}
-                        actions={[RightDropdown]}
+                        key={props.item.messageID}
                     >
                         <List.Item.Meta
                             title={
                                 <MySpan fontSize="15px" marginLeft="50px" fontWeight="bold" marginTop="10px">
                                     <MyIcon type="exclamation-circle-o" />
-                                    <a>{props.item.nickName}</a>
+                                    <a href={"/profile/"+props.item.srcUID}>{props.item.nickName}</a>
                                 </MySpan>
                             }
-                            description={<MySpan fontSize="10px" marginLeft="60px" fontWeight="normal">在"{props.item.content}"评论你</MySpan>}
+                            description={<MySpan onClick={props.showModal} fontSize="10px" marginLeft="60px" fontWeight="normal">在"{props.item.content}"评论你</MySpan>}
                         />
-                        <div style={{"margin-right":"20px"}}>{props.item.createTime.substring(0,10)}</div>
+                        <MyModal item ={props.item}/>
                     </List.Item>
                 );
             case messageType.LIKES:
                 return(
                     <List.Item
-                        key={props.item.messageId}
-                        actions={[RightDropdown]}
+                        key={props.item.messageID}
                     >
                         <List.Item.Meta
                             title={
                                 <MySpan fontSize="15px" marginLeft="50px" fontWeight="bold" marginTop="10px">
                                     <MyIcon type="like-o" />
-                                    <a>{props.item.nickName}</a>
+                                    <a href={"/profile/"+props.item.srcUID}>{props.item.nickName}</a>
                                 </MySpan>
                             }
-                            description={<MySpan fontSize="10px" marginLeft="60px" fontWeight="normal">在"{props.item.content}"点赞</MySpan>}
+                            description={<MySpan onClick={props.showModal} fontSize="10px" marginLeft="60px" fontWeight="normal">在"{props.item.content}"点赞</MySpan>}
                         />
+                        <MyModal item ={props.item}/>
+                    </List.Item>
+                );
+            case messageType.FORWARD:
+                return(
+                    <List.Item
+                        key={props.item.messageID}
+                    >
+                        <List.Item.Meta
+                            title={
+                                <MySpan fontSize="15px" marginLeft="50px" fontWeight="bold" marginTop="10px">
+                                    <MyIcon type="like-o" />
+                                    <a href={"/profile/"+props.item.srcUID}>{props.item.nickName}</a>
+                                </MySpan>
+                            }
+                            description={<MySpan onClick={props.showModal} fontSize="10px" marginLeft="60px" fontWeight="normal">在"{props.item.content}"点赞</MySpan>}
+                        />
+                        <MyModal item ={props.item}/>
                     </List.Item>
                 );
             default:

@@ -2,14 +2,19 @@ import React,{Component} from 'react';
 import {Layout,Menu,Affix,Row,Col,Avatar,List,Icon} from 'antd';
 import 'antd/dist/antd.css';
 import {connect} from 'react-redux';
+import {actionCreators} from "../../pages/home/store";
+import Button from "antd/es/button/button";
 
 const {Sider}=Layout;
 const {SubMenu}=Menu;
 
+const uid=sessionStorage.getItem('uid');
+console.log("currentuid:",uid);
+const path=`/profile/${uid}/1`;
 
 class LeftSiderUI extends Component{
     render(){
-        const data=[{title:"个人主页",type:"user"},{title:"关注",type:"heart-o"},{title:"粉丝",type:"heart"}];
+        const data=[{title:"个人主页",type:"user",key:1},{title:"关注",type:"heart-o",key:3},{title:"粉丝",type:"heart",key:4}];
         return(
             <Sider width={200} style={{ background: '#fff'}}>
                 <Affix offsetTop={20}>
@@ -29,10 +34,13 @@ class LeftSiderUI extends Component{
                             renderItem={item=>(
                                 <List.Item>
                                     <div >
-                                        <Icon type={item.type}/>
-                                        <font style={{marginLeft:20}}>
-                                            {item.title}
-                                        </font>
+                                        <a href={`/profile/${uid}/${item.key}`}>
+                                            <Icon type={item.type}/>
+                                            <font style={{marginLeft:20}}>
+                                                {item.title}
+                                            </font>
+                                        </a>
+
                                     </div>
                                 </List.Item>
                             )}
@@ -50,4 +58,14 @@ const mapStateToProps=(state)=>{
     }
 }
 
-export default connect(mapStateToProps)(LeftSiderUI);
+const mapDispatchToProps=(dispatch)=>{
+    return{
+        changeActiveKey(result){
+            dispatch(actionCreators.changeActiveKey(result));
+            console.log("key:",result);
+        },
+
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(LeftSiderUI);

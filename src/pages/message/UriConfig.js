@@ -1,8 +1,9 @@
-export const getConfig = () => {
+export const getConfig = (type) => {
     return {
         baseURL: 'http://localhost:8080/message',
         params: {
-            UID: sessionStorage.getItem('uid')
+            UID: sessionStorage.getItem('uid'),
+            type:type
         }
     }
 }

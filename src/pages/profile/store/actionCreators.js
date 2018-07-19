@@ -2,6 +2,7 @@ import * as actionTypes from './actionTypes'
 import {fromJS} from 'immutable';
 
 import axios from 'axios';
+import {CHANGE_ACTIVEKEY} from "./actionTypes";
 
 
 
@@ -24,6 +25,12 @@ export const saveProfileDataAction=(uid,nickname,username,tweets,follows,followe
         email:email,
     },
 })
+
+
+// export const changeActiveKey=(result)=>({
+//     type:CHANGE_ACTIVEKEY,
+//     result:result,
+// })
 
 export const saveProfileRequest=(uid,nickname,username,tweets,follows,followers,avatarUrl,sex,password,email)=>{
     // var defaultAvatarUrl;
@@ -116,10 +123,11 @@ export const savePasswordAction=(password)=>({
     password
 })
 
-export const changeUserInfoActoin=(result,password)=>({
+export const changeUserInfoActoin=(result,password,key)=>({
     type:actionTypes.CHANGE_USERINFO,
     userInfo:result,
     password:password,
+    key:key,
 
 })
 

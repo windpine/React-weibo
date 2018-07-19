@@ -35,6 +35,7 @@ const defaultState=fromJS(
             url: '',
         },
         isFollow:'',
+        activeKey:'',
     }
 );
 
@@ -82,6 +83,7 @@ export default (state=defaultState,action)=>{
                 .set('tweets',action.userInfo['tweets'])
                 .set('follows',action.userInfo['follows'])
                 .set('followers',action.userInfo['followers'])
+                .set('activeKey',action.key)
         case actionTypes.HANDLE_PROFILEFILE_CHANGE: {
             console.log('获得文件：' + action.file.name)
             const file = action.file;
