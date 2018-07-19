@@ -76,7 +76,6 @@ class TweetCard extends Component{
     renderContent=()=>{
         const {tweetItem}=this.props;
         if(tweetItem.size===1){
-            console.log("第一个if",tweetItem.get(0).get('content'))
             return (
                 <div>
                     <TweetContent content={tweetItem.get(0).get('content')}/>
@@ -112,7 +111,7 @@ class TweetCard extends Component{
                 <Card hoverable style={{marginTop:20}}
                       actions={[<div><Icon type="export" onClick={this.onRepostClick}/>{tweetInfo.get('forwards')? tweetInfo.get('forwards'):''}</div>,
                                 <div><Icon type="message" onClick={this.onCommentClick}/>{tweetInfo.get('comments')? tweetInfo.get('comments'):''}</div>,
-                                <div><Icon type="like-o" onClick={this.onLikeClick}/>{this.state.likes? this.state.likes: 0}</div>]}>
+                                <div><Icon type="like-o" onClick={this.onLikeClick}/>{this.state.likes? this.state.likes: ''}</div>]}>
                     <Row>
                         <Meta
                             avatar={<Avatar size="large" src={tweetInfo.get('avatarUrl')} onClick={()=>{this.onUserClick(tweetInfo.get('uid'))}}/>}

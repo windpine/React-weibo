@@ -1,4 +1,4 @@
-import { List, Avatar, Spin ,Icon} from 'antd';
+import { List, Avatar, Spin ,Icon,Popconfirm,message} from 'antd';
 import React,{Component} from 'react'
 import {connect} from 'react-redux';
 import 'antd/dist/antd.css';
@@ -29,7 +29,7 @@ class CommentList extends Component {
      */
     componentDidMount() {
         this.getData((res) => {
-            console.log("")
+            console.log("fdsfsadfasfasfasf")
             this.setState({
                 loading: false,
             });
@@ -41,6 +41,10 @@ class CommentList extends Component {
     getData = (callback) => {
         axios.get("/comments"+"/"+this.props.tid,config).then((res)=>{
             callback(res);
+        }).catch(error => {
+            this.setState({
+                loading: false,
+            });
         })
     }
     //
@@ -62,9 +66,35 @@ class CommentList extends Component {
     //     });
     // }
 
+    //删除评论的操作
+
+    confirm=(CID)=> {
+        this.setState({
+            loading: true,
+        });
+        this.deleteAComment(CID,(res)=>{
+            this.setState({
+                loading: false,
+            });
+            message.info("删除成功")
+            this.props.handleReloadCommentList(this.props.tid);
+        })
+    }
+
+    deleteAComment=(CID,callback)=>{
+        axios.delete("/comments"+"/"+CID,config).then((res)=>{
+            callback(res);
+        }).catch(error => {
+            message.info("删除失败")
+            this.setState({
+                loading: false,
+            });
+        })
+    }
+
     render() {
         const { loading, loadingMore, showLoadingMore } = this.state;
-        const data=this.props.commentList.toJS();
+        const data=this.props.commentList.get(this.props.tid);
         const loadMore = showLoadingMore ? (
             <div style={{ textAlign: 'center', marginTop: 12, height: 32, lineHeight: '32px' }}>
                 {loadingMore && <Spin />}
@@ -78,13 +108,13 @@ class CommentList extends Component {
                 loadMore={loadMore}
                 dataSource={data}
                 renderItem={item => (
-                    <List.Item actions={[<Icon type="message"/>,<Icon type="delete"/>]}>
+                    <List.Item actions={item.get('uid')===sessionStorage.getItem('uid')?[<Popconfirm title="Are you sure？" okText="Yes" cancelText="No" onConfirm={()=>{this.confirm(item.get('cid'))}}><Icon type="delete"/></Popconfirm>]:[<br/>]}>
                         <List.Item.Meta
-                            avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                            title={<a href="#">{item.nickname}</a>}
-                            description={item.content}
+                            avatar={<Avatar src={item.get('avatarUrl')} />}
+                            title={<a href="#">{item.get('nickname')}</a>}
+                            description={item.get('content')}
                         />
-                        <font size="2" color="#a9a9a9">{formatTime(item.createTime)}</font>
+                        <font size="2" color="#a9a9a9">{formatTime(item.get('createTime'))}</font>
                     </List.Item>
                 )}
             />
@@ -94,8 +124,6 @@ class CommentList extends Component {
 
 const mapStateToProps=(state)=>{
     return {
-        buttonDisabled:state.getIn(['home','commentButton']),
-        value:state.getIn(['home','commentInput']),
         commentList:state.getIn(['home','commentList'])
     }
 }
@@ -103,6 +131,10 @@ const mapDispatchToProps=(dispatch)=>{
     return{
         handleGetComment(result){
             const action=actionCreators.changeCommentList(result);
+            dispatch(action)
+        },
+        handleReloadCommentList(TID){
+            const action=actionCreators.getCommentList(TID);
             dispatch(action)
         }
     }

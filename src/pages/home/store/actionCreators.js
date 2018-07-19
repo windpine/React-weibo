@@ -203,11 +203,11 @@ export const changeTweetList=(list)=>({
 })
 export const changeRepostList=(list)=>({
     type:actionTypes.CHANGE_REPOST_LIST,
-    repostList:fromJS(list)
+    repostList:list
 })
 export const changeCommentList=(list)=>({
-    type:actionTypes.CHANGE_COMMENT_LIST,
-    commentList:fromJS(list)
+    type:actionTypes.ADD_COMMENT_LIST,
+    commentList:list
 })
 /*
 创建将提到的用户放Store里面的action
