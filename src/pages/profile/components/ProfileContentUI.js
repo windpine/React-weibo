@@ -7,6 +7,8 @@ import {connect} from "react-redux";
 import { Tabs, Radio } from 'antd';
 import FollowListContentUI from "./FollowListContentUI";
 import FollowerListContentUI from "./FollowerListContentUI";
+import PersonalTweetContent from "./PersonalTweetContent";
+import OthersTweetContent from "./OthersTweetContent";
 
 
 
