@@ -28,6 +28,7 @@ export default (state=defaultState,action)=>{
     if(action.type===actionTypes.HANDLE_LOGOUT_STATE){
         sessionStorage.removeItem('uid');
         sessionStorage.removeItem('username');
+        sessionStorage.removeItem('avatarUrl');
         return state.set('uid','').set('loginState',false);
     }
     return state;

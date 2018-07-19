@@ -39,6 +39,7 @@ const defaultState=fromJS(
 export default (state=defaultState,action)=>{
     switch(action.type) {
         case actionTypes.SAVE_FORM_DATA:
+            sessionStorage.setItem('avatarUrl',action.value['avatarUrl']);
             return state.set('nickname', action.value['nickname'])
                 .set('username', action.value['username'])
                 .set('sex', action.value['sex'])
@@ -78,6 +79,7 @@ export default (state=defaultState,action)=>{
                 .set('follows',action.userInfo['follows'])
                 .set('followers',action.userInfo['followers'])
                 .set('activeKey',action.key)
+
         case actionTypes.HANDLE_PROFILEFILE_CHANGE: {
             console.log('获得文件：' + action.file.name)
             const file = action.file;

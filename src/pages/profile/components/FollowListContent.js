@@ -9,6 +9,7 @@ import * as axios from "axios";
 import {actionCreators} from "../store";
 import NavLink from "react-router-dom/es/NavLink";
 import {Link} from "react-router-dom";
+import Avatar from "antd/es/avatar/index";
 
 const FormItem = Form.Item;
 const EditableContext = React.createContext();
@@ -69,15 +70,15 @@ class FollowListContent extends React.Component {
     constructor(props) {
         super(props);
         this.columns = [{
-            title: '用户ID',
-            dataIndex: 'uid',
+            title: '用户头像',
+            dataIndex: 'avatarUrl',
             width: '30%',
             render: (text, record) => {
                 return (
                     this.props.dataSource.length >= 1
                         ? (
 
-                            <a href={`/profile/${record.uid}/1`}>{record.uid}</a>
+                            <a href={`/profile/${record.uid}/1`}><Avatar src={record.avatarUrl}></Avatar></a>
                         ) : null
                 );
             },
@@ -85,6 +86,7 @@ class FollowListContent extends React.Component {
             title: '用户名',
             dataIndex: 'username',
             width: '30%',
+
         }, {
             title: '性别',
             dataIndex: 'sex',

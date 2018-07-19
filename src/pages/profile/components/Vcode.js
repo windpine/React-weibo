@@ -20,6 +20,20 @@ class VCode extends Component {
 
     }
 
+    initState(){
+            this.setState({data:this.getRandom(109,48,4)});
+            // data: this.getRandom(109,48,4),//返回一个数据列表
+            this.setState({rotate:this.getRandom(75,-75,4)});
+
+            // rotate: this.getRandom(75,-75,4),
+            this.setState({fz:this.getRandom(8,20,4)});
+            // fz: this.getRandom(8,20,4),
+            this.setState({color:[this.getRandom(100,255,3),this.getRandom(100,255,4),this.getRandom(100,255,3),this.getRandom(100,255,3)]});
+            // color: [this.getRandom(100,255,3),this.getRandom(100,255,4),this.getRandom(100,255,3),this.getRandom(100,255,3)]
+            this.setState({refresh:true});
+    };
+
+
     getRandom(max, min, num) {
         const asciiNum = ~~(Math.random()*(max-min+1)+min)
         if(!Boolean(num)){
@@ -94,7 +108,8 @@ class VCode extends Component {
                         ? <div
                             className='mask'
                             onClick={() => {
-                                this.setState({...this.initState(),refresh: false})
+                                // this.setState({...this.initState(),refresh: false})
+                                this.initState();
                                 this.canvas()
                             }}
                             onMouseLeave={() => {this.setState({refresh: false})}}
