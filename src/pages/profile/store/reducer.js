@@ -19,14 +19,6 @@ const defaultState=fromJS(
         email:'',
         password:'',//密码
         avatarUrl:'',
-        // data:{
-        //     uid:'',//id
-        //     nickname:'',//昵称
-        //     username:'',//
-        //     sex:'',//性别
-        //     email:'',//邮箱
-        // },
-        //userClick:'',
         previewVisible: false,
         file: {
             uid: -1,
@@ -36,6 +28,7 @@ const defaultState=fromJS(
         },
         isFollow:'',
         activeKey:'',
+        
     }
 );
 
@@ -89,7 +82,7 @@ export default (state=defaultState,action)=>{
             console.log('获得文件：' + action.file.name)
             const file = action.file;
             const url = baseURL + file.name;
-            console.log("ProfileavatarUrl:",url);
+            console.log("文件的url:",url);
             return state.setIn(['file', 'uid'], file.uid)
                 .setIn(['file', 'name'], file.name)
                 .setIn(['file', 'url'], url)

@@ -12,12 +12,6 @@ import {actionCreators} from "../../pages/home/store";
 
 const {Header}=Layout;
 
-//
-// var uid=sessionStorage.getItem('uid');
-// console.log('headerUid:',uid);
-// var path=`/profile/${uid}/1`;
-// console.log('headerPath:',path);
-
 var config = {
     baseURL: 'http://localhost:8080'
 };
@@ -31,6 +25,7 @@ class MyHeader extends Component {
     render(){
         const props = this.props;
         var path=sessionStorage.getItem('uid')?`/profile/${sessionStorage.getItem('uid')}/1`:`/profile/${this.props.uid}/1`;
+        var avatarUrl=sessionStorage.getItem('avatarUrl')?sessionStorage.getItem('avatarUrl'):this.props.avatarUrl;
         return(
             <Header>
                 <div className="logo" />
@@ -54,7 +49,7 @@ class MyHeader extends Component {
                     <Menu.Item key="3" >
                         <div style={props.loginState?{visibility:'visible'}:{visibility:'hidden'}}>
                             <a href={path}>
-                                <Avatar src={sessionStorage.getItem('avatarUrl')}></Avatar>
+                                <Avatar src={avatarUrl}></Avatar>
                                 {sessionStorage.getItem('username')}
                             </a>
 
@@ -86,6 +81,7 @@ class MyHeader extends Component {
 const mapStatesToProps = (state)=>{
     return {
         loginState:state.getIn(['welcome','loginState']),
+        avatarUrl:state.getIn(['profile','avatarUrl']),
         uid:state.getIn(['welcome','sessionUid']),
     }
 }
@@ -99,7 +95,10 @@ const mapDispatchToProps = (dispatch)=>{
             dispatch(logoutRequest());
             console.log('测试跳转')
 
-        }
+        },
+        getUserInfo(result,password){
+            dispatch(actionCreators.changeUserInfoActoin(result,password));
+        },
     }
 }
 

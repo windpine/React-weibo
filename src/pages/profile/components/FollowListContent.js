@@ -109,16 +109,8 @@ class FollowListContent extends React.Component {
         this.state = {
             dataSource:this.props.dataSource,
 
-            // count: 2,
         };
     }
-    // componentDidMount(){
-    //     axios.get('api/followList.json').then((res)=>{
-    //         const result=res.data.data;
-    //         console.log("result",result);
-    //         this.props.getFollowList(result);
-    //     })
-    // }
 
     //todo:添加结束组件时重新回存
 
@@ -172,6 +164,7 @@ class FollowListContent extends React.Component {
                     bordered
                     dataSource={dataSource}
                     columns={columns}
+                    loading={this.props.loading}
                 />
             </div>
         );

@@ -10,9 +10,10 @@ export const saveLoginInfo=(values)=>({
     values
 })
 
-export const saveSuccessInfo=(value)=>({
+export const saveSuccessInfo=(value,avatarUrl)=>({
     type:actionTypes.SAVE_SUCCESS_INFO,
-    value
+    value:value,
+    avatarUrl:avatarUrl
 })
 
 export const handleLogoutState=()=>({
@@ -21,10 +22,17 @@ export const handleLogoutState=()=>({
 
 export const loginRequest=(values)=>{
     return (dispatch)=>{
+
         axios.post('/login',values,config)
             .then(res=>{
-                const action = saveSuccessInfo(res.data.data);
-                dispatch(action)
+                console.log("uid:",res.data.data.uid);
+                const uid=res.data.data.uid;
+                axios.get("/users"+"/"+res.data.data.uid,config)
+                    .then(res=>{
+                        const avatarUrl=res.data.data.user.avatarUrl;
+                        dispatch(saveSuccessInfo(uid,avatarUrl));
+                    })
+
             })
             .catch(error => {
                 alert(error.response.data.msg)

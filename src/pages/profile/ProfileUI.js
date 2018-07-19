@@ -15,44 +15,33 @@ var config = {
     baseURL: 'http://localhost:8080'
 };
 
-const uid=sessionStorage.getItem('uid');
-const path=`/profile/${uid}`;
-
 class ProfileUI extends Component{
 
     constructor(props){
         super(props);
-        // store.subscribe(this.props.handleStoreChange.bind(this))
-        // this.state = {
-        //     isFollow:'',
-        // };
     }
 
     componentWillMount(){//注意：是在组件加载完毕后立即执行
         const myuid=this.props.match.params.uid;
         const currentuid=sessionStorage.getItem('uid');
-                axios.get("/users"+"/"+myuid,config)
+        axios.get("/users"+"/"+myuid,config)
             .then(res=>{
                 this.setState({
                     loading: false,
                 });
                 const result=res.data.data.user;
-                               this.props.getUserInfo(result,result.password,this.props.match.params.key);
+                this.props.getUserInfo(result,result.password,this.props.match.params.key);
                 this.checkIsFollow(myuid,currentuid);
             })
     }
 
     checkIsFollow=(myuid,currentId)=>{
-
         axios.get("/users"+"/"+currentId+"/fans/"+myuid,config)
             .then(res=>{
                 // dispatch(changeFollowListAction(result));
                 const result=res.data.data;
-
-                // this.setState({
-                //     isFollow:result,
-                // });
                 this.props.changeIsFollow(result);
+
 
             });
 
@@ -85,13 +74,11 @@ const mapStatesToProps = (state)=>{
 const mapDispatchToProps = (dispatch)=>{
     return{
         getUserInfo(result,password,key){
-            console.log("个人主页的get userinfo")
             dispatch(actionCreators.changeUserInfoActoin(result,password,key));
         },
         changeIsFollow(result){
             dispatch(actionCreators.changeIsFollow(result));
-
-        }
+            }
 
     }
 }

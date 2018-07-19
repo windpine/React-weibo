@@ -14,13 +14,19 @@ var config = {
     baseURL: 'http://localhost:8080'
 };
 
-//todo：通过显示关系动态图，更加有趣
 //todo:使用自定义筛选表格
 class FollowListContentUI extends Component{
 
+    constructor(props) {
+        super(props);
+        this.state={
+            loading:false,
+        }
+    }
+
     componentDidMount(){//注意：是在组件加载完毕后立即执行
+        this.setState({ loading: true });
         const myuid=sessionStorage.getItem('uid');
-        console.log('uid',myuid);
         axios.get("/users"+"/"+myuid+"/follows",config)
             .then(res=>{
                 this.setState({
@@ -32,15 +38,11 @@ class FollowListContentUI extends Component{
             })
     }
 
-    constructor(props){
-        super(props);
-
-    }
 
     render(){
         return(
             <Content style={{ padding: '0 24px', minHeight: 280 }}>
-                <FollowListContent/>
+                <FollowListContent loading={this.state.loading}/>
             </Content>
         )
     }

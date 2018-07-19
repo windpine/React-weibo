@@ -72,22 +72,13 @@ class FollowerListContent extends React.Component {
 
         this.state = {
             dataSource:this.props.dataSource,
+            loading:false,
 
         };
     }
-    // componentDidMount(){
-    //     axios.get('api/followerList.json').then((res)=>{
-    //         const result=res.data.data;
-    //         console.log("followerjsonresult:",result);
-    //         this.props.getFollowerList(result);
-    //     })
-    // }
-
-
-
     render() {
         const dataSource=[...this.props.dataSource];
-        console.log('datasource:',dataSource);
+        console.log('followerList:',dataSource);
         const components = {
             body: {
                 row: EditableFormRow,
@@ -117,6 +108,7 @@ class FollowerListContent extends React.Component {
                     bordered
                     dataSource={dataSource}
                     columns={columns}
+                    loading={this.props.loading}
                 />
             </div>
         );
@@ -137,7 +129,6 @@ const mapDispatchToProps=(dispatch)=>{
     return{
         getFollowerList(result){
             dispatch(actionCreators.changeFollowerListAction(result));
-            console.log('follower_result:',result);
 
         },
     }

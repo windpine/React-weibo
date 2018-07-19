@@ -7,8 +7,6 @@ import {connect} from "react-redux";
 import { Tabs, Radio } from 'antd';
 import FollowListContentUI from "./FollowListContentUI";
 import FollowerListContentUI from "./FollowerListContentUI";
-import PersonalTweetContent from './PersonalTweetContent'
-import OthersTweetContent from './OthersTweetContent'
 
 
 
@@ -25,7 +23,6 @@ class ProfileContentUI extends Component{
 
     handleUserInfo(){//注意：是在组件加载完毕后立即执行
         const uid=this.props.uid;
-        console.log("dhsajdhjashdka     ",uid)
         if(uid==sessionStorage.getItem('uid')){
             return(
                 <Layout style={{ padding: '24px 0', background: '#fff'}}>
@@ -54,11 +51,7 @@ class ProfileContentUI extends Component{
                         tabPosition={'left'}
                         // style={{ height: '900px' }}
                     >
-                        {/*<TabPane tab="基本信息" key="1" disabled key="1"></TabPane>*/}
-                        {/*<TabPane tab="关注" key="2"><FollowListContentUI/></TabPane>*/}
-                        {/*<TabPane tab="粉丝" key="3"><FollowerListContentUI/></TabPane>*/}
                         <TabPane tab="微博" key="1"><OthersTweetContent uid={this.props.uid}/></TabPane>
-                        {/*<TabPane tab="编辑个人资料" key="2"><EditProfileContentUI/></TabPane>*/}
                     </Tabs>
 
                 </Layout>
@@ -74,9 +67,6 @@ class ProfileContentUI extends Component{
                     <Breadcrumb.Item>首页</Breadcrumb.Item>
                     <Breadcrumb.Item>个人主页</Breadcrumb.Item>
                 </Breadcrumb>
-                {/*<div>*/}
-
-                {/*</div>*/}
                 {this.handleUserInfo()}
             </Content>
         )
@@ -89,7 +79,6 @@ class ProfileContentUI extends Component{
 
 const mapStateToProps=(state)=>{
     return{
-        //clickKey:state.getIn(['profile','clickKey']),
         clickUid:state.getIn(['profile','uid']),
         activeKey:state.getIn(['profile','activeKey']),
     }
@@ -99,7 +88,6 @@ const mapStateToProps=(state)=>{
 const mapDispatchToProps=(dispatch)=>{
     return{
         handleModifyClick(nickname,username,sex,email){
-            console.log("form_data:",nickname,username,sex,email);
             dispatch(actionCreators.saveProfileDataAction(nickname,username,sex,email))
 
         },

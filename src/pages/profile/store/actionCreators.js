@@ -27,18 +27,8 @@ export const saveProfileDataAction=(uid,nickname,username,tweets,follows,followe
 })
 
 
-// export const changeActiveKey=(result)=>({
-//     type:CHANGE_ACTIVEKEY,
-//     result:result,
-// })
 
 export const saveProfileRequest=(uid,nickname,username,tweets,follows,followers,avatarUrl,sex,password,email)=>{
-    // var defaultAvatarUrl;
-    // if(avatarUrl==''){
-    //     defaultAvatarUrl="https://weibo-1252079771.cos.ap-beijing.myqcloud.com/welcome.jpg";
-    // }else{
-    //     defaultAvatarUrl=avatarUrl;
-    // }
     return(dispatch)=>{
         const values={
             uid:uid,
@@ -55,28 +45,12 @@ export const saveProfileRequest=(uid,nickname,username,tweets,follows,followers,
         const myuid=sessionStorage.getItem('uid');
         axios.put("/users"+"/"+myuid,values,config)
             .then(res=>{
-                //const userInfo=res.data;
-                //console.log("toUpdatePut:",userInfo);
-
                 dispatch(saveProfileDataAction(uid,nickname,username,
                     tweets,follows,followers,avatarUrl,sex,password,
                     email));
             });
     }
 }
-//
-// export const getUserInfoRequest=(uid)=>{
-//     return(dispatch)=>{
-//         axios.get("/users"+"/"+uid,config)
-//             .then(res=>{
-//                 const userInfo=res.data;
-//                 console.log("toUpdatePut:",userInfo);
-//                 dispatch(saveProfileDataAction(uid,userInfo.nickname,userInfo.username,
-//                     userInfo.tweets,userInfo.follows,userInfo.followers,userInfo.avatarUrl,userInfo.sex,userInfo.password,
-//                     userInfo.email));
-//             });
-//     }
-// }
 
 export const saveFollowListRequest=(result,deleteId)=>{
     return(dispatch)=>{
@@ -130,33 +104,6 @@ export const changeUserInfoActoin=(result,password,key)=>({
     key:key,
 
 })
-
-export const getInputNicknameAction=(nickname)=>({
-    type:actionTypes.CHANGE_INPUT_NICKNAME,
-    nickname
-})
-
-export const getInputUsernameAction=(username)=>({
-    type:actionTypes.CHANGE_INPUT_USERNAME,
-    username
-})
-
-export const getInputSexAction=(sex)=>({
-    type:actionTypes.CHANGE_INPUT_SEX,
-    sex
-})
-
-export const getInputEmailAction=(email)=>({
-    type:actionTypes.CHANGE_INPUT_EMAIL,
-    email
-})
-
-export const changeModalVisible=(value)=>({
-    type:actionTypes.CHANGE_MODALVISIBLE,
-    value
-})
-
-//Todo:getFollowsList()  & getFollowersList()
 
 export const handleProfileFileChange=(file)=>({
     type:actionTypes.HANDLE_PROFILEFILE_CHANGE,

@@ -132,9 +132,7 @@ const mapDispatchToProps = (dispatch)=>{
             console.log("文件有变化了")
             dispatch(actionCreators.handleProfileFileChange(file))
         },
-        // handleStoreChange(){
-        //     this.setState(store.getState());
-        // }
+
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Avatar);
