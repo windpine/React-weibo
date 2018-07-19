@@ -40,10 +40,10 @@ class InputBox extends Component{
             this.getUserSuggestions((result)=>{
                 const suggestions=result.map(suggestion=>(
                     <Nav
-                        value={suggestion.nickname}
+                        value={suggestion.username}
                         data={suggestion}
                     >
-                        {suggestion.nickname}
+                        {suggestion.username}
                     </Nav>
                 ))
                 this.setState({

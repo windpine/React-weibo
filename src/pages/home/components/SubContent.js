@@ -19,7 +19,7 @@ const SubContent=(props)=>{
                 <Row>{formatTime(props.item.get('createTime'))}</Row>
                 <p><TweetContent content={props.item.get('content')}/></p>
                 <p>
-                    <img src={props.item.get('imageUrl')} width='20%'></img>
+                    <img src={props.item.get('imageUrl')} width='40%'></img>
                 </p>
             </div>
         )

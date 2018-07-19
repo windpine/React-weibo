@@ -1,4 +1,3 @@
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
@@ -83,7 +82,7 @@ class FollowListContent extends React.Component {
             },
         },{
             title: '用户名',
-            dataIndex: 'nickname',
+            dataIndex: 'username',
             width: '30%',
         }, {
             title: '性别',
@@ -98,7 +97,7 @@ class FollowListContent extends React.Component {
                 return (
                     this.props.dataSource.length >= 1
                         ? (
-                            <Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete(record.nickname,record.uid)}>
+                            <Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete(record.username,record.uid)}>
                                 <a href="javascript:;">取消关注</a>
                             </Popconfirm>
                         ) : null
@@ -111,12 +110,9 @@ class FollowListContent extends React.Component {
 
         };
     }
-
-    //todo:添加结束组件时重新回存
-
-    handleDelete = (nickname,deleteId) => {
+    handleDelete = (username,deleteId) => {
         const dataSource = [...this.props.dataSource];
-        this.props.getFollowList(dataSource.filter(item => item.nickname !== nickname),deleteId);
+        this.props.getFollowList(dataSource.filter(item => item.username !== username),deleteId);
     }
 
 

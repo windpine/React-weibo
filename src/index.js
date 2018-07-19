@@ -27,6 +27,7 @@ const Index = (
                         <Route path='/home' exact component={Home}/>
                         <Route path='/profile/:uid/:key' exact component={ProfileUI}/>
                         <Route path='/register' exact component={Register}/>
+                        <Route path='/forgot' exact component={()=><div>还没开发哦</div>}/>
                         <Route path='/' exact render={()=><Redirect to='/welcome'/>}/>
                         <Route path='/message' exact component = {Message}/>
                     </div>
