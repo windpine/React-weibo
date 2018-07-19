@@ -3,8 +3,6 @@ import {connect} from 'react-redux';
 import 'antd/dist/antd.css';
 import {actionCreators} from "../store";
 import TweetBoxUI from "./TweetBoxUI";
-import store from "../../../store";
-
 
 class TweetBox extends Component{
     constructor(props){

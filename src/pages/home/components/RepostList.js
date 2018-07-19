@@ -7,9 +7,7 @@ import {actionCreators} from "../store";
 import store from "../../../store";
 import {formatTime} from "../Util";
 
-//import reqwest from 'reqwest';
 
-//const fakeDataUrl = 'https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo';
 var config = {
     baseURL: 'http://localhost:8080'
 };

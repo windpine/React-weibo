@@ -1,7 +1,6 @@
 import * as actionTypes from './actionTypes';
 import {fromJS} from 'immutable';
 import axios from 'axios';
-import {actionCreators} from "./index";
 import {ContentSplit} from "../Util";
 import store from "../../../store";
 
@@ -42,7 +41,7 @@ export const changeActiveKey=(result)=>({
 })
 
 /*
-创建发送微博、转发、评论的action，post到服务器
+创建发送微博的action，post到服务器
  */
 export  const sendTweetAction=(value)=>{
     return (dispatch)=>{
@@ -60,6 +59,8 @@ export  const sendTweetAction=(value)=>{
             dispatch(action1)
             dispatch(action2)
             publishMessage(res.data)
+        }).catch(error => {
+            alert(error.response.data.msg)
         })
     }
 }
@@ -69,9 +70,7 @@ const publishMessage=(tweet)=>{
     const users=format.filter((item)=>{
         return item.type==="user"
     })
-    console.log("user:",users)
     const userMentionList=store.getState().getIn(['home','userMentionList']);
-    console.log("userMentionList:",userMentionList)
     users.map((userItem)=>{
         userMentionList.map((item)=>{
             console.log("item",item)
@@ -84,45 +83,69 @@ const publishMessage=(tweet)=>{
                     "uid":item.get('uid'),
                     "srcUid":tweet.uid
                 }
+                //post message
                 axios.post("/message",message,config).then(res=>{
                     console.log("message:",res)
+                }).catch(error => {
+                    alert(error.response.data.msg)
                 })
                 const mention={
                     "tid":tweet.tid,
                     "uid":item.get('uid')
                 }
+                //post mention
                 axios.post("/mention",mention,config).then(res=>{
                     console.log("mention:",res)
+                }).catch(error => {
+                    alert(error.response.data.msg)
                 })
             }
         })
     })
 }
 
-
-export  const sendRepostAction=(tid,uid,content,type)=>{
+//转发微博
+export  const sendRepostAction=(tid,uid,content,type,checked)=>{
     return (dispatch)=>{
-        console.log("进入转发了,tid:",tid)
-    const data={
-        "uid":sessionStorage.getItem('uid'),
-        "srcId":tid,
-        "content":content
-    }
-    axios.post('/tweets',data,config).then((res)=>{
-        //清空tweet的Input,刷新微博列表
-        const action1=getInputChangeAction("","repost")
-        const action2=getRepostList(tid)
-        dispatch(action1)
-        dispatch(action2)
-        if(type==="personal"){
-            const action3=getPersonalList(sessionStorage.getItem('uid'))
-            dispatch(action3)
-        }if(type==="all"){
-            const action4=getTweetList()
-            dispatch(action4)
+        const data={
+            "uid":sessionStorage.getItem('uid'),
+            "srcId":tid,
+            "content":content
         }
-        pulishRepostMesaage(tid,uid,content)
-    })
+        axios.post('/tweets',data,config).then((res)=>{
+            //清空tweet的Input,刷新微博列表
+            const action1=getInputChangeAction("","repost")
+            const action2=getRepostList(tid)
+            dispatch(action1)
+            dispatch(action2)
+            if(type==="personal"){
+                const action3=getPersonalList(sessionStorage.getItem('uid'))
+                dispatch(action3)
+            }if(type==="all"){
+                const action4=getTweetList()
+                dispatch(action4)
+            }
+            pulishRepostMesaage(tid,uid,content)
+        }).catch(error => {
+            alert(error.response.data.msg)
+        })
+
+        if(checked){
+            //如果点击了同时评论到微博
+            const data2={
+                "uid":sessionStorage.getItem('uid'),
+                "tid":tid,
+                "srcId":-1,
+                "content":content
+            }
+            axios.post('/comments',data2,config).then((res)=>{
+                const action2=getCommentList(tid)
+                dispatch(action2)
+                pulishCommentMesaage(tid,uid,content)
+            }).catch(error => {
+                alert(error.response.data.msg)
+            })
+        }
     }
 }
 const pulishRepostMesaage=(tid,uid,content)=>{
@@ -135,27 +158,53 @@ const pulishRepostMesaage=(tid,uid,content)=>{
     }
     axios.post("/message",message,config).then(res=>{
         console.log("message:",res)
+    }).catch(error => {
+        alert(error.response.data.msg)
     })
 
 }
-
-export  const sendCommentAction=(tid,uid,content)=>{
+//发送评论
+export  const sendCommentAction=(tid,uid,content,type,checked)=>{
     return (dispatch)=>{
-    const data={
-        "uid":sessionStorage.getItem('uid'),
-        "tid":tid,
-        "srcId":-1,
-        "content":content
+        const data={
+            "uid":sessionStorage.getItem('uid'),
+            "tid":tid,
+            "srcId":-1,
+            "content":content
+        }
+        axios.post('/comments',data,config).then((res)=>{
+            const action1=getInputChangeAction("","comment")
+            const action2=getCommentList(tid)
+            dispatch(action1)
+            dispatch(action2)
+            pulishCommentMesaage(tid,uid,content)
+        }).catch(error => {
+            alert(error.response.data.msg)
+        })
+
+        if(checked){
+            //如果点击了同时转发到微博
+            const data2={
+                "uid":sessionStorage.getItem('uid'),
+                "srcId":tid,
+                "content":content
+            }
+            axios.post('/tweets',data2,config).then((res)=>{
+                const action2=getRepostList(tid)
+                dispatch(action2)
+                if(type==="personal"){
+                    const action3=getPersonalList(sessionStorage.getItem('uid'))
+                    dispatch(action3)
+                }if(type==="all"){
+                    const action4=getTweetList()
+                    dispatch(action4)
+                }
+                pulishRepostMesaage(tid,uid,content)
+            }).catch(error => {
+                alert(error.response.data.msg)
+            })
+        }
     }
-    console.log(data)
-    axios.post('/comments',data,config).then((res)=>{
-        const action1=getInputChangeAction("","comment")
-        const action2=getCommentList(tid)
-        dispatch(action1)
-        dispatch(action2)
-        pulishCommentMesaage(tid,uid,content)
-    })
-}
 }
 const pulishCommentMesaage=(tid,uid,content)=>{
     const message={
@@ -167,8 +216,9 @@ const pulishCommentMesaage=(tid,uid,content)=>{
     }
     axios.post("/message",message,config).then(res=>{
         console.log("message:",res)
+    }).catch(error => {
+        alert(error.response.data.msg)
     })
-
 }
 
 //拿到个人微博的列表的活动
@@ -179,6 +229,8 @@ export const getPersonalList=(UID)=>{
             console.log(result);
             const action = changeTweetList(result);
             dispatch(action)
+        }).catch(error => {
+            alert(error.response.data.msg)
         })
     }
 }
@@ -187,10 +239,12 @@ export const getPersonalList=(UID)=>{
 export const getTweetList=()=>{
     return (dispatch)=>{
         axios.get("/tweets",config).then((res)=> {
-        const result = res.data.data.tweetList;
-        console.log(result);
-        const action = changeTweetList(result);
-        dispatch(action)
+            const result = res.data.data.tweetList;
+            console.log(result);
+            const action = changeTweetList(result);
+            dispatch(action)
+        }).catch(error => {
+            alert(error.response.data.msg)
         })
     }
 }
@@ -201,6 +255,8 @@ export const getCommentList=(tid)=>{
             console.log(result);
             const action = changeCommentList(result);
             dispatch(action)
+        }).catch(error => {
+            alert(error.response.data.msg)
         })
     }
 }
@@ -211,6 +267,8 @@ export const getRepostList=(tid)=>{
             console.log(result);
             const action = changeRepostList(result);
             dispatch(action)
+        }).catch(error => {
+            alert(error.response.data.msg)
         })
     }
 }

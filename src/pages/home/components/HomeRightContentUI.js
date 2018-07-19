@@ -3,7 +3,7 @@ import 'antd/dist/antd.css';
 import TweetBox from  "./TweetBox"
 import TweetCardList from "./TweetCardList";
 
-const type="personal";
+const type="all";
 class HomeRightContentUI extends Component{
     render(){
         return(
