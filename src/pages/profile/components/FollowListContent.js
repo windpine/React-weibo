@@ -1,4 +1,3 @@
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
@@ -113,9 +112,6 @@ class FollowListContent extends React.Component {
 
         };
     }
-
-    //todo:添加结束组件时重新回存
-
     handleDelete = (username,deleteId) => {
         const dataSource = [...this.props.dataSource];
         this.props.getFollowList(dataSource.filter(item => item.username !== username),deleteId);

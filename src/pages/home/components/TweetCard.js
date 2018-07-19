@@ -83,7 +83,7 @@ class TweetCard extends Component{
                     {
                         tweetItem.get(0).get('imageUrl')&&
                             <p>
-                            <img src={tweetItem.get(0).get('imageUrl')} width='20%'></img>
+                            <img src={tweetItem.get(0).get('imageUrl')} width='40%'></img>
                             </p>
                     }
                 </div>

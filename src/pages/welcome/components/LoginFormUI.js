@@ -38,7 +38,7 @@ export const LoginFormUI = (props)=>{
                 })(
                     <Checkbox>记住我</Checkbox>
                 )}
-                <a className="login-form-forgot" href="">忘记密码</a>
+                <Link className="login-form-forgot" to="/forgot">忘记密码</Link>
                 <Button type="primary"
                         htmlType="submit"
                         className="login-form-button">
