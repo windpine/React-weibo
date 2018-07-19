@@ -29,19 +29,13 @@ const mapStateToProps = (state)=>{
 const mapDispatchToProps = (dispatch)=>{
     return {
         handleLoadMessage(type){
-            let URL;
-            if(type === messageType.MENTION)
-                URL = '/mention';
-            else if( type === messageType.COMMENT)
-                URL = '/comment';
-            else if(type === messageType.LIKES)
-                URL = '/likes';
             dispatch(actionCreators.getLoadMessageAction());
-            axios.get(URL,getConfig()).then((res) => {
+            axios.get('/',getConfig(type)).then((res) => {
                 let messageList=res.data.data.messageList;
-                dispatch(actionCreators.getLoadMessageListAction(messageList));
+                dispatch(actionCreators.getLoadMessageListAction(messageList,type));
+            }).catch((error)=>{
+                alert(error.msg);
             })
-            //TODO:添加catch方法
         },
 
     }

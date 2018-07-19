@@ -6,7 +6,8 @@ const defaultState=fromJS({
     loadingMore: false,
     showLoadingMore: true,
     messageList:[],
-    messageType:0
+    messageType:0,
+    visibleModal:false
 });
 export default (state=defaultState,action)=>{
     switch(action.type){
@@ -39,6 +40,15 @@ export default (state=defaultState,action)=>{
             return state.merge({
                 showLoadingMore:false,
                 loadingMore:false
+            });
+        case actionTypes.SHOW_MODAL:
+            //显示对话框
+            return state.merge({
+                visibleModal:true
+            });
+        case actionTypes.HIDE_MODAL:
+            return state.merge({
+                visibleModal:false
             });
         default:
             return state;

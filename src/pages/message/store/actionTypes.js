@@ -5,3 +5,5 @@ export const LOAD_MORE_MESSAGE_LIST = 'load_more_message_list';
 export const SEND_MESSAGE = 'send_message';
 export const LOAD_MORE_MESSAGE = 'load_more_message';
 export const NO_MORE_MESSAGE ='mo_more_message';
+export const SHOW_MODAL='show_modal';
+export const HIDE_MODAL='hide_modal';

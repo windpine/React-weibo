@@ -25,20 +25,24 @@ class MessageListItem extends React.Component{
                 console.log(messageID);
                 axios.delete('/',deleteConfig(messageID)).then(()=>{
                     obj.props.handleLoadMessage(obj.props.messageType);
+                }).catch((error)=>{
+                    alert(error.msg);
                 })
-                //TODO:添加catch
+
             },
             onCancel() {
                 console.log('Cancel');
             },
         });
     }
+
     render(){
         return(
           <MessageListItemUI
               item={this.props.item}
               deleteAction={(messageID)=>{this.showDeleteConfirm(messageID,this)}}
               messageType={this.props.messageType}
+              showModal={this.props.handleShowModal}
           />
         )
     }
@@ -53,20 +57,17 @@ const convertStateToProps= (state)=>{
 const convertDispatchToProps = (dispatch) =>{
     return {
         handleLoadMessage(type){
-            let URL;
-            if(type === messageType.MENTION)
-                URL = '/mention';
-            else if( type === messageType.COMMENT)
-                URL = '/comment';
-            else if(type === messageType.LIKES)
-                URL = '/likes';
             dispatch(actionCreators.getLoadMessageAction());
-            axios.get(URL,getConfig()).then((res) => {
+            axios.get('/',getConfig(type)).then((res) => {
                 let messageList=res.data.data.messageList;
                 dispatch(actionCreators.getLoadMessageListAction(messageList));
+            }).catch((error)=>{
+                alert(error.msg);
             })
-            //TODO:添加catch方法
         },
+        handleShowModal(){
+            dispatch(actionCreators.getShowModalAction());
+        }
     }
 };
 
