@@ -19,6 +19,16 @@ export const getLoadMoreMessageListAction=(messageList)=>(
         messageList,
     }
 );
+export const getShowModalAction=()=>(
+    {
+        type:actionTypes.SHOW_MODAL
+    }
+);
+export const getHideModalAction=()=>(
+    {
+        type:actionTypes.HIDE_MODAL
+    }
+);
 export const getSendMessage =(message)=>(
     {
         type:actionTypes.SEND_MESSAGE,

@@ -8,7 +8,8 @@ const defaultState=fromJS({
         remember:false
     },
     uid:'',
-    loginState:sessionStorage.getItem('uid')?true:false
+    loginState:sessionStorage.getItem('uid')?true:false,
+    sessionUid:''
 });
 export default (state=defaultState,action)=>{
     if(action.type===actionTypes.SAVE_LOGIN_INFO){
@@ -19,7 +20,8 @@ export default (state=defaultState,action)=>{
         sessionStorage.setItem('uid',uid.get('uid'));
         console.log(typeof sessionStorage.getItem('uid'))
         sessionStorage.setItem('username',state.getIn(['login','username']));
-        return state.set('uid',uid.get('uid')).set('loginState',true);
+        return state.set('uid',uid.get('uid')).set('loginState',true)
+            .set('sessionUid',sessionStorage.getItem('uid'))
     }
     if(action.type===actionTypes.HANDLE_LOGOUT_STATE){
         sessionStorage.removeItem('uid');

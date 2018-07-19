@@ -1,10 +1,11 @@
-import { List, Avatar, Button, Spin ,Row,Icon} from 'antd';
+import { List, Avatar, Spin ,Icon} from 'antd';
 import React,{Component} from 'react'
 import {connect} from 'react-redux';
 import 'antd/dist/antd.css';
 import axios from "axios/index";
 import {actionCreators} from "../store";
 import store from "../../../store";
+import {formatTime} from "../Util";
 
 //import reqwest from 'reqwest';
 
@@ -28,6 +29,7 @@ class CommentList extends Component {
      */
     componentDidMount() {
         this.getData((res) => {
+            console.log("")
             this.setState({
                 loading: false,
             });
@@ -79,10 +81,10 @@ class CommentList extends Component {
                     <List.Item actions={[<Icon type="message"/>,<Icon type="delete"/>]}>
                         <List.Item.Meta
                             avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                            title={<a href="https://ant.design">{item.uid}</a>}
+                            title={<a href="#">{item.nickname}</a>}
                             description={item.content}
                         />
-                        <font size="2" color="#a9a9a9">{item.createTime}</font>
+                        <font size="2" color="#a9a9a9">{formatTime(item.createTime)}</font>
                     </List.Item>
                 )}
             />
@@ -102,7 +104,7 @@ const mapDispatchToProps=(dispatch)=>{
         handleGetComment(result){
             const action=actionCreators.changeCommentList(result);
             dispatch(action)
-        },
+        }
     }
 }
 

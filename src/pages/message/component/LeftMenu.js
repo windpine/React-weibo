@@ -6,20 +6,16 @@ import LeftMenuUI from './LeftMenuUI'
 import {actionCreators} from "../store";
 
 import {getConfig} from "../UriConfig";
-class LeftMenu extends React.Component{
-    constructor(props){
-        super(props);
-    }
-    render(){
-        return(
-           <LeftMenuUI
-               click={(index)=>{
-                   if(this.props.loading !== true)
-                       this.props.handleLoadMessage(index);
-               }}
-           />
-        )
-    }
+const LeftMenu =(props)=>{
+    return(
+       <LeftMenuUI
+           click={(index)=>{
+               if(props.loading !== true)
+                   props.handleLoadMessage(index);
+           }}
+       />
+    )
+
 }
 
 const mapStatesToProps = (state)=>{
@@ -30,17 +26,12 @@ const mapStatesToProps = (state)=>{
 const mapDispatchToProps = (dispatch)=> {
     return {
         handleLoadMessage(type) {
-            let URL;
-            if (type === 0)
-                URL = '/mention';
-            else if (type === 1)
-                URL = '/comment';
-            else
-                URL = '/likes';
             dispatch(actionCreators.getLoadMessageAction());
-            axios.get(URL, getConfig()).then((res) => {
+            axios.get('/', getConfig(type)).then((res) => {
                 let messageList = res.data.data.messageList;
                 dispatch(actionCreators.getLoadMessageListAction(messageList,type));
+            }).catch((error)=>{
+                alert(error.msg);
             });
         }
     }

@@ -4,7 +4,6 @@ import {withRouter,Redirect} from 'react-router-dom';
 import HomeUI from "./HomeUI";
 import axios from 'axios'
 import {actionCreators} from "./store";
-import store from "./store";
 
 var config = {
     baseURL: 'http://localhost:8080'
@@ -37,7 +36,6 @@ const mapDispatchToProps=(dispatch)=>{
         handleGetAllTweet(){
             axios.get('/tweets',config).then((res)=>{
                 const result=res.data.data.tweetList;
-                console.log(result);
                 const action=actionCreators.changeTweetList(result);
                 dispatch(action)
             })

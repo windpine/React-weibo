@@ -6,15 +6,17 @@ import {Modal,Card, Form, Input, Tooltip, Icon, Select, Row, Col, Button,Breadcr
 import {actionCreators} from "../store";
 import {connect} from "react-redux";
 import VCode from "./Vcode";
-import * as axios from "axios/index";
+import Avatar from "./Upload";
 import store from "../../../store";
-
-
+import axios from 'axios';
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 const InputGroup = Input.Group;
 const Option = Select.Option;
 
+var config = {
+    baseURL: 'http://localhost:8080'
+};
 
 
 const ModalCreateForm = Form.create()
@@ -42,7 +44,7 @@ const ModalCreateForm = Form.create()
                             rules: [{
                                 required: true, message: '请输入您之前的密码',
                             }, {
-                                validator: checkOldPassword,
+                                validator:checkOldPassword,
                             }],
                         })(
                             <Input type="password" onBlur={handleConfirmBlur} />
@@ -90,10 +92,12 @@ class ModalForm extends Component {
         super(props);
         this.state = {
             visible: false,
-            nickname: this.props.data.get('nickname'),
-            username:this.props.data.get('username'),
-            sex: this.props.data.get('sex'),
-            email: this.props.data.get('email'),
+            nickname: this.props.nickname,
+            username:this.props.username,
+            sex: this.props.sex,
+            email: this.props.email,
+            avatarUrl:this.props.avatarUrl,
+            vcode:'',
         };
     }
 
@@ -115,6 +119,9 @@ class ModalForm extends Component {
             email: e.target.value
         } );
     }
+
+
+
     showModal = () => {
         this.setState({ visible: true });
     };
@@ -144,39 +151,28 @@ class ModalForm extends Component {
         });
     };
 
-//     handleVcodeCheck=(rule,value,callback)=>{
-//         const form=this.props.form;
-//         // console.log("oldpassword:",this.props.password);
-//         console.log('输入的原密码:',value);
-//         // if (value && value !== this.props.password) {
-//         //     callback('密码不一致');
-//         // } else {
-//         //     callback();
-//         // }
-//         var vcode=this.state.data.map((v)=>String.fromCharCode(v > 57 && v < 84 ? v + 7 : ( v < 57 ? v : v + 13 )));
-//         var vcode2=`${vcode[0]}${vcode[1]}${vcode[2]}${vcode[3]}`;//提取字符串列表中的纯字符并拼接为串
-//         const newvcode=vcode2.toLowerCase();
-//         console.log('vcode',vcode)
-//         console.log('newvcode:',newvcode);
-//         console.log("input:",value);
-//         if (value && value !== newvcode) {
-//             callback('验证码输入不正确');
-//         }
-//         else{
-//             callback();
-//
-//         }
-// }
 
     checkOldPassword = (rule, value, callback) => {
         const form=this.form;
+        const myuid=sessionStorage.getItem('uid');
+        let result;
         console.log("oldpassword:",this.props.password);
         console.log('输入的原密码:',value);
-        if (value && value !== this.props.password) {
-            callback('密码不一致');
-        } else {
-            callback();
-        }
+        axios.get("/users"+"/"+myuid+"/"+value,config)
+            .then(res=>{
+                this.setState({
+                    loading: false,
+                });
+                result=res.data.data;
+                console.log("axiosPwdInfo:",result);
+                if (result!= this.props.password ) {
+                    callback('密码不一致');
+                } else {
+                    callback();
+
+                }
+            })
+
     };
 
     checkPassword = (rule, value, callback) => {
@@ -196,76 +192,99 @@ class ModalForm extends Component {
         //this.setState({ confirmDirty: this.state.confirmDirty || !!value });
     };
 
-    // ManageState=()=> {
-    //     switch ('') {
-    //         case this.state.nickname:
-    //             this.setState({
-    //                 nickname: this.props.data.get('nickname')
-    //             });
-    //             //todo:可以打印this.props.data.get('nickname')
-    //             console.log('nickname:', this.state.nickname);
-    //         case this.state.username:
-    //             this.setState({username: this.props.data.get('username')});
-    //             console.log('nickname:', this.state.username);
-    //         case this.state.sex:
-    //             this.setState({sex: this.props.data.get('sex')});
-    //         case this.state.email:
-    //             this.setState({email: this.props.data.get('email')});
-    //
-    //     }
-    // }
-
     handleSubmit = (e) => {//提交外层表单时
-        e.preventDefault();
+        e.preventDefault();//最好重新提交一下，因为不然密码
         this.props.form.validateFieldsAndScroll((err, values) => {
             let nickname='';
             let username='';
             let sex='';
             let email='';
+            let avatarUrl='';
+
             if (!err) {
                 //console.log('Received values of form2: ', values.getFieldValue('email'));
                 //this.ManageState();
                 if(this.state.nickname==''){
-                    nickname=this.props.data.get('nickname');
+                    nickname=this.props.nickname;
                     console.log('nickname::',nickname);
                 }else{
                     nickname=this.state.nickname;
                 };
                 if(this.state.username==''){
-                    username=this.props.data.get('username');
+                    username=this.props.username;
                     console.log('nickname::',username);
                 }else{
                     username=this.state.username;
                 };
                 if(this.state.sex==''){
-                    sex=this.props.data.get('sex');
-                    console.log('nickname::',sex);
+                    if(this.props.sex==''){
+                        sex='无';
+                    }else{
+                        sex=this.props.sex;
+                    }
+                    console.log('性别::',sex);
                 }else{
                     sex=this.state.sex;
                 };
                 if(this.state.email==''){
-                    email=this.props.data.get('email');
+                    email=this.props.email;
                     console.log('nickname::',email);
                 }else{
                     email=this.state.email;
+                };
+                if(this.state.avatarUrl==''){
+                    avatarUrl=this.props.avatarUrl;
+                    console.log('avartarUrl:',avatarUrl);
+                }else{
+                    avatarUrl=this.props.avatarUrl;
+                    console.log('NotnullavartarUrl:',avatarUrl);
                 }
-//todo:add uid
-                this.props.handleModifyClick(nickname,username,sex,email);
+
+                this.props.handleModifyClick(this.props.uid,nickname,this.props.username,this.props.tweets,this.props.follows
+                    ,this.props.followers,avatarUrl,sex,this.props.password,email);
+
                 alert("修改成功！");
+                // this.child.forceUpdate();
+                this.props.form.resetFields(['vcode']);
+                // this.child.setState({...this.initState()});
+                this.child.setState({
+                    data: this.child.getRandom(109,48,4),//返回一个数据列表
+                    rotate: this.child.getRandom(75,-75,4),
+                    fz: this.child.getRandom(15,40,4),
+                    color: [this.child.getRandom(100,255,3),this.child.getRandom(100,255,4),this.child.getRandom(100,255,3),this.child.getRandom(100,255,3)],
+                    refresh: false,
+                })
+
             }
         });
     };
 
-    // componentDidMount(){//注意：是在组件加载完毕后立即执行
-    //     axios.get('api/userInfo.json').then((res)=>{
-    //         // const result=JSON.parse(JSON.stringify(res.data));
-    //         const result=res.data.data;
-    //         const password=res.data.password;
-    //         console.log("userinfoResult:",result);
-    //         console.log("pwd:",password);
-    //         this.props.getUserInfo(result,password);
-    //     })
+    onRef = (ref) => {
+        this.child = ref
+    }
+
+    // handleVcodeChange=(e)=>{
+    //     this.setState( {
+    //         vcode: e.target.value
+    //     } );
+    //     console.log(e.target.value);
+    //     console.log("传送的vcode:",this.state.vcode);
     // }
+
+    handleVcodeChange=(rule, value, callback)=>{
+        console.log("传送的vcode:",value);
+        switch (this.child.handleVcodeBlur(value)){
+            case "yes":
+                callback();
+            case "no":
+                callback("验证码不正确");
+            case "empty":
+                callback();
+        } ;
+
+    }
+
+
 
     render() {
         const { getFieldDecorator } = this.props.form;
@@ -309,7 +328,16 @@ class ModalForm extends Component {
                 <div className="gutter-box">
 
                     <Card title="" bordered={false}>
-                        <Form onSubmit={this.handleSubmit}>
+                        <Form onSubmit={this.handleSubmit} >
+                            <FormItem
+                                {...formItemLayout}
+                                label="修改头像"
+                                extra="头像大小不能超过200kb"
+                            >
+                                {getFieldDecorator('avatarUrl',
+                                    {rule:[{required:false}]})(<Avatar/>)}
+                            </FormItem>
+
                             <FormItem
                                 {...formItemLayout}
                                 label={(
@@ -327,7 +355,7 @@ class ModalForm extends Component {
                                 })(
                                     //props中的之前的对象，返回的是map类型数据，需要通过.get(key)获取数据;同时<Input>标签需要嵌套在<div>之下才能显示defaultValue属性
                                     <div style={{ marginBottom: 16 }}>
-                                        <Input defaultValue={data.get('nickname')} onChange={this.handleNicknameChange}/>
+                                        <Input defaultValue={this.props.nickname} onChange={this.handleNicknameChange}/>
                                     </div>
                                 )}
 
@@ -345,7 +373,7 @@ class ModalForm extends Component {
                                     rules: [{ required: false,}],
                                 })(
                                     <div style={{ marginBottom: 16 }}>
-                                        <Input defaultValue={data.get('username')} disabled={"true"}></Input>
+                                        <Input defaultValue={this.props.username} disabled={true}></Input>
                                     </div>
                                 )}
 
@@ -364,13 +392,12 @@ class ModalForm extends Component {
                                     }],
                                 })(
                                     <div style={{ marginBottom: 16 }}>
-                                        <Input defaultValue={data.get('email')} onChange={this.handleEmailChange}/>
+                                        <Input defaultValue={this.props.email} onChange={this.handleEmailChange}/>
                                     </div>
                                 )}
 
                             </FormItem>
                             <FormItem
-                                label={"性别"}
                                 hasfeedback
                             >
                                 {getFieldDecorator('sex', {
@@ -378,12 +405,15 @@ class ModalForm extends Component {
                                         required: false,
                                     }],
                                 })(
-                                    //todo:当使用radioGroup时，性别无法显示默认值，（可以取常量字符串""，但不能取data.get('sex')，估计是因为object和String的关系？？）
-                                    <div style={{ marginBottom: 16 }}>
-                                        <Input defaultValue={data.get('sex')} onChange={this.handleSexChange}/>
+                                    <div style={{marginLeft:'29%'}}>
+                                        性别：
+                                        <RadioGroup onChange={this.handleSexChange} defaultValue={this.props.sex}>
+                                            <Radio value="男">男</Radio>
+                                            <Radio value="女">女</Radio>
+                                        </RadioGroup>
                                     </div>
-                                                                   )
-                                   }
+                                )
+                                }
 
 
                             </FormItem>
@@ -395,7 +425,7 @@ class ModalForm extends Component {
                                 hasFeedback
                             >
 
-                                <Input type="password" defaultValue={this.props.password} disabled={"true"}/>
+                                <Input type="password" defaultValue={this.props.password} disabled={true}/>
 
                                 <Button type="primary" onClick={this.showModal}>修改密码</Button>
                                 <ModalCreateForm
@@ -408,20 +438,45 @@ class ModalForm extends Component {
                                     handleConfirmBlur={this.handleConfirmBlur}
                                 />
                             </FormItem>
-
                             <FormItem
                                 {...formItemLayout}
                                 label="验证码"
-                                extra="请不是机器人的你以小写格式输入验证"
+                                extra="友情提示：不是机器人的你只允许以小写格式输入验证哦~"
                             >
-                                <VCode/>
+                                {getFieldDecorator('vcode', {
+                                    rules: [ {
+                                        required: true,message:"请输入验证码！"
+                                    },{
+                                        validator:this.handleVcodeChange
+
+                                }],
+                                })(
+                                    <Row gutter={20}>
+                                        <Col span={12}>
+                                            <Input defaultValue=""/>
+                                        </Col>
+                                        <Col span={12}>
+                                            <VCode onRef={this.onRef} />
+                                        </Col>
+                                    </Row>
+                                )
+                                }
+
+
 
                             </FormItem>
+                            <br/><br/><br/><br/>
+
 
                             <FormItem {...tailFormItemLayout}>
-                                <Button type="primary" htmlType="submit" onClick={this.handleSubmit} size="large">确认修改</Button>
+                                <div style={{marginRight:-1000}}>
+                                    <Button type="primary" htmlType="submit" onClick={this.handleSubmit} size="large">确认修改</Button>
+                                    <div>(友情提示：空值输入将默认存储为最新修改记录)</div>
+                                </div>
+
                             </FormItem>
                         </Form>
+                        {/*<iframe id="id_iframe" name="nm_iframe" style="display:none;"></iframe>*/}
                     </Card>
                 </div>
 
@@ -434,29 +489,36 @@ class ModalForm extends Component {
 
 const mapStateToProps=(state)=>{
     return{
-        data:state.getIn(['profile','data']),
-        // username:state.getIn(['data','nickname']),
-        // sex:state.getIn(['data','nickname']),
-        // email:state.getIn(['data','email']),
+        uid:state.getIn(['profile','uid']),
+        nickname:state.getIn(['profile','nickname']),
+        username:state.getIn(['profile','username']),
+        sex:state.getIn(['profile','sex']),
+        email:state.getIn(['profile','email']),
         password:state.getIn(['profile','password']),
-       // isModalVisible:state.getIn(['data','isModalVisible']),
-
-
+        avatarUrl:state.getIn(['profile','avatarUrl']),
+        tweets:state.getIn(['profile','tweets']),
+        follows:state.getIn(['profile','follows']),
+        followers:state.getIn(['profile','follows']),
     }
 
 }
 
 const mapDispatchToProps=(dispatch)=>{
     return{
-        handleModifyClick(uid,nickname,username,sex,email){
+        handleModifyClick(uid,nickname,username,tweets,follows,followers,avatarUrl,sex,password,email){
             console.log("form_data:",nickname,username,sex,email);
-            console.log('sex2:',sex.toLocaleString());
-            //todo:add uid
-            dispatch(actionCreators.saveProfileDataAction(uid,nickname,username,sex,email))
+            dispatch(actionCreators.saveProfileRequest(uid,nickname,username,tweets,follows,followers,avatarUrl,sex,password,email))
 
         },
         handlePasswordSave(password){
-            dispatch(actionCreators.savePasswordAction(password));
+            let result;
+            const myuid=sessionStorage.getItem('uid');
+            axios.get("/users"+"/"+myuid+"/"+password,config)
+                .then(res=>{
+                    result=res.data.data;
+                    //console.log("axiosPwdInfo:",result);
+                    dispatch(actionCreators.savePasswordAction(result));
+                })
         },
         handleStoreChange(){
             this.setState(store.getState());
