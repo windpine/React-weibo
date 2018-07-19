@@ -60,7 +60,7 @@ class FollowerListContent extends React.Component {
             },
         },{
             title: '用户名',
-            dataIndex: 'nickname',
+            dataIndex: 'username',
             width: '30%',
         }, {
             title: '性别',
