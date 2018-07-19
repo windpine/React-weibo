@@ -48,6 +48,7 @@ class MyHeader extends Component {
                     mode="horizontal"
                     defaultSelectedKeys={['/']}
                     style={{ lineHeight: '64px'}}
+                    selectable={false}
                 >
                     <Menu.Item key="1">
                         <NavLink to='/home'>
