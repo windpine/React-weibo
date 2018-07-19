@@ -14,8 +14,15 @@ var config = {
     baseURL: 'http://localhost:8080'
 };
 class EditProfileContentUI extends React.Component{
+    constructor(props) {
+        super(props);
+        this.state={
+            loading:false,
+        }
+    }
 
     componentDidMount(){//注意：是在组件加载完毕后立即执行
+        this.setState({ loading: true });
         const myuid=sessionStorage.getItem('uid');
         console.log('uid',myuid);
         axios.get("/users"+"/"+myuid,config)
@@ -31,17 +38,13 @@ class EditProfileContentUI extends React.Component{
             })
     }
 
-    constructor(props){
-        super(props);
-
-    }
 
     render(){
         return(
             <div>
                 {/*{this.changeUserInfo()}*/}
                 <Content style={{ padding: '0 24px', minHeight: 280 }}>
-                    <ProfileForm ></ProfileForm>
+                    <ProfileForm loading={this.state.loading}></ProfileForm>
                 </Content>
             </div>
 

@@ -40,10 +40,6 @@ class FollowerListContentUI extends Component{
             })
     }
 
-    constructor(props){
-        super(props);
-
-    }
     render(){
         return(
             <Content style={{ padding: '0 24px', minHeight: 280 }}>

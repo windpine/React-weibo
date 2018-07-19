@@ -172,6 +172,7 @@ class FollowListContent extends React.Component {
                     bordered
                     dataSource={dataSource}
                     columns={columns}
+                    loading={this.props.loading}
                 />
             </div>
         );
