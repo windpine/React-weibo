@@ -11,14 +11,14 @@ class TweetContent extends Component{
     constructor(props){
         super(props);
     }
-    onNicknameClick=(nickname)=>{
-        const realnickname=nickname.substring(1)
-        this.getUID(realnickname,(uid)=>{
+    onusernameClick=(username)=>{
+        const realusername=username.substring(1)
+        this.getUID(realusername,(uid)=>{
             message.info(uid)
         })
     }
-    getUID=(nickname,callback)=>{
-        axios.get("/users/nickname/"+nickname,config).then(res=>{
+    getUID=(username,callback)=>{
+        axios.get("/users/username/"+username,config).then(res=>{
             callback(res.data.data.uid)
         })
     }
@@ -30,7 +30,7 @@ class TweetContent extends Component{
                 format.map((item,index)=>{
                     if(item.type==="user"){
                         return(
-                            <a key={index}  onClick={()=>{this.onNicknameClick(item.data)}}> {item.data} </a>
+                            <a href={`/profile/${item.data}/1`} key={index} ></a>
                         )
                     }
                     else if(item.type==="topic"){

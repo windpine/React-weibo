@@ -1,4 +1,4 @@
-import { List, Avatar, Spin ,Icon} from 'antd';
+import { List, Avatar, Spin ,Icon,message} from 'antd';
 import React,{Component} from 'react'
 import {connect} from 'react-redux';
 import 'antd/dist/antd.css';
@@ -40,6 +40,10 @@ class RepostList extends Component {
     getData = (callback) => {
         axios.get("/tweets/repost/"+this.props.tid ,config).then((res)=>{
             callback(res);
+        }).catch(error => {
+            this.setState({
+                loading: false,
+            });
         })
     }
 
@@ -61,9 +65,14 @@ class RepostList extends Component {
     //     });
     // }
 
+    onLikeClick=(TID)=>{
+        axios.put("/tweets/likes/"+TID,null,config).then((res)=>{
+            message.info("点赞成功")
+        })
+    }
     render() {
         const { loading, loadingMore, showLoadingMore } = this.state;
-        const data=this.props.repostList.toJS();
+        const data=this.props.repostList.get(this.props.tid);
         const loadMore = showLoadingMore ? (
             <div style={{ textAlign: 'center', marginTop: 12, height: 32, lineHeight: '32px' }}>
                 {loadingMore && <Spin />}
@@ -78,13 +87,13 @@ class RepostList extends Component {
                 loadMore={loadMore}
                 dataSource={data}
                 renderItem={item => (
-                    <List.Item actions={[<Icon type="export"/>,<Icon type="like-o"/>]}>
+                    <List.Item actions={[<Icon type="like-o" onClick={()=>{this.onLikeClick(item.get('tid'))}}/>]}>
                         <List.Item.Meta
-                            avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                            title={<a href="#">{item.nickname}</a>}
-                            description={item.content}
+                            avatar={<Avatar src={item.get('avatarUrl')} />}
+                            title={<a href="#">{item.get('username')}</a>}
+                            description={item.get('content')}
                         />
-                        <font size="2" color="#a9a9a9">{formatTime(item.createTime)}</font>
+                        <font size="2" color="#a9a9a9">{formatTime(item.get('createTime'))}</font>
                     </List.Item>
                 )}
             />
@@ -94,8 +103,6 @@ class RepostList extends Component {
 
 const mapStateToProps=(state)=>{
     return {
-        buttonDisabled:state.getIn(['home','repostButton']),
-        value:state.getIn(['home','repostInput']),
         repostList:state.getIn(['home','repostList'])
     }
 }

@@ -7,6 +7,7 @@ import TweetContent from './TweetContent'
 import SubContent from './SubContent'
 import axios from 'axios'
 import {formatTime} from "../Util";
+import {Redirect} from 'react-router-dom';
 
 var config = {
     baseURL: 'http://localhost:8080'
@@ -63,7 +64,7 @@ class TweetCard extends Component{
         }
         if(this.state.RepostOrComment===1){
             return(
-                <RepostBox tid={this.props.tweetItem.get(0).get('tid')} uid={this.props.tweetItem.get(0).get('uid')}></RepostBox>
+                <RepostBox type={this.props.type} tid={this.props.tweetItem.get(0).get('tid')} uid={this.props.tweetItem.get(0).get('uid')}></RepostBox>
             )
         }
         if(this.state.RepostOrComment===2){
@@ -76,7 +77,6 @@ class TweetCard extends Component{
     renderContent=()=>{
         const {tweetItem}=this.props;
         if(tweetItem.size===1){
-            console.log("第一个if",tweetItem.get(0).get('content'))
             return (
                 <div>
                     <TweetContent content={tweetItem.get(0).get('content')}/>
@@ -102,7 +102,11 @@ class TweetCard extends Component{
         }
     }
     onUserClick=(UID)=>{
-        message.info(UID)
+        const path="profile/"+UID+"/1"
+        console.log(path)
+        return(
+            <Redirect to={path}/>
+        )
     }
     render(){
         const tweetInfo=this.props.tweetItem.get(0);
@@ -112,11 +116,11 @@ class TweetCard extends Component{
                 <Card hoverable style={{marginTop:20}}
                       actions={[<div><Icon type="export" onClick={this.onRepostClick}/>{tweetInfo.get('forwards')? tweetInfo.get('forwards'):''}</div>,
                                 <div><Icon type="message" onClick={this.onCommentClick}/>{tweetInfo.get('comments')? tweetInfo.get('comments'):''}</div>,
-                                <div><Icon type="like-o" onClick={this.onLikeClick}/>{this.state.likes? this.state.likes: 0}</div>]}>
+                                <div><Icon type="like-o" onClick={this.onLikeClick}/>{this.state.likes? this.state.likes: ''}</div>]}>
                     <Row>
                         <Meta
-                            avatar={<Avatar size="large" src={tweetInfo.get('avatarUrl')} onClick={()=>{this.onUserClick(tweetInfo.get('uid'))}}/>}
-                            title={<div onClick={()=>{this.onUserClick(tweetInfo.get('uid'))}} >{tweetInfo.get('nickname')}</div>}
+                            avatar={<a href={`/profile/${tweetInfo.get('uid')}/1`}><Avatar size="large" src={tweetInfo.get('avatarUrl')}/></a>}
+                            title={<a href={`/profile/${tweetInfo.get('uid')}/1`}>{tweetInfo.get('username')}</a>}
                             description={formatTime(tweetInfo.get('createTime'))}
                         />
                     </Row>

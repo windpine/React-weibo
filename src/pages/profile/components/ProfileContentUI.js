@@ -17,23 +17,24 @@ class ProfileContentUI extends Component{
     constructor( props ) {
         super(props);
         this.state = {
+            //clickKey:this.props.clickKey,//记录点击的链接，进行动态加载
         };
     }
 
     handleUserInfo(){//注意：是在组件加载完毕后立即执行
-        const uid=this.props.clickUid;
+        const uid=this.props.uid;
         if(uid==sessionStorage.getItem('uid')){
             return(
-                <Layout style={{ padding: '24px 0', background: '#fff', height:'900px'}}>
+                <Layout style={{ padding: '24px 0', background: '#fff'}}>
                     <Tabs
                         size="large"
                         disabled key="2"
                         defaultActiveKey={this.props.activeKey}
                         tabPosition={'left'}
-                        style={{ height: '900px'}}
+                        // style={{ height: '900px'}}
                     >
 
-                        <TabPane tab="微博" key="1">微博</TabPane>
+                        <TabPane tab="微博" key="1"><PersonalTweetContent/></TabPane>
                         <TabPane tab="--基本信息--" key="2" disabled key="2"></TabPane>
                         <TabPane tab="关注" key="3"><FollowListContentUI/></TabPane>
                         <TabPane tab="粉丝" key="4"><FollowerListContentUI/></TabPane>
@@ -44,13 +45,13 @@ class ProfileContentUI extends Component{
             );
         }else{
             return(
-                <Layout style={{ padding: '24px 0', background: '#fff', height:'900px'}}>
+                <Layout style={{ padding: '24px 0', background: '#fff'}}>
                     <Tabs
                         defaultActiveKey="1"
                         tabPosition={'left'}
-                        style={{ height: '900px' }}
+                        // style={{ height: '900px' }}
                     >
-                        <TabPane tab="微博" key="1">微博</TabPane>
+                        <TabPane tab="微博" key="1"><OthersTweetContent uid={this.props.uid}/></TabPane>
                     </Tabs>
 
                 </Layout>

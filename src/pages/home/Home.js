@@ -21,7 +21,17 @@ class Home extends Component{
         )
     }
     componentDidMount(){
+        const myuid=sessionStorage.getItem('uid');
+        axios.get("/users"+"/"+myuid,config)
+            .then(res=>{
+                this.setState({
+                    loading: false,
+                });
+                const result=res.data.data.user;
+                this.props.getHomeUserInfo(result);
+            })
         this.props.handleGetAllTweet()
+
     }
 }
 
@@ -39,7 +49,12 @@ const mapDispatchToProps=(dispatch)=>{
                 const action=actionCreators.changeTweetList(result);
                 dispatch(action)
             })
-        }
+        },
+        getHomeUserInfo(result){
+
+            dispatch(actionCreators.changeHomeUserInfoActoin(result));
+
+        },
     }
 }
 

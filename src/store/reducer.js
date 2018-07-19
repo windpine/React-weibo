@@ -4,6 +4,12 @@ import {reducer as profileReducer} from '../pages/profile/store/';
 import {reducer as registerReducer} from '../pages/register/store';
 import{reducer as messageReducer} from '../pages/message/store';
 import {combineReducers} from 'redux-immutable';
+import {fromJS, default as Immutable} from "immutable";
+
+const defaultState = fromJS({
+    nickname:'',
+    avatarUrl:'',
+})
 
 
 const reducer=combineReducers({
