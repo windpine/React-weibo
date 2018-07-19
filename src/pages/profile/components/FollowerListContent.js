@@ -72,6 +72,7 @@ class FollowerListContent extends React.Component {
 
         this.state = {
             dataSource:this.props.dataSource,
+            loading:false,
 
         };
     }
@@ -117,6 +118,7 @@ class FollowerListContent extends React.Component {
                     bordered
                     dataSource={dataSource}
                     columns={columns}
+                    loading={this.props.loading}
                 />
             </div>
         );
