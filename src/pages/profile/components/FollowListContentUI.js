@@ -14,7 +14,6 @@ var config = {
     baseURL: 'http://localhost:8080'
 };
 
-//todo：通过显示关系动态图，更加有趣
 //todo:使用自定义筛选表格
 class FollowListContentUI extends Component{
 
@@ -28,7 +27,6 @@ class FollowListContentUI extends Component{
     componentDidMount(){//注意：是在组件加载完毕后立即执行
         this.setState({ loading: true });
         const myuid=sessionStorage.getItem('uid');
-        console.log('uid',myuid);
         axios.get("/users"+"/"+myuid+"/follows",config)
             .then(res=>{
                 this.setState({

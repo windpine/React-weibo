@@ -143,7 +143,6 @@ class ModalForm extends Component {
             }
 
             this.setState({ visible: false });
-            console.log('Received values of form: ', values['confirm']);
             this.props.handlePasswordSave(values['confirm']);
             form.resetFields();
 
@@ -156,7 +155,6 @@ class ModalForm extends Component {
         const form=this.form;
         const myuid=sessionStorage.getItem('uid');
         let result;
-        console.log("oldpassword:",this.props.password);
         console.log('输入的原密码:',value);
         axios.get("/users"+"/"+myuid+"/"+value,config)
             .then(res=>{
@@ -164,7 +162,7 @@ class ModalForm extends Component {
                     loading: false,
                 });
                 result=res.data.data;
-                console.log("axiosPwdInfo:",result);
+                console.log("后台密码比对结果：",result);
                 if (result!= this.props.password ) {
                     callback('密码不一致');
                 } else {
@@ -177,8 +175,6 @@ class ModalForm extends Component {
 
     checkPassword = (rule, value, callback) => {
         const form = this.form;
-        console.log("new",form.getFieldValue('password'));
-        console.log("renew",value);
 
         if (value && value !== form.getFieldValue('password')) {
             callback('密码不一致！');
@@ -189,7 +185,6 @@ class ModalForm extends Component {
 
     handleConfirmBlur = (e) => {
         const value = e.target.value;
-        //this.setState({ confirmDirty: this.state.confirmDirty || !!value });
     };
 
     handleSubmit = (e) => {//提交外层表单时
@@ -202,17 +197,13 @@ class ModalForm extends Component {
             let avatarUrl='';
 
             if (!err) {
-                //console.log('Received values of form2: ', values.getFieldValue('email'));
-                //this.ManageState();
                 if(this.state.nickname==''){
                     nickname=this.props.nickname;
-                    console.log('nickname::',nickname);
                 }else{
                     nickname=this.state.nickname;
                 };
                 if(this.state.username==''){
                     username=this.props.username;
-                    console.log('nickname::',username);
                 }else{
                     username=this.state.username;
                 };
@@ -222,22 +213,18 @@ class ModalForm extends Component {
                     }else{
                         sex=this.props.sex;
                     }
-                    console.log('性别::',sex);
                 }else{
                     sex=this.state.sex;
                 };
                 if(this.state.email==''){
                     email=this.props.email;
-                    console.log('nickname::',email);
                 }else{
                     email=this.state.email;
                 };
                 if(this.state.avatarUrl==''){
                     avatarUrl=this.props.avatarUrl;
-                    console.log('avartarUrl:',avatarUrl);
                 }else{
                     avatarUrl=this.props.avatarUrl;
-                    console.log('NotnullavartarUrl:',avatarUrl);
                 }
 
                 this.props.handleModifyClick(this.props.uid,nickname,this.props.username,this.props.tweets,this.props.follows
@@ -246,7 +233,6 @@ class ModalForm extends Component {
                 alert("修改成功！");
                 // this.child.forceUpdate();
                 this.props.form.resetFields(['vcode']);
-                // this.child.setState({...this.initState()});
                 this.child.setState({
                     data: this.child.getRandom(109,48,4),//返回一个数据列表
                     rotate: this.child.getRandom(75,-75,4),
@@ -262,14 +248,6 @@ class ModalForm extends Component {
     onRef = (ref) => {
         this.child = ref
     }
-
-    // handleVcodeChange=(e)=>{
-    //     this.setState( {
-    //         vcode: e.target.value
-    //     } );
-    //     console.log(e.target.value);
-    //     console.log("传送的vcode:",this.state.vcode);
-    // }
 
     handleVcodeChange=(rule, value, callback)=>{
         console.log("传送的vcode:",value);
@@ -288,16 +266,6 @@ class ModalForm extends Component {
 
     render() {
         const { getFieldDecorator } = this.props.form;
-        // const data=[...this.props.data];
-        // let state={
-        //     visible: false,
-        //     nickname:[...this.props.data][0][1],
-        //     username:[...this.props.data][1][1],
-        //     sex:[...this.props.data][2][1],
-        //     email:[...this.props.data][3][1],
-        //
-        // };
-        // console.log('data:',data[2][1]);
         const formItemLayout = {
             labelCol: {
                 xs: { span: 24 },
@@ -320,11 +288,9 @@ class ModalForm extends Component {
                 },
             },
         };
-        const {data}=this.props
 
         return (
             <div className="gutter-example">
-                {/*<Breadcrumb first="表单" second="基础表单" />*/}
                 <div className="gutter-box">
 
                     <Card title="" bordered={false}>
@@ -476,7 +442,6 @@ class ModalForm extends Component {
 
                             </FormItem>
                         </Form>
-                        {/*<iframe id="id_iframe" name="nm_iframe" style="display:none;"></iframe>*/}
                     </Card>
                 </div>
 
@@ -506,7 +471,6 @@ const mapStateToProps=(state)=>{
 const mapDispatchToProps=(dispatch)=>{
     return{
         handleModifyClick(uid,nickname,username,tweets,follows,followers,avatarUrl,sex,password,email){
-            console.log("form_data:",nickname,username,sex,email);
             dispatch(actionCreators.saveProfileRequest(uid,nickname,username,tweets,follows,followers,avatarUrl,sex,password,email))
 
         },
@@ -516,7 +480,6 @@ const mapDispatchToProps=(dispatch)=>{
             axios.get("/users"+"/"+myuid+"/"+password,config)
                 .then(res=>{
                     result=res.data.data;
-                    //console.log("axiosPwdInfo:",result);
                     dispatch(actionCreators.savePasswordAction(result));
                 })
         },
@@ -524,9 +487,6 @@ const mapDispatchToProps=(dispatch)=>{
             this.setState(store.getState());
 
         }
-        // getUserInfo(result,password){
-        //     dispatch(actionCreators.changeUserInfoActoin(result,password));
-        // },
 
     }
 }

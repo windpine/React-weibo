@@ -34,11 +34,10 @@ class MyCardUI extends React.Component{
         const uid = this.props.uid;//别人的ID
         const currentId=sessionStorage.getItem('uid');//我的ID
         const isFollow=this.props.checkResult;
-        console.log("currentId:",currentId);
-        console.log("uid:",uid);
-        console.log("checkresult:",isFollow);
+        console.log("我的id:",currentId);
+        console.log("此主页的id:",uid);
+        console.log("我是否关注此人？:",isFollow);
         if (uid != currentId) {//进入了别人的主页
-            // this.checkIsFollow(currentId,uid);
             switch (isFollow){
                 case "yes"://已经关注了
                     return(
@@ -59,41 +58,6 @@ class MyCardUI extends React.Component{
             }
         }
     }
-
-    // checkIsFollow(){
-    //     const currentId2=this.state.currentId;
-    //     const uid2=this.state.uid;
-    //     console.log("currentcheckId:",currentId2);
-    //     console.log("followcheckId:",uid2);
-    //     axios.get("/users"+"/"+currentId2+"/fans/"+uid2,config)
-    //         .then(res=>{
-    //             // dispatch(changeFollowListAction(result));
-    //             const result=res.data.data;
-    //             console.log("axiosCheckResult:",result);
-    //             this.setState( {
-    //                 isFocus: result
-    //             } );
-    //
-    //         });
-    // }
-
-    // componentDidMount(){//注意：是在组件加载完毕后立即执行
-    //     const uid = this.props.uid;//别人的ID
-    //     const currentId=sessionStorage.getItem('uid');//我的ID
-    //     console.log("currentcheckId:",currentId);
-    //     console.log("followcheckId:",uid);
-    //     axios.get("/users"+"/"+currentId+"/fans/"+uid,config)
-    //         .then(res=>{
-    //             // dispatch(changeFollowListAction(result));
-    //             const result=res.data.data;
-    //             console.log("axiosCheckInfo:",result);
-    //             this.setState( {
-    //                 isFocus: result
-    //             } );
-    //
-    //         });
-    //     console.log("state.isFocus:",this.state.isFocus);
-    // }
 
     handleDeleteFollow(followId){
         const dataSource = [...this.props.dataSource];
@@ -140,10 +104,7 @@ const mapDispatchToProps=(dispatch)=>{
         getFollowList(result,deleteId){
             dispatch(actionCreators.changeIsFollow('no'));
             dispatch(actionCreators.saveFollowListRequest(result,deleteId));
-            console.log("result:",result);
             console.log('deleteId:',deleteId);
-
-
         },
 
 

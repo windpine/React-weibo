@@ -12,12 +12,6 @@ import {actionCreators} from "../../pages/home/store";
 
 const {Header}=Layout;
 
-//
-// var uid=sessionStorage.getItem('uid');
-// console.log('headerUid:',uid);
-// var path=`/profile/${uid}/1`;
-// console.log('headerPath:',path);
-
 var config = {
     baseURL: 'http://localhost:8080'
 };
@@ -28,15 +22,6 @@ class MyHeader extends Component {
         super(props)
 
     }
-
-
-
-    // componentDidMount(){//注意：是在组件加载完毕后立即执行
-    //     const uid=sessionStorage.getItem('uid');
-    //     console.log('p.uid:',uid);
-    //     this.setState({sessionUid:uid});
-    //     console.log('state.uid:',this.state.sessionUid);
-    // }
     render(){
         const props = this.props;
         var path=sessionStorage.getItem('uid')?`/profile/${sessionStorage.getItem('uid')}/1`:`/profile/${this.props.uid}/1`;

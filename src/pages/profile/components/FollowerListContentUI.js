@@ -28,14 +28,12 @@ class FollowerListContentUI extends Component{
     componentDidMount(){//注意：是在组件加载完毕后立即执行
         this.setState({ loading: true });
         const myuid=sessionStorage.getItem('uid');
-        console.log('uid',myuid);
         axios.get("/users"+"/"+myuid+"/followers",config)
             .then(res=>{
                 this.setState({
                     loading: false,
                 });
                 const result=res.data.data.userList;
-                console.log("axiosFollowerListInfo:",result);
                 this.props.getFollowerListInfo(result);
             })
     }

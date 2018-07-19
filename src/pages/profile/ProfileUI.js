@@ -15,17 +15,10 @@ var config = {
     baseURL: 'http://localhost:8080'
 };
 
-const uid=sessionStorage.getItem('uid');
-const path=`/profile/${uid}`;
-
 class ProfileUI extends Component{
 
     constructor(props){
         super(props);
-        // store.subscribe(this.props.handleStoreChange.bind(this))
-        // this.state = {
-        //     isFollow:'',
-        // };
     }
 
     componentWillMount(){//注意：是在组件加载完毕后立即执行
@@ -39,24 +32,15 @@ class ProfileUI extends Component{
                     loading: false,
                 });
                 const result=res.data.data.user;
-                console.log("pramUserInfo:",result);
-                console.log("pramUserInfo:",result.password);
                 this.props.getUserInfo(result,result.password,this.props.match.params.key);
                 this.checkIsFollow(myuid,currentuid);
             })
     }
 
     checkIsFollow=(myuid,currentId)=>{
-        console.log("111:",currentId);
-        console.log("222:",myuid);
         axios.get("/users"+"/"+currentId+"/fans/"+myuid,config)
             .then(res=>{
-                // dispatch(changeFollowListAction(result));
                 const result=res.data.data;
-                console.log("axiosCheckInfo:",result);
-                // this.setState({
-                //     isFollow:result,
-                // });
                 this.props.changeIsFollow(result);
 
 
@@ -95,8 +79,7 @@ const mapDispatchToProps = (dispatch)=>{
         },
         changeIsFollow(result){
             dispatch(actionCreators.changeIsFollow(result));
-            console.log("change_isFollow:",result);
-        }
+            }
 
     }
 }
