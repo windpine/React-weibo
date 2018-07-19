@@ -36,6 +36,7 @@ const defaultState=fromJS(
         },
         isFollow:'',
         activeKey:'',
+        
     }
 );
 

@@ -20,6 +20,9 @@ export const MySpan = styled('span')`
         props => props.marginTop
     }
 `
+export const RightWord =  styled('a')`
+    margin-right:20px;
+`
 export const RightButton = styled(Button)`
     border:none;
 `
