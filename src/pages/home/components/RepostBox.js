@@ -1,13 +1,8 @@
 import React,{Component} from 'react'
 import {connect} from 'react-redux';
 import 'antd/dist/antd.css';
-import { Card,Row,Col,Avatar,Icon,Divider} from 'antd';
-import InputBox from './InputBox'
-import RepostList from './RepostList'
 import {actionCreators} from "../store";
-import store from "../../../store";
 import RepostBoxUI from './RepostBoxUI'
-import {message} from "antd/lib/index";
 
 class RepostBox extends Component{
     constructor(props){
@@ -18,8 +13,7 @@ class RepostBox extends Component{
     }
 
     onClick=()=>{
-        message.info('This is a normal message');
-        this.props.handleSendRepost(this.props.tid,this.props.uid,this.props.value,this.props.type)
+        this.props.handleSendRepost(this.props.tid,this.props.uid,this.props.value,this.props.type,this.state.checked)
         this.child.clearRepostInput()
     }
     onRef = (ref) => {
@@ -48,8 +42,8 @@ const mapStateToProps=(state)=>{
 }
 const mapDispatchToProps=(dispatch)=>{
     return{
-        handleSendRepost(tid,uid,content,type){
-            dispatch(actionCreators.sendRepostAction(tid,uid,content))
+        handleSendRepost(tid,uid,content,type,checked){
+            dispatch(actionCreators.sendRepostAction(tid,uid,content,type,checked))
         }
     }
 }

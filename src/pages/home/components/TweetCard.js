@@ -69,7 +69,7 @@ class TweetCard extends Component{
         }
         if(this.state.RepostOrComment===2){
             return(
-                <CommentBox tid={this.props.tweetItem.get(0).get('tid')} uid={this.props.tweetItem.get(0).get('uid')}></CommentBox>
+                <CommentBox  type={this.props.type} tid={this.props.tweetItem.get(0).get('tid')} uid={this.props.tweetItem.get(0).get('uid')}></CommentBox>
             )
         }
     }
@@ -101,13 +101,13 @@ class TweetCard extends Component{
             )
         }
     }
-    onUserClick=(UID)=>{
-        const path="profile/"+UID+"/1"
-        console.log(path)
-        return(
-            <Redirect to={path}/>
-        )
-    }
+    // onUserClick=(UID)=>{
+    //     const path="profile/"+UID+"/1"
+    //     console.log(path)
+    //     return(
+    //         <Redirect to={path}/>
+    //     )
+    // }
     render(){
         const tweetInfo=this.props.tweetItem.get(0);
         const {tweetItem}=this.props;
